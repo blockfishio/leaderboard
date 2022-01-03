@@ -1,0 +1,199 @@
+diff --git a/node_modules/decentraland-connect/dist/ConnectionManager.d.ts b/node_modules/decentraland-connect/dist/ConnectionManager.d.ts
+index 7a428f6..db131de 100644
+--- a/node_modules/decentraland-connect/dist/ConnectionManager.d.ts
++++ b/node_modules/decentraland-connect/dist/ConnectionManager.d.ts
+@@ -7,7 +7,7 @@ export declare class ConnectionManager {
+     storage: Storage;
+     connector?: AbstractConnector;
+     constructor(storage: Storage);
+-    connect(providerType: ProviderType, chainId?: ChainId): Promise<ConnectionResponse>;
++    connect(providerType: ProviderType, chainId?: ChainId, allowedIds?: ChainId[]): Promise<ConnectionResponse>;
+     tryPreviousConnection(): Promise<ConnectionResponse>;
+     getAvailableProviders(): ProviderType[];
+     disconnect(): Promise<void>;
+diff --git a/node_modules/decentraland-connect/dist/ConnectionManager.js b/node_modules/decentraland-connect/dist/ConnectionManager.js
+index df8e176..358d8ee 100644
+--- a/node_modules/decentraland-connect/dist/ConnectionManager.js
++++ b/node_modules/decentraland-connect/dist/ConnectionManager.js
+@@ -21,9 +21,9 @@ class ConnectionManager {
+     constructor(storage) {
+         this.storage = storage;
+     }
+-    connect(providerType, chainId = schemas_1.ChainId.ETHEREUM_MAINNET) {
++    connect(providerType, chainId = schemas_1.ChainId.ETHEREUM_MAINNET, allowedIds) {
+         return __awaiter(this, void 0, void 0, function* () {
+-            this.setConnectionData(providerType, chainId);
++            this.setConnectionData(providerType, chainId, allowedIds);
+             this.connector = this.buildConnector(providerType, chainId);
+             const { provider, account } = yield this.connector.activate();
+             return {
+@@ -40,11 +40,15 @@ class ConnectionManager {
+             if (!connectionData) {
+                 throw new Error('Could not find a valid provider. Make sure to call the `connect` method first');
+             }
+-            return this.connect(connectionData.providerType, connectionData.chainId);
++            return this.connect(connectionData.providerType, connectionData.chainId, connectionData.allowedIds);
+         });
+     }
+     getAvailableProviders() {
+-        const available = [types_1.ProviderType.FORTMATIC, types_1.ProviderType.WALLET_CONNECT];
++        const available = [types_1.ProviderType.FORTMATIC_ETH,
++        types_1.ProviderType.FORTMATIC_BSC,
++        types_1.ProviderType.WALLET_CONNECT];
++        // const available = [types_1.ProviderType.WALLET_CONNECT];
++
+         if (typeof window !== 'undefined' && window.ethereum !== undefined) {
+             available.unshift(types_1.ProviderType.INJECTED);
+         }
+@@ -84,6 +88,10 @@ class ConnectionManager {
+                 return new connectors_1.InjectedConnector(chainId);
+             case types_1.ProviderType.FORTMATIC:
+                 return new connectors_1.FortmaticConnector(chainId);
++            case types_1.ProviderType.FORTMATIC_BSC:
++                return new connectors_1.FortmaticConnector(schemas_1.ChainId.BSC_MAINNET);
++            case types_1.ProviderType.FORTMATIC_ETH:
++                return new connectors_1.FortmaticConnector(schemas_1.ChainId.ETHEREUM_MAINNET);
+             case types_1.ProviderType.WALLET_CONNECT:
+                 return new connectors_1.WalletConnectConnector(chainId);
+             case types_1.ProviderType.NETWORK:
+@@ -95,13 +103,16 @@ class ConnectionManager {
+     getConnectionData() {
+         const { storageKey } = configuration_1.getConfiguration();
+         const connectionData = this.storage.get(storageKey);
++
+         return connectionData ? JSON.parse(connectionData) : undefined;
+     }
+-    setConnectionData(providerType, chainId) {
++    setConnectionData(providerType, chainId, allowedIds) {
++
+         const { storageKey } = configuration_1.getConfiguration();
+         const connectionData = JSON.stringify({
+             providerType,
+-            chainId
++            chainId,
++            allowedIds
+         });
+         this.storage.set(storageKey, connectionData);
+     }
+diff --git a/node_modules/decentraland-connect/dist/configuration.d.ts b/node_modules/decentraland-connect/dist/configuration.d.ts
+index 4b19449..cb20d9e 100644
+--- a/node_modules/decentraland-connect/dist/configuration.d.ts
++++ b/node_modules/decentraland-connect/dist/configuration.d.ts
+@@ -7,6 +7,7 @@ export declare function getConfiguration(): Readonly<{
+             3: string;
+             4: string;
+             42: string;
++            56: string;
+         };
+     };
+     wallet_connect: {
+@@ -15,6 +16,7 @@ export declare function getConfiguration(): Readonly<{
+             3: string;
+             4: string;
+             42: string;
++            56: string;
+         };
+     };
+ }>;
+diff --git a/node_modules/decentraland-connect/dist/configuration.js b/node_modules/decentraland-connect/dist/configuration.js
+index e8e78e7..22fdaa3 100644
+--- a/node_modules/decentraland-connect/dist/configuration.js
++++ b/node_modules/decentraland-connect/dist/configuration.js
+@@ -8,17 +8,20 @@ const configuration = Object.freeze({
+     [types_1.ProviderType.INJECTED]: {},
+     [types_1.ProviderType.FORTMATIC]: {
+         apiKeys: {
+-            [schemas_1.ChainId.ETHEREUM_MAINNET]: 'pk_live_F8E24DF8DD5BCBC5',
+-            [schemas_1.ChainId.ETHEREUM_ROPSTEN]: 'pk_test_5B728BEFE5C10911',
+-            [schemas_1.ChainId.ETHEREUM_RINKEBY]: 'pk_test_5B728BEFE5C10911',
+-            [schemas_1.ChainId.ETHEREUM_KOVAN]: 'pk_test_5B728BEFE5C10911'
++            [schemas_1.ChainId.ETHEREUM_MAINNET]: 'pk_live_0606470641D60EA3',
++            [schemas_1.ChainId.ETHEREUM_ROPSTEN]: 'pk_test_64CFFC46B7A31528',
++            [schemas_1.ChainId.ETHEREUM_RINKEBY]: 'pk_test_64CFFC46B7A31528',
++            [schemas_1.ChainId.BSC_MAINNET]: 'pk_live_0606470641D60EA3',
++            [schemas_1.ChainId.ETHEREUM_KOVAN]: 'pk_test_64CFFC46B7A31528'
+         }
+     },
++
+     [types_1.ProviderType.WALLET_CONNECT]: {
+         urls: {
+             [schemas_1.ChainId.ETHEREUM_MAINNET]: 'https://mainnet.mycustomnode.com',
+             [schemas_1.ChainId.ETHEREUM_ROPSTEN]: 'https://ropsten.mycustomnode.com',
+             [schemas_1.ChainId.ETHEREUM_RINKEBY]: 'https://ropsten.mycustomnode.com',
++            [schemas_1.ChainId.BSC_MAINNET]: 'https://ropsten.mycustomnode.com',
+             [schemas_1.ChainId.ETHEREUM_KOVAN]: 'https://ropsten.mycustomnode.com'
+         }
+     }
+diff --git a/node_modules/decentraland-connect/dist/connectors/NetworkConnector.d.ts b/node_modules/decentraland-connect/dist/connectors/NetworkConnector.d.ts
+index 15b2200..0a5cd3d 100644
+--- a/node_modules/decentraland-connect/dist/connectors/NetworkConnector.d.ts
++++ b/node_modules/decentraland-connect/dist/connectors/NetworkConnector.d.ts
+@@ -8,6 +8,7 @@ export declare const RPC_URLS: Readonly<{
+     42: string;
+     137: string;
+     80001: string;
++    56: string;
+ }>;
+ export declare class NetworkConnector extends BaseNetworkConnector {
+     constructor(chainId: ChainId);
+diff --git a/node_modules/decentraland-connect/dist/connectors/NetworkConnector.js b/node_modules/decentraland-connect/dist/connectors/NetworkConnector.js
+index ea4ea9d..2ac8b9e 100644
+--- a/node_modules/decentraland-connect/dist/connectors/NetworkConnector.js
++++ b/node_modules/decentraland-connect/dist/connectors/NetworkConnector.js
+@@ -10,10 +10,12 @@ exports.RPC_URLS = Object.freeze({
+     [schemas_1.ChainId.ETHEREUM_GOERLI]: 'https://goerli.infura.io/v3/21ee2680fd58460ba96d2b3addd7c38c',
+     [schemas_1.ChainId.ETHEREUM_KOVAN]: 'https://kovan.infura.io/v3/21ee2680fd58460ba96d2b3addd7c38c',
+     [schemas_1.ChainId.MATIC_MAINNET]: 'https://rpc-mainnet.maticvigil.com/v1/aad675783e3f73a13efbf6e95338d6de7fd5c9b9',
+-    [schemas_1.ChainId.MATIC_MUMBAI]: 'https://rpc-mumbai.maticvigil.com/v1/aad675783e3f73a13efbf6e95338d6de7fd5c9b9'
++    [schemas_1.ChainId.MATIC_MUMBAI]: 'https://rpc-mumbai.maticvigil.com/v1/aad675783e3f73a13efbf6e95338d6de7fd5c9b9',
++    [schemas_1.ChainId.BSC_MAINNET]: 'https://speedy-nodes-nyc.moralis.io/c17d066b42e17e1f77261fad/bsc/mainnet'
+ });
+ class NetworkConnector extends network_connector_1.NetworkConnector {
+     constructor(chainId) {
++
+         super({ urls: exports.RPC_URLS, defaultChainId: chainId });
+     }
+ }
+diff --git a/node_modules/decentraland-connect/dist/types.d.ts b/node_modules/decentraland-connect/dist/types.d.ts
+index 92d91e7..32d82d0 100644
+--- a/node_modules/decentraland-connect/dist/types.d.ts
++++ b/node_modules/decentraland-connect/dist/types.d.ts
+@@ -4,7 +4,8 @@ import { AbstractConnector } from '@web3-react/abstract-connector';
+ import { EventEmitter } from 'events';
+ export declare enum ProviderType {
+     INJECTED = "injected",
+-    FORTMATIC = "formatic",
++    FORTMATIC_ETH = "fortmatic-eth",
++    FORTMATIC_BSC = "fortmatic-bsc",
+     NETWORK = "network",
+     WALLET_CONNECT = "wallet_connect"
+ }
+@@ -33,12 +34,14 @@ export declare type LegacyProvider = Pick<Provider, 'send' | 'sendAsync' | 'on'
+ export declare type ConnectionData = {
+     providerType: ProviderType;
+     chainId: ChainId;
++    allowedIds: ChainId[];
+ };
+ export declare type ConnectionResponse = {
+     provider: Provider;
+     providerType: ProviderType;
+     chainId: ChainId;
+     account: null | string;
++    allowedIds?: ChainId[];
+ };
+ export interface ClosableConnector extends AbstractConnector {
+     close: () => Promise<void>;
+diff --git a/node_modules/decentraland-connect/dist/types.js b/node_modules/decentraland-connect/dist/types.js
+index cd16e63..1c15ec3 100644
+--- a/node_modules/decentraland-connect/dist/types.js
++++ b/node_modules/decentraland-connect/dist/types.js
+@@ -4,7 +4,8 @@ exports.ProviderType = void 0;
+ var ProviderType;
+ (function (ProviderType) {
+     ProviderType["INJECTED"] = "injected";
+-    ProviderType["FORTMATIC"] = "formatic";
++    ProviderType["FORTMATIC_ETH"] = "fortmatic-eth";
++    ProviderType["FORTMATIC_BSC"] = "fortmatic-bsc";
+     ProviderType["NETWORK"] = "network";
+     ProviderType["WALLET_CONNECT"] = "wallet_connect";
+ })(ProviderType = exports.ProviderType || (exports.ProviderType = {}));

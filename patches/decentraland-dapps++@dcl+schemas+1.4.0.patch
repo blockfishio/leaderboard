@@ -1,0 +1,149 @@
+diff --git a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-id.d.ts b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-id.d.ts
+index 31d02ec..50aa57b 100644
+--- a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-id.d.ts
++++ b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-id.d.ts
+@@ -11,7 +11,9 @@ export declare enum ChainId {
+     ETHEREUM_GOERLI = 5,
+     ETHEREUM_KOVAN = 42,
+     MATIC_MAINNET = 137,
+-    MATIC_MUMBAI = 80001
++    MATIC_MUMBAI = 80001,
++    BSC_MAINNET = 56,
++    BSC_TESTNET = 97
+ }
+ /**
+  * Get the chain name by chain id
+diff --git a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-id.js b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-id.js
+index 1dd88d9..35aba74 100644
+--- a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-id.js
++++ b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-id.js
+@@ -16,6 +16,8 @@ var ChainId;
+     ChainId[ChainId["ETHEREUM_KOVAN"] = 42] = "ETHEREUM_KOVAN";
+     ChainId[ChainId["MATIC_MAINNET"] = 137] = "MATIC_MAINNET";
+     ChainId[ChainId["MATIC_MUMBAI"] = 80001] = "MATIC_MUMBAI";
++    ChainId[ChainId["BSC_MAINNET"] = 56] = "BSC_MAINNET";
++    ChainId[ChainId["BSC_TESTNET"] = 97] = "BSC_TESTNET";
+ })(ChainId = exports.ChainId || (exports.ChainId = {}));
+ /**
+  * Get the chain name by chain id
+@@ -37,6 +39,10 @@ function getChainName(chainId) {
+             return chain_name_1.ChainName.MATIC_MAINNET;
+         case ChainId.MATIC_MUMBAI:
+             return chain_name_1.ChainName.MATIC_MUMBAI;
++        case ChainId.BSC_MAINNET:
++            return chain_name_1.ChainName.BSC_MAINNET;
++        case ChainId.BSC_TESTNET:
++            return chain_name_1.ChainName.BSC_TESTNET;
+         default:
+             return null;
+     }
+diff --git a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-name.d.ts b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-name.d.ts
+index 87b4db0..7c601f5 100644
+--- a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-name.d.ts
++++ b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-name.d.ts
+@@ -11,7 +11,9 @@ export declare enum ChainName {
+     ETHEREUM_GOERLI = "GOERLI",
+     ETHEREUM_KOVAN = "KOVAN",
+     MATIC_MAINNET = "MATIC",
+-    MATIC_MUMBAI = "MUMBAI"
++    MATIC_MUMBAI = "MUMBAI",
++    BSC_MAINNET = "BSC_MAINNET",
++    BSC_TESTNET = "BSC_TESTNET"
+ }
+ /**
+  * Get chain id by chain name
+diff --git a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-name.js b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-name.js
+index 259cadd..99addec 100644
+--- a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-name.js
++++ b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/chain-name.js
+@@ -16,6 +16,8 @@ var ChainName;
+     ChainName["ETHEREUM_KOVAN"] = "KOVAN";
+     ChainName["MATIC_MAINNET"] = "MATIC";
+     ChainName["MATIC_MUMBAI"] = "MUMBAI";
++    ChainName["BSC_TESTNET"] = "BSC_TESTNET";
++    ChainName["BSC_MAINNET"] = "BSC_MAINNET";
+ })(ChainName = exports.ChainName || (exports.ChainName = {}));
+ /**
+  * Get chain id by chain name
+@@ -37,6 +39,10 @@ function getChainId(chainName) {
+             return chain_id_1.ChainId.MATIC_MAINNET;
+         case ChainName.MATIC_MUMBAI:
+             return chain_id_1.ChainId.MATIC_MUMBAI;
++        case ChainName.BSC_MAINNET:
++            return chain_id_1.ChainId.BSC_MAINNET;
++        case ChainName.BSC_TESTNET:
++            return chain_id_1.ChainId.BSC_TESTNET;
+         default:
+             return null;
+     }
+diff --git a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/network.d.ts b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/network.d.ts
+index 1782b9f..9fa5df5 100644
+--- a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/network.d.ts
++++ b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/network.d.ts
+@@ -5,7 +5,8 @@ import { JSONSchema, ValidateFunction } from '../validation';
+  */
+ export declare enum Network {
+     ETHEREUM = "ETHEREUM",
+-    MATIC = "MATIC"
++    MATIC = "MATIC",
++    BSC = "BSC"
+ }
+ /**
+  * @alpha
+diff --git a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/network.js b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/network.js
+index 9bd0e22..e9548da 100644
+--- a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/network.js
++++ b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/dapps/network.js
+@@ -10,6 +10,8 @@ var Network;
+ (function (Network) {
+     Network["ETHEREUM"] = "ETHEREUM";
+     Network["MATIC"] = "MATIC";
++    Network["BSC"] = "BSC";
++
+ })(Network = exports.Network || (exports.Network = {}));
+ /**
+  * @alpha
+diff --git a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/schemas.d.ts b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/schemas.d.ts
+index cf9717a..966e2c0 100644
+--- a/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/schemas.d.ts
++++ b/node_modules/decentraland-dapps/node_modules/@dcl/schemas/dist/schemas.d.ts
+@@ -56,7 +56,9 @@ export declare enum ChainId {
+     ETHEREUM_GOERLI = 5,
+     ETHEREUM_KOVAN = 42,
+     MATIC_MAINNET = 137,
+-    MATIC_MUMBAI = 80001
++    MATIC_MUMBAI = 80001,
++    BSC_MAINNET = 56,
++    BSC_TESTNET = 97
+ }
+ 
+ /**
+@@ -78,7 +80,9 @@ export declare enum ChainName {
+     ETHEREUM_GOERLI = "GOERLI",
+     ETHEREUM_KOVAN = "KOVAN",
+     MATIC_MAINNET = "MATIC",
+-    MATIC_MUMBAI = "MUMBAI"
++    MATIC_MUMBAI = "MUMBAI",
++    BSC_MAINNET = "BSC_MAINNET",
++    BSC_MAINNET = "BSC_TESTNET"
+ }
+ 
+ /**
+@@ -252,7 +256,8 @@ declare type MultiPosition = {
+  */
+ export declare enum Network {
+     ETHEREUM = "ETHEREUM",
+-    MATIC = "MATIC"
++    MATIC = "MATIC",
++    BSC = "BSC"
+ }
+ 
+ /**
+@@ -315,6 +320,7 @@ export declare namespace NFT {
+ }
+ 
+ export declare enum NFTCategory {
++    ASSET = "asset",
+     PARCEL = "parcel",
+     ESTATE = "estate",
+     WEARABLE = "wearable",

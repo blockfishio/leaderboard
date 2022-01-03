@@ -1,0 +1,1046 @@
+diff --git a/node_modules/decentraland-dapps/dist/containers/LoginModal/LoginModal.js b/node_modules/decentraland-dapps/dist/containers/LoginModal/LoginModal.js
+index 3e1c016..99148b2 100644
+--- a/node_modules/decentraland-dapps/dist/containers/LoginModal/LoginModal.js
++++ b/node_modules/decentraland-dapps/dist/containers/LoginModal/LoginModal.js
+@@ -1,14 +1,14 @@
+ "use strict";
+-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
++var __createBinding = (this && this.__createBinding) || (Object.create ? (function (o, m, k, k2) {
+     if (k2 === undefined) k2 = k;
+-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+-}) : (function(o, m, k, k2) {
++    Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
++}) : (function (o, m, k, k2) {
+     if (k2 === undefined) k2 = k;
+     o[k2] = m[k];
+ }));
+-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
++var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function (o, v) {
+     Object.defineProperty(o, "default", { enumerable: true, value: v });
+-}) : function(o, v) {
++}) : function (o, v) {
+     o["default"] = v;
+ });
+ var __importStar = (this && this.__importStar) || function (mod) {
+@@ -24,7 +24,7 @@ const decentraland_ui_1 = require("decentraland-ui");
+ const decentraland_connect_1 = require("decentraland-connect");
+ const utils_1 = require("../../modules/translation/utils");
+ const eth_1 = require("../../lib/eth");
+-const { METAMASK, DAPPER, SAMSUNG, FORTMATIC, WALLET_CONNECT } = decentraland_ui_1.LoginModalOptionType;
++const { METAMASK, DAPPER, SAMSUNG, FORTMATIC_BSC, FORTMATIC_ETH, WALLET_CONNECT } = decentraland_ui_1.LoginModalOptionType;
+ class LoginModal extends React.PureComponent {
+     constructor(props) {
+         super(props);
+@@ -36,8 +36,11 @@ class LoginModal extends React.PureComponent {
+                 case SAMSUNG:
+                     providerType = decentraland_connect_1.ProviderType.INJECTED;
+                     break;
+-                case FORTMATIC:
+-                    providerType = decentraland_connect_1.ProviderType.FORTMATIC;
++                case FORTMATIC_BSC:
++                    providerType = decentraland_connect_1.ProviderType.FORTMATIC_BSC;
++                    break;
++                case FORTMATIC_ETH:
++                    providerType = decentraland_connect_1.ProviderType.FORTMATIC_ETH;
+                     break;
+                 case WALLET_CONNECT:
+                     providerType = decentraland_connect_1.ProviderType.WALLET_CONNECT;
+@@ -81,8 +84,11 @@ class LoginModal extends React.PureComponent {
+                         loginType = METAMASK;
+                     }
+                     break;
+-                case decentraland_connect_1.ProviderType.FORTMATIC:
+-                    loginType = FORTMATIC;
++                case decentraland_connect_1.ProviderType.FORTMATIC_BSC:
++                    loginType = FORTMATIC_BSC;
++                    break;
++                case decentraland_connect_1.ProviderType.FORTMATIC_ETH:
++                    loginType = FORTMATIC_ETH;
+                     break;
+                 case decentraland_connect_1.ProviderType.WALLET_CONNECT:
+                     break;
+diff --git a/node_modules/decentraland-dapps/dist/containers/Navbar/Navbar.container.js b/node_modules/decentraland-dapps/dist/containers/Navbar/Navbar.container.js
+index c826445..96f63de 100644
+--- a/node_modules/decentraland-dapps/dist/containers/Navbar/Navbar.container.js
++++ b/node_modules/decentraland-dapps/dist/containers/Navbar/Navbar.container.js
+@@ -8,6 +8,7 @@ const selectors_1 = require("../../modules/wallet/selectors");
+ const selectors_2 = require("../../modules/translation/selectors");
+ const Navbar_1 = __importDefault(require("./Navbar"));
+ const mapState = (state) => ({
++    chainId: selectors_1.getChainId(state),
+     mana: selectors_1.getMana(state),
+     address: selectors_1.getAddress(state),
+     isConnected: selectors_1.isConnected(state),
+diff --git a/node_modules/decentraland-dapps/dist/containers/Navbar/Navbar.js b/node_modules/decentraland-dapps/dist/containers/Navbar/Navbar.js
+index a23bdf6..4223859 100644
+--- a/node_modules/decentraland-dapps/dist/containers/Navbar/Navbar.js
++++ b/node_modules/decentraland-dapps/dist/containers/Navbar/Navbar.js
+@@ -1,14 +1,14 @@
+ "use strict";
+-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
++var __createBinding = (this && this.__createBinding) || (Object.create ? (function (o, m, k, k2) {
+     if (k2 === undefined) k2 = k;
+-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+-}) : (function(o, m, k, k2) {
++    Object.defineProperty(o, k2, { enumerable: true, get: function () { return m[k]; } });
++}) : (function (o, m, k, k2) {
+     if (k2 === undefined) k2 = k;
+     o[k2] = m[k];
+ }));
+-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
++var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function (o, v) {
+     Object.defineProperty(o, "default", { enumerable: true, value: v });
+-}) : function(o, v) {
++}) : function (o, v) {
+     o["default"] = v;
+ });
+ var __importStar = (this && this.__importStar) || function (mod) {
+@@ -18,10 +18,16 @@ var __importStar = (this && this.__importStar) || function (mod) {
+     __setModuleDefault(result, mod);
+     return result;
+ };
++var __importDefault = (this && this.__importDefault) || function (mod) {
++    return (mod && mod.__esModule) ? mod : { "default": mod };
++};
+ Object.defineProperty(exports, "__esModule", { value: true });
+ const React = __importStar(require("react"));
+ const decentraland_ui_1 = require("decentraland-ui");
++const schemas_1 = require("@dcl/schemas");
++const eth_1 = require("../../lib/eth");
+ const utils_1 = require("../../modules/translation/utils");
++const Modal_1 = __importDefault(require("../../containers/Modal"));
+ class Navbar extends React.PureComponent {
+     constructor() {
+         super(...arguments);
+@@ -32,12 +38,18 @@ class Navbar extends React.PureComponent {
+             return {
+                 menu: {
+                     marketplace: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.marketplace" }),
+-                    events: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.events" }),
+-                    agora: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.agora" }),
+-                    dao: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.dao" }),
+-                    docs: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.docs" }),
+-                    blog: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.blog" }),
+-                    builder: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.builder" })
++                    info: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.info" }),
++                    getspay: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.getspay" }),
++
++                    community: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.community" }),
++                    freeticket: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.freeticket" }),
++
++                    // events: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.events" }),
++                    // agora: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.agora" }),
++                    // dao: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.dao" }),
++                    // docs: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.docs" }),
++                    // blog: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.blog" }),
++                    // builder: React.createElement(utils_1.T, { id: "@dapps.navbar.menu.builder" })
+                 },
+                 account: {
+                     connecting: React.createElement(utils_1.T, { id: "@dapps.navbar.account.connecting" }),
+@@ -45,9 +57,44 @@ class Navbar extends React.PureComponent {
+                 }
+             };
+         };
++        this.getModalTranslations = () => {
++            if (!this.props.hasTranslations) {
++                return undefined;
++            }
++            return {
++                wrongNetwork: {
++                    header: React.createElement(utils_1.T, { id: "@dapps.navbar.wrongNetwork.header" }),
++                    message: (React.createElement(utils_1.T, { id: "@dapps.navbar.wrongNetwork.message", values: { currentChainName: '', expectedChainName: '' } }))
++                }
++            };
++        };
++    }
++    isValidChainId(currentChainId, expectedChainIds) {
++        // return !!expectedChainId && currentChainId !== expectedChainId;
++
++        return !!expectedChainIds && !Object.values(expectedChainIds).includes(currentChainId)
+     }
+     render() {
+-        return React.createElement(decentraland_ui_1.Navbar, Object.assign({}, this.props, { i18n: this.getTranslations() }));
++        const { chainId } = this.props;
++        const expectedChainId = eth_1.getConnectedProviderChainId();
++        const expectedChainIds = eth_1.getConnectedProviderAllowedIds();
++        return (React.createElement(React.Fragment, null,
++            React.createElement(decentraland_ui_1.Navbar, Object.assign({}, this.props, { i18n: this.getTranslations() })),
++            chainId && this.isValidChainId(chainId, expectedChainIds) ? (React.createElement(Modal_1.default, { open: true, size: "tiny", i18n: this.getModalTranslations() },
++                React.createElement(decentraland_ui_1.ModalNavigation, { title: React.createElement(utils_1.T, { id: "@dapps.navbar.wrongNetwork.header" }) }),
++                React.createElement(Modal_1.default.Content, null,
++                    React.createElement(utils_1.T, {
++                        id: "@dapps.navbar.wrongNetwork.message", values: {
++                            currentChainName: React.createElement("b", null, schemas_1.getChainName(chainId)),
++                            expectedChainName:
++                                React.createElement("b", null, expectedChainIds.map(expectedChainId => schemas_1.getChainName(expectedChainId)).join(' or '))
++
++                            // React.createElement("b", null, schemas_1.getChainName(expectedChainId))
++                        }
++                    })))) : null
++        ))
++
++            ;
+     }
+ }
+ exports.default = Navbar;
+diff --git a/node_modules/decentraland-dapps/dist/lib/chainConfiguration.d.ts b/node_modules/decentraland-dapps/dist/lib/chainConfiguration.d.ts
+index 5b5df17..d6fb211 100644
+--- a/node_modules/decentraland-dapps/dist/lib/chainConfiguration.d.ts
++++ b/node_modules/decentraland-dapps/dist/lib/chainConfiguration.d.ts
+@@ -6,6 +6,8 @@ export declare const MANA_GRAPH_BY_CHAIN_ID: {
+     4: string;
+     137: string;
+     80001: string;
++    56: string;
++    97: string;
+ };
+ declare type ChainConfiguration = {
+     network: Network;
+@@ -14,4 +16,4 @@ declare type ChainConfiguration = {
+     networkMapping: Record<Network, ChainId>;
+ };
+ export declare function getChainConfiguration(chainId: ChainId): ChainConfiguration;
+-export {};
++export { };
+diff --git a/node_modules/decentraland-dapps/dist/lib/chainConfiguration.js b/node_modules/decentraland-dapps/dist/lib/chainConfiguration.js
+index a2b585c..e27932b 100644
+--- a/node_modules/decentraland-dapps/dist/lib/chainConfiguration.js
++++ b/node_modules/decentraland-dapps/dist/lib/chainConfiguration.js
+@@ -4,21 +4,27 @@ exports.getChainConfiguration = exports.MANA_GRAPH_BY_CHAIN_ID = void 0;
+ const schemas_1 = require("@dcl/schemas");
+ const decentraland_connect_1 = require("decentraland-connect");
+ exports.MANA_GRAPH_BY_CHAIN_ID = {
+-    [schemas_1.ChainId.ETHEREUM_MAINNET]: 'https://api.thegraph.com/subgraphs/name/decentraland/mana-ethereum-mainnet',
+-    [schemas_1.ChainId.ETHEREUM_ROPSTEN]: 'https://api.thegraph.com/subgraphs/name/decentraland/mana-ethereum-ropsten',
++    [schemas_1.ChainId.ETHEREUM_MAINNET]: 'https://api.thegraph.com/subgraphs/name/blockfishio/spay',
++    // [schemas_1.ChainId.ETHEREUM_ROPSTEN]: 'https://api.thegraph.com/subgraphs/name/decentraland/mana-ethereum-ropsten',
++    [schemas_1.ChainId.ETHEREUM_ROPSTEN]: 'https://api.thegraph.com/subgraphs/name/silver211/spayropsten',
+     [schemas_1.ChainId.ETHEREUM_GOERLI]: 'https://api.thegraph.com/subgraphs/name/decentraland/mana-ethereum-goerli',
+     [schemas_1.ChainId.ETHEREUM_RINKEBY]: 'https://api.thegraph.com/subgraphs/name/decentraland/mana-ethereum-rinkeby',
+     [schemas_1.ChainId.MATIC_MAINNET]: 'https://api.thegraph.com/subgraphs/name/decentraland/mana-matic-mainnet',
+-    [schemas_1.ChainId.MATIC_MUMBAI]: 'https://api.thegraph.com/subgraphs/name/decentraland/mana-matic-mumbai'
++    [schemas_1.ChainId.MATIC_MUMBAI]: 'https://api.thegraph.com/subgraphs/name/decentraland/mana-matic-mumbai',
++    [schemas_1.ChainId.BSC_MAINNET]: 'https://api.thegraph.com/subgraphs/name/blockfishio/spaybsc',
++    [schemas_1.ChainId.BSC_TESTNET]: 'https://api.thegraph.com/subgraphs/name/blockfishio/spaybsctest',
++
++
++
+ };
+ const NETWORK_MAPPING_BY_CHAIN_ID = {
+     [schemas_1.ChainId.ETHEREUM_MAINNET]: {
+         [schemas_1.Network.ETHEREUM]: schemas_1.ChainId.ETHEREUM_MAINNET,
+-        [schemas_1.Network.MATIC]: schemas_1.ChainId.MATIC_MAINNET
++        [schemas_1.Network.BSC]: schemas_1.ChainId.BSC_MAINNET
+     },
+     [schemas_1.ChainId.ETHEREUM_ROPSTEN]: {
+         [schemas_1.Network.ETHEREUM]: schemas_1.ChainId.ETHEREUM_ROPSTEN,
+-        [schemas_1.Network.MATIC]: schemas_1.ChainId.MATIC_MUMBAI
++        [schemas_1.Network.BSC]: schemas_1.ChainId.BSC_TESTNET
+     },
+     [schemas_1.ChainId.ETHEREUM_GOERLI]: {
+         [schemas_1.Network.ETHEREUM]: schemas_1.ChainId.ETHEREUM_GOERLI,
+@@ -35,7 +41,16 @@ const NETWORK_MAPPING_BY_CHAIN_ID = {
+     [schemas_1.ChainId.MATIC_MUMBAI]: {
+         [schemas_1.Network.ETHEREUM]: schemas_1.ChainId.MATIC_MUMBAI,
+         [schemas_1.Network.MATIC]: schemas_1.ChainId.MATIC_MUMBAI
+-    }
++    },
++    [schemas_1.ChainId.BSC_MAINNET]: {
++        [schemas_1.Network.ETHEREUM]: schemas_1.ChainId.ETHEREUM_MAINNET,
++        [schemas_1.Network.BSC]: schemas_1.ChainId.BSC_MAINNET
++    },
++    [schemas_1.ChainId.BSC_TESTNET]: {
++        [schemas_1.Network.ETHEREUM]: schemas_1.ChainId.ETHEREUM_ROPSTEN,
++        [schemas_1.Network.BSC]: schemas_1.ChainId.BSC_TESTNET
++    },
++
+ };
+ const NETWORK_BY_CHAIN_ID = {
+     [schemas_1.ChainId.ETHEREUM_MAINNET]: schemas_1.Network.ETHEREUM,
+@@ -44,7 +59,10 @@ const NETWORK_BY_CHAIN_ID = {
+     [schemas_1.ChainId.ETHEREUM_KOVAN]: schemas_1.Network.ETHEREUM,
+     [schemas_1.ChainId.ETHEREUM_RINKEBY]: schemas_1.Network.ETHEREUM,
+     [schemas_1.ChainId.MATIC_MAINNET]: schemas_1.Network.MATIC,
+-    [schemas_1.ChainId.MATIC_MUMBAI]: schemas_1.Network.MATIC
++    [schemas_1.ChainId.MATIC_MUMBAI]: schemas_1.Network.MATIC,
++    [schemas_1.ChainId.BSC_MAINNET]: schemas_1.Network.BSC,
++    [schemas_1.ChainId.BSC_TESTNET]: schemas_1.Network.BSC,
++
+ };
+ function getChainConfiguration(chainId) {
+     return {
+diff --git a/node_modules/decentraland-dapps/dist/lib/eth.d.ts b/node_modules/decentraland-dapps/dist/lib/eth.d.ts
+index 1eda886..6701bb4 100644
+--- a/node_modules/decentraland-dapps/dist/lib/eth.d.ts
++++ b/node_modules/decentraland-dapps/dist/lib/eth.d.ts
+@@ -11,6 +11,8 @@ export declare function getNetworkProvider(chainId: ChainId): Promise<Provider>;
+ export declare function getConnectedProvider(): Promise<Provider | null>;
+ export declare function getConnectedProviderType(): ProviderType | null;
+ export declare function getConnectedProviderChainId(): ChainId | null;
++export declare function getConnectedProviderAllowedIds(): ChainId[] | null;
++
+ export declare function isCucumberProvider(): boolean;
+ export declare function isDapperProvider(): boolean;
+ export declare function isValidChainId(chainId: string | number): boolean;
+diff --git a/node_modules/decentraland-dapps/dist/lib/eth.js b/node_modules/decentraland-dapps/dist/lib/eth.js
+index 1a181e5..d714bc6 100644
+--- a/node_modules/decentraland-dapps/dist/lib/eth.js
++++ b/node_modules/decentraland-dapps/dist/lib/eth.js
+@@ -51,6 +51,11 @@ function getConnectedProviderChainId() {
+     return connectionData ? connectionData.chainId : null;
+ }
+ exports.getConnectedProviderChainId = getConnectedProviderChainId;
++function getConnectedProviderAllowedIds() {
++    const connectionData = decentraland_connect_1.connection.getConnectionData();
++    return connectionData ? connectionData.allowedIds : null;
++}
++exports.getConnectedProviderAllowedIds = getConnectedProviderAllowedIds;
+ function isCucumberProvider() {
+     const provider = window.ethereum;
+     return utils_1.isMobile() && !!provider && !!provider.isCucumber;
+diff --git a/node_modules/decentraland-dapps/dist/modules/transaction/sagas.js b/node_modules/decentraland-dapps/dist/modules/transaction/sagas.js
+index 3e3c7aa..09813d4 100644
+--- a/node_modules/decentraland-dapps/dist/modules/transaction/sagas.js
++++ b/node_modules/decentraland-dapps/dist/modules/transaction/sagas.js
+@@ -26,10 +26,10 @@ const REVERTED_TRANSACTION_THRESHOLD = 24 * 60 * 60 * 1000; // 24 hours
+ const TRANSACTION_FETCH_DELAY = 2 * 1000; // 2 seconds
+ const isExpired = (transaction, threshold) => Date.now() - transaction.timestamp > threshold;
+ const watchPendingIndex = {
+-// hash: true
++    // hash: true
+ };
+ const watchDroppedIndex = {
+-// hash: true
++    // hash: true
+ };
+ class FailedTransactionError extends Error {
+     constructor(hash, status) {
+@@ -87,9 +87,11 @@ function* handleFetchTransactionRequest(action) {
+         }
+         delete watchPendingIndex[hash];
+         if (tx.status === types_1.TransactionStatus.CONFIRMED) {
+-            yield effects_1.put(actions_1.fetchTransactionSuccess(Object.assign(Object.assign({}, transaction), { status: tx.status, receipt: {
++            yield effects_1.put(actions_1.fetchTransactionSuccess(Object.assign(Object.assign({}, transaction), {
++                status: tx.status, receipt: {
+                     logs: transaction.withReceipt ? tx.receipt.logs : []
+-                } })));
++                }
++            })));
+         }
+         else {
+             if (tx.status === types_1.TransactionStatus.REVERTED) {
+diff --git a/node_modules/decentraland-dapps/dist/modules/transaction/utils.js b/node_modules/decentraland-dapps/dist/modules/transaction/utils.js
+index fbc6866..ec92859 100644
+--- a/node_modules/decentraland-dapps/dist/modules/transaction/utils.js
++++ b/node_modules/decentraland-dapps/dist/modules/transaction/utils.js
+@@ -65,6 +65,8 @@ function getTransactionOrigin(chainId = schemas_1.ChainId.ETHEREUM_MAINNET) {
+             return 'https://explorer-mainnet.maticvigil.com';
+         case schemas_1.ChainId.MATIC_MUMBAI:
+             return 'https://explorer-mumbai.maticvigil.com';
++        case schemas_1.ChainId.BSC_MAINNET:
++            return 'https://bscscan.com'
+         default:
+             return 'https://etherscan.io';
+     }
+diff --git a/node_modules/decentraland-dapps/dist/modules/translation/defaults/en.json b/node_modules/decentraland-dapps/dist/modules/translation/defaults/en.json
+index abba0ca..d6fe54d 100644
+--- a/node_modules/decentraland-dapps/dist/modules/translation/defaults/en.json
++++ b/node_modules/decentraland-dapps/dist/modules/translation/defaults/en.json
+@@ -28,9 +28,17 @@
+                 "blog": "Blog",
+                 "docs": "Docs",
+                 "marketplace": "Marketplace",
++                "info": "Info",
++                "community": "Community",
++                "freeticket": "Free Ticket",
++                "getspay": "Get Spay",
+                 "builder": "Builder",
+                 "events": "Events",
+                 "dao": "DAO"
++            },
++            "wrongNetwork": {
++                "header": "Wrong Network",
++                "message": "You need to be connected to {expectedChainName} to use this app, but you are currently connected to {currentChainName}."
+             }
+         },
+         "sign_in": {
+diff --git a/node_modules/decentraland-dapps/dist/modules/translation/defaults/zh.json b/node_modules/decentraland-dapps/dist/modules/translation/defaults/zh.json
+index f1fcda5..c1aa0c4 100644
+--- a/node_modules/decentraland-dapps/dist/modules/translation/defaults/zh.json
++++ b/node_modules/decentraland-dapps/dist/modules/translation/defaults/zh.json
+@@ -55,6 +55,18 @@
+                 }
+             }
+         },
++        "login": {
++            "modal": {
++                "title": "Sign In",
++                "subtitle": "Choose how you want to connect to Ethereum.",
++                "error": "Could not connect to wallet."
++            },
++            "option": {
++                "browser_extension": "Using a browser extension",
++                "email": "Using your email",
++                "mobile": "Using a mobile wallet"
++            }
++        },
+         "user_menu": {
+             "sign_in": "登入",
+             "sign_out": "登出",
+diff --git a/node_modules/decentraland-dapps/dist/modules/wallet/sagas.js b/node_modules/decentraland-dapps/dist/modules/wallet/sagas.js
+index 67b14b5..9a8613e 100644
+--- a/node_modules/decentraland-dapps/dist/modules/wallet/sagas.js
++++ b/node_modules/decentraland-dapps/dist/modules/wallet/sagas.js
+@@ -34,6 +34,7 @@ if (eth_1.isCucumberProvider()) {
+ }
+ // Can be set on createWalletSaga
+ let CHAIN_ID = schemas_1.ChainId.ETHEREUM_MAINNET;
++let ALLOWED_IDS = [schemas_1.ChainId.ETHEREUM_MAINNET, schemas_1.ChainId.BSC_MAINNET]
+ let POLL_INTERVAL = 60 * 1000; // 60 seconds
+ let polling = false;
+ function* walletSaga() {
+@@ -73,7 +74,7 @@ function* handleEnableWalletRequest(action) {
+             if (eth_1.isCucumberProvider()) {
+                 yield cucumberProviderSend('eth_requestAccounts');
+             }
+-            const { account } = yield decentraland_connect_1.connection.connect(providerType, CHAIN_ID);
++            const { account } = yield decentraland_connect_1.connection.connect(providerType, CHAIN_ID, ALLOWED_IDS);
+             return account;
+         }));
+         if (!account) {
+@@ -133,6 +134,11 @@ function createWalletSaga(options) {
+                 console.warn(`Invalid Chain id ${options.CHAIN_ID}, defaulting to ${CHAIN_ID}`);
+             }
+         }
++        if (options.ALLOWED_IDS) {
++            ALLOWED_IDS = options.ALLOWED_IDS.filter(eth_1.isValidChainId)
++
++        }
++
+         if (options.POLL_INTERVAL) {
+             POLL_INTERVAL = options.POLL_INTERVAL;
+         }
+diff --git a/node_modules/decentraland-dapps/dist/modules/wallet/types.d.ts b/node_modules/decentraland-dapps/dist/modules/wallet/types.d.ts
+index ccae6ba..48d0a1c 100644
+--- a/node_modules/decentraland-dapps/dist/modules/wallet/types.d.ts
++++ b/node_modules/decentraland-dapps/dist/modules/wallet/types.d.ts
+@@ -3,6 +3,7 @@ import { Provider, ProviderType } from 'decentraland-connect';
+ export { Provider, ProviderType };
+ export declare type NetworkData = {
+     mana: number;
++    metamars: number;
+     chainId: ChainId;
+ };
+ export declare type Networks = Record<Network, NetworkData>;
+@@ -11,10 +12,19 @@ export interface Wallet {
+     networks: Networks;
+     network: Network;
+     chainId: ChainId;
++    claimable: number;
+     providerType: ProviderType;
+ }
+ export interface CreateWalletOptions {
+     MANA_ADDRESS?: string;
+     CHAIN_ID?: string | number;
+     POLL_INTERVAL?: number;
++    ALLOWED_IDS?: string[] | number[];
+ }
++export declare type ContractData = {
++    abi: object[];
++    address: string;
++    name: string;
++    version: string;
++    chainId: ChainId;
++};
+\ No newline at end of file
+diff --git a/node_modules/decentraland-dapps/dist/modules/wallet/utils.js b/node_modules/decentraland-dapps/dist/modules/wallet/utils.js
+index d593abf..cc5ea12 100644
+--- a/node_modules/decentraland-dapps/dist/modules/wallet/utils.js
++++ b/node_modules/decentraland-dapps/dist/modules/wallet/utils.js
+@@ -14,22 +14,505 @@ const eth_1 = require("web3x-es/eth");
+ const utils_1 = require("web3x-es/utils");
+ const eth_2 = require("../../lib/eth");
+ const graph_1 = require("../../lib/graph");
++const ethers_1 = require("ethers");
+ const chainConfiguration_1 = require("../../lib/chainConfiguration");
+ const getManaBalanceQuery = (address) => `query {
+   accounts(where:{ id: "${address.toLowerCase()}" }) {
+     id
+-    mana
++    spay
+   }
+ }`;
+ exports.getManaBalanceQuery = getManaBalanceQuery;
+-function fetchManaBalance(graphUrl, address) {
++
++const manaAbi = [
++    { "inputs": [], "stateMutability": "nonpayable", "type": "constructor" },
++    {
++        "anonymous": false,
++        "inputs": [
++            {
++                "indexed": true,
++                "internalType": "address",
++                "name": "owner",
++                "type": "address"
++            },
++            {
++                "indexed": true,
++                "internalType": "address",
++                "name": "spender",
++                "type": "address"
++            },
++            {
++                "indexed": false,
++                "internalType": "uint256",
++                "name": "value",
++                "type": "uint256"
++            }
++        ],
++        "name": "Approval",
++        "type": "event"
++    },
++    {
++        "anonymous": false,
++        "inputs": [
++            {
++                "indexed": false,
++                "internalType": "address",
++                "name": "account",
++                "type": "address"
++            }
++        ],
++        "name": "Paused",
++        "type": "event"
++    },
++    {
++        "anonymous": false,
++        "inputs": [
++            {
++                "indexed": true,
++                "internalType": "bytes32",
++                "name": "role",
++                "type": "bytes32"
++            },
++            {
++                "indexed": true,
++                "internalType": "bytes32",
++                "name": "previousAdminRole",
++                "type": "bytes32"
++            },
++            {
++                "indexed": true,
++                "internalType": "bytes32",
++                "name": "newAdminRole",
++                "type": "bytes32"
++            }
++        ],
++        "name": "RoleAdminChanged",
++        "type": "event"
++    },
++    {
++        "anonymous": false,
++        "inputs": [
++            {
++                "indexed": true,
++                "internalType": "bytes32",
++                "name": "role",
++                "type": "bytes32"
++            },
++            {
++                "indexed": true,
++                "internalType": "address",
++                "name": "account",
++                "type": "address"
++            },
++            {
++                "indexed": true,
++                "internalType": "address",
++                "name": "sender",
++                "type": "address"
++            }
++        ],
++        "name": "RoleGranted",
++        "type": "event"
++    },
++    {
++        "anonymous": false,
++        "inputs": [
++            {
++                "indexed": true,
++                "internalType": "bytes32",
++                "name": "role",
++                "type": "bytes32"
++            },
++            {
++                "indexed": true,
++                "internalType": "address",
++                "name": "account",
++                "type": "address"
++            },
++            {
++                "indexed": true,
++                "internalType": "address",
++                "name": "sender",
++                "type": "address"
++            }
++        ],
++        "name": "RoleRevoked",
++        "type": "event"
++    },
++    {
++        "anonymous": false,
++        "inputs": [
++            {
++                "indexed": true,
++                "internalType": "address",
++                "name": "from",
++                "type": "address"
++            },
++            {
++                "indexed": true,
++                "internalType": "address",
++                "name": "to",
++                "type": "address"
++            },
++            {
++                "indexed": false,
++                "internalType": "uint256",
++                "name": "value",
++                "type": "uint256"
++            }
++        ],
++        "name": "Transfer",
++        "type": "event"
++    },
++    {
++        "anonymous": false,
++        "inputs": [
++            {
++                "indexed": false,
++                "internalType": "address",
++                "name": "account",
++                "type": "address"
++            }
++        ],
++        "name": "Unpaused",
++        "type": "event"
++    },
++    {
++        "inputs": [],
++        "name": "DEFAULT_ADMIN_ROLE",
++        "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "MINTER_ROLE",
++        "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "PAUSER_ROLE",
++        "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "address", "name": "owner", "type": "address" },
++            { "internalType": "address", "name": "spender", "type": "address" }
++        ],
++        "name": "allowance",
++        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "address", "name": "spender", "type": "address" },
++            { "internalType": "uint256", "name": "amount", "type": "uint256" }
++        ],
++        "name": "approve",
++        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "address", "name": "account", "type": "address" }
++        ],
++        "name": "balanceOf",
++        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "uint256", "name": "amount", "type": "uint256" }
++        ],
++        "name": "burn",
++        "outputs": [],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "address", "name": "account", "type": "address" },
++            { "internalType": "uint256", "name": "amount", "type": "uint256" }
++        ],
++        "name": "burnFrom",
++        "outputs": [],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "cap",
++        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "decimals",
++        "outputs": [{ "internalType": "uint8", "name": "", "type": "uint8" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "address", "name": "spender", "type": "address" },
++            {
++                "internalType": "uint256",
++                "name": "subtractedValue",
++                "type": "uint256"
++            }
++        ],
++        "name": "decreaseAllowance",
++        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "bytes32", "name": "role", "type": "bytes32" }
++        ],
++        "name": "getRoleAdmin",
++        "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "bytes32", "name": "role", "type": "bytes32" },
++            { "internalType": "uint256", "name": "index", "type": "uint256" }
++        ],
++        "name": "getRoleMember",
++        "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "bytes32", "name": "role", "type": "bytes32" }
++        ],
++        "name": "getRoleMemberCount",
++        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "bytes32", "name": "role", "type": "bytes32" },
++            { "internalType": "address", "name": "account", "type": "address" }
++        ],
++        "name": "grantRole",
++        "outputs": [],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "bytes32", "name": "role", "type": "bytes32" },
++            { "internalType": "address", "name": "account", "type": "address" }
++        ],
++        "name": "hasRole",
++        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "address", "name": "spender", "type": "address" },
++            { "internalType": "uint256", "name": "addedValue", "type": "uint256" }
++        ],
++        "name": "increaseAllowance",
++        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "address", "name": "to", "type": "address" },
++            { "internalType": "uint256", "name": "amount", "type": "uint256" }
++        ],
++        "name": "mint",
++        "outputs": [],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "name",
++        "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "pause",
++        "outputs": [],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "paused",
++        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "bytes32", "name": "role", "type": "bytes32" },
++            { "internalType": "address", "name": "account", "type": "address" }
++        ],
++        "name": "renounceRole",
++        "outputs": [],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "bytes32", "name": "role", "type": "bytes32" },
++            { "internalType": "address", "name": "account", "type": "address" }
++        ],
++        "name": "revokeRole",
++        "outputs": [],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }
++        ],
++        "name": "supportsInterface",
++        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "symbol",
++        "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "totalSupply",
++        "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
++        "stateMutability": "view",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "address", "name": "recipient", "type": "address" },
++            { "internalType": "uint256", "name": "amount", "type": "uint256" }
++        ],
++        "name": "transfer",
++        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [
++            { "internalType": "address", "name": "sender", "type": "address" },
++            { "internalType": "address", "name": "recipient", "type": "address" },
++            { "internalType": "uint256", "name": "amount", "type": "uint256" }
++        ],
++        "name": "transferFrom",
++        "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    },
++    {
++        "inputs": [],
++        "name": "unpause",
++        "outputs": [],
++        "stateMutability": "nonpayable",
++        "type": "function"
++    }
++]
++
++const claimabi = [{ "inputs": [], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" }, { "indexed": true, "internalType": "bytes32", "name": "previousAdminRole", "type": "bytes32" }, { "indexed": true, "internalType": "bytes32", "name": "newAdminRole", "type": "bytes32" }], "name": "RoleAdminChanged", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" }, { "indexed": true, "internalType": "address", "name": "account", "type": "address" }, { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }], "name": "RoleGranted", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "bytes32", "name": "role", "type": "bytes32" }, { "indexed": true, "internalType": "address", "name": "account", "type": "address" }, { "indexed": true, "internalType": "address", "name": "sender", "type": "address" }], "name": "RoleRevoked", "type": "event" }, { "inputs": [], "name": "DEFAULT_ADMIN_ROLE", "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "MINTER_ROLE", "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "PAUSER_ROLE", "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "user", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "addtoClaimable", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "user", "type": "address" }], "name": "balanceOf", "outputs": [{ "internalType": "uint256", "name": "res", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address[]", "name": "users", "type": "address[]" }, { "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "name": "batchaddClaimable", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address[]", "name": "users", "type": "address[]" }, { "internalType": "uint256[]", "name": "amounts", "type": "uint256[]" }], "name": "batchsetClaimable", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "value", "type": "uint256" }], "name": "claimToken", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "user", "type": "address" }], "name": "claimableToken", "outputs": [{ "internalType": "uint256", "name": "res", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }], "name": "getRoleAdmin", "outputs": [{ "internalType": "bytes32", "name": "", "type": "bytes32" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }, { "internalType": "uint256", "name": "index", "type": "uint256" }], "name": "getRoleMember", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }], "name": "getRoleMemberCount", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }, { "internalType": "address", "name": "account", "type": "address" }], "name": "grantRole", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }, { "internalType": "address", "name": "account", "type": "address" }], "name": "hasRole", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "metaMarsAddress", "outputs": [{ "internalType": "address", "name": "res", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }, { "internalType": "address", "name": "account", "type": "address" }], "name": "renounceRole", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "bytes32", "name": "role", "type": "bytes32" }, { "internalType": "address", "name": "account", "type": "address" }], "name": "revokeRole", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "user", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "setClaimable", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "MetaMarsAddress", "type": "address" }], "name": "setMetaMarsAddress", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "user", "type": "address" }, { "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "subfromClaimable", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "bytes4", "name": "interfaceId", "type": "bytes4" }], "name": "supportsInterface", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }]
++const manaAddresses = {
++    1: '0x58fad9e3c3ae54c9ba98c3f0e4bf88ab3e8cf3c5',
++    3: '0x0Bb7DD2B4C3792Bf259899df4a83a3cD9DC48E58',
++    56: '0x13A637026dF26F846D55ACC52775377717345c06'
++}
++
++const claimAddress = '0xB3fE6261382c27323B115AA5B92C66B306F94328'
++
++function getSPAYContract(chainId) {
++    const res = {
++        abi: manaAbi,
++        address: manaAddresses[chainId],
++        name: "SPAY",
++        version: "1.0",
++        chainId: chainId
++    }
++    return res
++}
++
++function getMetaMarsContract(chainId) {
++    const manaAddresses = {
++        1: '0x000000000000',
++        3: '0x00000000000000000',
++        56: '0xaC564270B8138eD3B97794f4cabd4858976b433F'
++    }
++    const res = {
++        abi: manaAbi,
++        address: manaAddresses[chainId],
++        name: "METAMARS",
++        version: "1.0",
++        chainId
++    }
++    return res
++}
++
++function getClaimContract() {
++    const res = {
++        abi: claimabi,
++        address: claimAddress,
++        name: "CLAIM",
++        version: "1.0",
++        chainId: 56
++    }
++    return res
++}
++
++function fetchClaimableMars(chainId, address) {
+     return __awaiter(this, void 0, void 0, function* () {
+         try {
+-            const { accounts } = yield graph_1.graphql(graphUrl, exports.getManaBalanceQuery(address));
+-            if (accounts.length === 0) {
+-                throw new Error(`No results for Graph URL "${graphUrl}" and address "${address}"`);
+-            }
+-            return parseFloat(utils_1.fromWei(accounts[0].mana, 'ether'));
++            const provider = yield eth_2.getNetworkProvider(chainId);
++            const contract = getClaimContract()
++            // const contract = decentraland_transactions_1.getContract(decentraland_transactions_1.ContractName.MANAToken, chainId);
++            const claim = new ethers_1.Contract(contract.address, contract.abi, new ethers_1.providers.Web3Provider(provider));
++            const balance = yield claim.claimableToken(address)
++            // const balance = yield claim.claimableToken(address);
++            // return parseFloat(ethers_1.utils.formatEther(balance));
++            return balance
++        }
++        catch (error) {
++            return 0;
++        }
++    });
++
++}
++exports.fetchClaimableMars = fetchClaimableMars
++
++
++function fetchManaBalance(chainId, address) {
++    return __awaiter(this, void 0, void 0, function* () {
++        try {
++            const provider = yield eth_2.getNetworkProvider(chainId);
++            const contract = getSPAYContract(chainId)
++            // const contract = decentraland_transactions_1.getContract(decentraland_transactions_1.ContractName.MANAToken, chainId);
++            const mana = new ethers_1.Contract(contract.address, contract.abi, new ethers_1.providers.Web3Provider(provider));
++            const balance = yield mana.balanceOf(address);
++            return parseFloat(ethers_1.utils.formatEther(balance));
+         }
+         catch (error) {
+             return 0;
+@@ -37,6 +520,22 @@ function fetchManaBalance(graphUrl, address) {
+     });
+ }
+ exports.fetchManaBalance = fetchManaBalance;
++function fetchMetaMarsBalance(chainId, address) {
++    return __awaiter(this, void 0, void 0, function* () {
++        try {
++            const provider = yield eth_2.getNetworkProvider(chainId);
++            const contract = getMetaMarsContract(chainId)
++            // const contract = decentraland_transactions_1.getContract(decentraland_transactions_1.ContractName.MANAToken, chainId);
++            const metamars = new ethers_1.Contract(contract.address, contract.abi, new ethers_1.providers.Web3Provider(provider));
++            const balance = yield metamars.balanceOf(address);
++            return parseFloat(balance);
++        }
++        catch (error) {
++            return 0;
++        }
++    });
++}
++exports.fetchMetaMarsBalance = fetchMetaMarsBalance;
+ function buildWallet() {
+     return __awaiter(this, void 0, void 0, function* () {
+         const provider = yield eth_2.getConnectedProvider();
+@@ -50,7 +549,7 @@ function buildWallet() {
+             // This could happen if metamask was not enabled
+             throw new Error('Could not get address');
+         }
+-        const address = accounts[0];
++        const address = accounts[0].toString();
+         const chainId = (yield eth.getId());
+         const config = chainConfiguration_1.getChainConfiguration(chainId);
+         const networks = {};
+@@ -59,15 +558,19 @@ function buildWallet() {
+             const networkConfiguration = chainConfiguration_1.getChainConfiguration(networkChainId);
+             networks[network] = {
+                 chainId: networkChainId,
+-                mana: yield fetchManaBalance(networkConfiguration.manaGraphURL, address.toString())
++                // mana: yield fetchManaBalance(networkConfiguration.manaGraphURL, address.toString())
++                mana: yield fetchManaBalance(networkChainId, address),
++                metamars: yield fetchMetaMarsBalance(networkChainId, address)
+             };
+         }
++        const claimable = yield fetchClaimableMars(chainId, address)
+         return {
+             address: address.toString(),
+             providerType: eth_2.getConnectedProviderType(),
+             networks: networks,
+             network: config.network,
+-            chainId
++            chainId,
++            claimable
+         };
+     });
+ }
+diff --git a/node_modules/decentraland-dapps/dist/providers/WalletProvider/WalletProvider.js b/node_modules/decentraland-dapps/dist/providers/WalletProvider/WalletProvider.js
+index 084f402..abedb1a 100644
+--- a/node_modules/decentraland-dapps/dist/providers/WalletProvider/WalletProvider.js
++++ b/node_modules/decentraland-dapps/dist/providers/WalletProvider/WalletProvider.js
+@@ -34,11 +34,14 @@ class WalletProvider extends react_1.default.PureComponent {
+             const { isConnected, isConnecting, chainId, onChangeNetwork } = this.props;
+             try {
+                 const wallet = yield utils_1.buildWallet();
+-                if (isConnected && !isConnecting && wallet.chainId !== chainId) {
++                if (isConnected && !isConnecting
++                    && wallet.chainId !== chainId
++                ) {
+                     onChangeNetwork(wallet);
+                 }
+             }
+             catch (error) {
++                console.error(error)
+                 // do nothing
+             }
+         });

@@ -1,0 +1,90 @@
+diff --git a/node_modules/@web3-react/network-connector/dist/network-connector.cjs.development.js b/node_modules/@web3-react/network-connector/dist/network-connector.cjs.development.js
+index 5bb9170..669df9f 100644
+--- a/node_modules/@web3-react/network-connector/dist/network-connector.cjs.development.js
++++ b/node_modules/@web3-react/network-connector/dist/network-connector.cjs.development.js
+@@ -1,6 +1,6 @@
+ 'use strict';
+ 
+-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
++function _interopDefault(ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
+ 
+ var abstractConnector = require('@web3-react/abstract-connector');
+ var invariant = _interopDefault(require('tiny-invariant'));
+@@ -34,7 +34,7 @@ function _isNativeReflectConstruct() {
+   if (typeof Proxy === "function") return true;
+ 
+   try {
+-    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
++    Date.prototype.toString.call(Reflect.construct(Date, [], function () { }));
+     return true;
+   } catch (e) {
+     return false;
+@@ -140,7 +140,6 @@ var MiniRpcProvider = function MiniRpcProvider(chainId, url) {
+         params = method.params;
+         method = method.method;
+       }
+-
+       return Promise.resolve(fetch(_this3.url, {
+         method: 'POST',
+         body: JSON.stringify({
+@@ -182,8 +181,8 @@ var NetworkConnector = /*#__PURE__*/function (_AbstractConnector) {
+     var _this4;
+ 
+     var urls = _ref.urls,
+-        defaultChainId = _ref.defaultChainId;
+-    !(defaultChainId || Object.keys(urls).length === 1) ?  invariant(false, 'defaultChainId is a required argument with >1 url')  : void 0;
++      defaultChainId = _ref.defaultChainId;
++    !(defaultChainId || Object.keys(urls).length === 1) ? invariant(false, 'defaultChainId is a required argument with >1 url') : void 0;
+     _this4 = _AbstractConnector.call(this, {
+       supportedChainIds: Object.keys(urls).map(function (k) {
+         return Number(k);
+@@ -216,7 +215,7 @@ var NetworkConnector = /*#__PURE__*/function (_AbstractConnector) {
+   _proto.getProvider = function getProvider() {
+     try {
+       var _this8 = this;
+-
++      console.log(_this8.providers[_this8.currentChainId])
+       return Promise.resolve(_this8.providers[_this8.currentChainId]);
+     } catch (e) {
+       return Promise.reject(e);
+@@ -242,7 +241,7 @@ var NetworkConnector = /*#__PURE__*/function (_AbstractConnector) {
+   };
+ 
+   _proto.changeChainId = function changeChainId(chainId) {
+-    !Object.keys(this.providers).includes(chainId.toString()) ?  invariant(false, "No url found for chainId " + chainId)  : void 0;
++    !Object.keys(this.providers).includes(chainId.toString()) ? invariant(false, "No url found for chainId " + chainId) : void 0;
+     this.currentChainId = chainId;
+     this.emitUpdate({
+       provider: this.providers[this.currentChainId],
+diff --git a/node_modules/@web3-react/network-connector/dist/network-connector.esm.js b/node_modules/@web3-react/network-connector/dist/network-connector.esm.js
+index 3c224f3..7c20eee 100644
+--- a/node_modules/@web3-react/network-connector/dist/network-connector.esm.js
++++ b/node_modules/@web3-react/network-connector/dist/network-connector.esm.js
+@@ -30,7 +30,7 @@ function _isNativeReflectConstruct() {
+   if (typeof Proxy === "function") return true;
+ 
+   try {
+-    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
++    Date.prototype.toString.call(Reflect.construct(Date, [], function () { }));
+     return true;
+   } catch (e) {
+     return false;
+@@ -138,6 +138,9 @@ var MiniRpcProvider = function MiniRpcProvider(chainId, url) {
+       }
+ 
+       return Promise.resolve(fetch(_this3.url, {
++        headers: {
++          'Content-Type': 'application/json'
++        },
+         method: 'POST',
+         body: JSON.stringify({
+           jsonrpc: '2.0',
+@@ -178,7 +181,7 @@ var NetworkConnector = /*#__PURE__*/function (_AbstractConnector) {
+     var _this4;
+ 
+     var urls = _ref.urls,
+-        defaultChainId = _ref.defaultChainId;
++      defaultChainId = _ref.defaultChainId;
+     !(defaultChainId || Object.keys(urls).length === 1) ? process.env.NODE_ENV !== "production" ? invariant(false, 'defaultChainId is a required argument with >1 url') : invariant(false) : void 0;
+     _this4 = _AbstractConnector.call(this, {
+       supportedChainIds: Object.keys(urls).map(function (k) {

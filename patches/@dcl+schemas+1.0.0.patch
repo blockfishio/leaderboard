@@ -1,0 +1,123 @@
+diff --git a/node_modules/@dcl/schemas/dist/dapps/chain-id.d.ts b/node_modules/@dcl/schemas/dist/dapps/chain-id.d.ts
+index 16025a7..6ce13f1 100644
+--- a/node_modules/@dcl/schemas/dist/dapps/chain-id.d.ts
++++ b/node_modules/@dcl/schemas/dist/dapps/chain-id.d.ts
+@@ -10,7 +10,8 @@ export declare enum ChainId {
+     ETHEREUM_GOERLI = 5,
+     ETHEREUM_KOVAN = 42,
+     MATIC_MAINNET = 137,
+-    MATIC_MUMBAI = 80001
++    MATIC_MUMBAI = 80001,
++    BSC_MAINNET = 56,
+ }
+ /**
+  * @alpha
+diff --git a/node_modules/@dcl/schemas/dist/dapps/chain-id.js b/node_modules/@dcl/schemas/dist/dapps/chain-id.js
+index 54fc276..a6add19 100644
+--- a/node_modules/@dcl/schemas/dist/dapps/chain-id.js
++++ b/node_modules/@dcl/schemas/dist/dapps/chain-id.js
+@@ -15,6 +15,8 @@ var ChainId;
+     ChainId[ChainId["ETHEREUM_KOVAN"] = 42] = "ETHEREUM_KOVAN";
+     ChainId[ChainId["MATIC_MAINNET"] = 137] = "MATIC_MAINNET";
+     ChainId[ChainId["MATIC_MUMBAI"] = 80001] = "MATIC_MUMBAI";
++    ChainId[ChainId["BSC_MAINNET"] = 56] = "BSC_MAINNET";
++
+ })(ChainId = exports.ChainId || (exports.ChainId = {}));
+ /**
+  * @alpha
+diff --git a/node_modules/@dcl/schemas/dist/dapps/listing-status.d.ts b/node_modules/@dcl/schemas/dist/dapps/listing-status.d.ts
+new file mode 100644
+index 0000000..c412680
+--- /dev/null
++++ b/node_modules/@dcl/schemas/dist/dapps/listing-status.d.ts
+@@ -0,0 +1,11 @@
++import { JSONSchema, ValidateFunction } from '../validation';
++export declare enum ListingStatus {
++    OPEN = "open",
++    SOLD = "sold",
++    CANCELLED = "cancelled"
++}
++export declare namespace ListingStatus {
++    const schema: JSONSchema<ListingStatus>;
++    const validate: ValidateFunction<ListingStatus>;
++}
++//# sourceMappingURL=listing-status.d.ts.map
+\ No newline at end of file
+diff --git a/node_modules/@dcl/schemas/dist/dapps/listing-status.d.ts.map b/node_modules/@dcl/schemas/dist/dapps/listing-status.d.ts.map
+new file mode 100644
+index 0000000..436a1b3
+--- /dev/null
++++ b/node_modules/@dcl/schemas/dist/dapps/listing-status.d.ts.map
+@@ -0,0 +1 @@
++{"version":3,"file":"listing-status.d.ts","sourceRoot":"","sources":["../../src/dapps/listing-status.ts"],"names":[],"mappings":"AAAA,OAAO,EAAqB,UAAU,EAAE,gBAAgB,EAAE,MAAM,eAAe,CAAA;AAE/E,oBAAY,aAAa;IACvB,IAAI,SAAS;IACb,IAAI,SAAS;IACb,SAAS,cAAc;CACxB;AAED,yBAAiB,aAAa,CAAC;IACtB,MAAM,MAAM,EAAE,UAAU,CAAC,aAAa,CAG5C,CAAA;IAEM,MAAM,QAAQ,EAAE,gBAAgB,CAAC,aAAa,CAC1B,CAAA;CAC5B"}
+\ No newline at end of file
+diff --git a/node_modules/@dcl/schemas/dist/dapps/listing-status.js b/node_modules/@dcl/schemas/dist/dapps/listing-status.js
+new file mode 100644
+index 0000000..d3b3f6d
+--- /dev/null
++++ b/node_modules/@dcl/schemas/dist/dapps/listing-status.js
+@@ -0,0 +1,18 @@
++"use strict";
++Object.defineProperty(exports, "__esModule", { value: true });
++exports.ListingStatus = void 0;
++const validation_1 = require("../validation");
++var ListingStatus;
++(function (ListingStatus) {
++    ListingStatus["OPEN"] = "open";
++    ListingStatus["SOLD"] = "sold";
++    ListingStatus["CANCELLED"] = "cancelled";
++})(ListingStatus = exports.ListingStatus || (exports.ListingStatus = {}));
++(function (ListingStatus) {
++    ListingStatus.schema = {
++        type: 'string',
++        enum: Object.values(ListingStatus),
++    };
++    ListingStatus.validate = validation_1.generateValidator(ListingStatus.schema);
++})(ListingStatus = exports.ListingStatus || (exports.ListingStatus = {}));
++//# sourceMappingURL=listing-status.js.map
+\ No newline at end of file
+diff --git a/node_modules/@dcl/schemas/dist/dapps/listing-status.js.map b/node_modules/@dcl/schemas/dist/dapps/listing-status.js.map
+new file mode 100644
+index 0000000..5224df4
+--- /dev/null
++++ b/node_modules/@dcl/schemas/dist/dapps/listing-status.js.map
+@@ -0,0 +1 @@
++{"version":3,"file":"listing-status.js","sourceRoot":"","sources":["../../src/dapps/listing-status.ts"],"names":[],"mappings":";;;AAAA,8CAA+E;AAE/E,IAAY,aAIX;AAJD,WAAY,aAAa;IACvB,8BAAa,CAAA;IACb,8BAAa,CAAA;IACb,wCAAuB,CAAA;AACzB,CAAC,EAJW,aAAa,GAAb,qBAAa,KAAb,qBAAa,QAIxB;AAED,WAAiB,aAAa;IACf,oBAAM,GAA8B;QAC/C,IAAI,EAAE,QAAQ;QACd,IAAI,EAAE,MAAM,CAAC,MAAM,CAAC,aAAa,CAAC;KACnC,CAAA;IAEY,sBAAQ,GACnB,8BAAiB,CAAC,cAAA,MAAM,CAAC,CAAA;AAC7B,CAAC,EARgB,aAAa,GAAb,qBAAa,KAAb,qBAAa,QAQ7B"}
+\ No newline at end of file
+diff --git a/node_modules/@dcl/schemas/dist/dapps/network.d.ts b/node_modules/@dcl/schemas/dist/dapps/network.d.ts
+index 1782b9f..9fa5df5 100644
+--- a/node_modules/@dcl/schemas/dist/dapps/network.d.ts
++++ b/node_modules/@dcl/schemas/dist/dapps/network.d.ts
+@@ -5,7 +5,8 @@ import { JSONSchema, ValidateFunction } from '../validation';
+  */
+ export declare enum Network {
+     ETHEREUM = "ETHEREUM",
+-    MATIC = "MATIC"
++    MATIC = "MATIC",
++    BSC = "BSC"
+ }
+ /**
+  * @alpha
+diff --git a/node_modules/@dcl/schemas/dist/dapps/network.js b/node_modules/@dcl/schemas/dist/dapps/network.js
+index 9bd0e22..8314118 100644
+--- a/node_modules/@dcl/schemas/dist/dapps/network.js
++++ b/node_modules/@dcl/schemas/dist/dapps/network.js
+@@ -10,6 +10,7 @@ var Network;
+ (function (Network) {
+     Network["ETHEREUM"] = "ETHEREUM";
+     Network["MATIC"] = "MATIC";
++    Network["BSC"] = "BSC";
+ })(Network = exports.Network || (exports.Network = {}));
+ /**
+  * @alpha
+diff --git a/node_modules/@dcl/schemas/dist/index.d.ts b/node_modules/@dcl/schemas/dist/index.d.ts
+index ab5e555..7b990f2 100644
+--- a/node_modules/@dcl/schemas/dist/index.d.ts
++++ b/node_modules/@dcl/schemas/dist/index.d.ts
+@@ -2,4 +2,5 @@ export * from './validation';
+ export { ChainId } from './dapps/chain-id';
+ export { Network } from './dapps/network';
+ export { MetaTransaction } from './dapps/meta-transactions';
++export { ListingStatus } from './dapps/listing-status';
+ //# sourceMappingURL=index.d.ts.map
+\ No newline at end of file

@@ -1,3 +1,7 @@
+:root {
+  --page-header-height: 420px;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -10,4 +14,32 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.danger-text {
+  color: var(--danger);
+}
+
+@media (max-width: 768px) {
+  .dcl.navbar.overlay .ui.container {
+    width: calc(100% - 32px) !important;
+  }
+
+  .ui.modal .actions {
+    flex-direction: column-reverse;
+  }
+
+  .ui.modal .actions .ui.button + .ui.button {
+    margin-left: 0px;
+  }
+}
+
+/* TODO: this removes the AVATAR button from the Navbar. Remove this once we update to decentraland-ui@3.0.1 or higher. */
+/* .dcl.navbar .dcl.mana + .dcl.mana {
+  display: none;
+} */
+
+.dcl.navbar .dcl.user-menu .dcl.mana .symbol {
+  color: var(--primary);
+  font-weight: bold;
 }
