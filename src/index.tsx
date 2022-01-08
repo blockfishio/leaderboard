@@ -20,6 +20,9 @@ import { buildContracts } from './modules/contract/utils'
 
 import './themes'
 import './index.css'
+import './styles/output.css'
+
+
 
 buildContracts()
 

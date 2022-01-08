@@ -8,7 +8,7 @@ import { locations } from '../../modules/routing/locations'
 
 
 import {SignInPage} from '../SignInPage'
-import { HomePage } from '../HomePage'
+import { RankingPage } from '../HomePage'
 
 const Routes = () => {
   const APP_ID = process.env.REACT_APP_INTERCOM_APP_ID
@@ -19,7 +19,7 @@ const Routes = () => {
         {/* <Route exact path={locations.bid()} component={BidPage} /> */}
 
         
-        <Route exact path={locations.root()} component={HomePage} />
+        <Route exact path={locations.root()} component={RankingPage} />
 
         <Route exact path={locations.signIn()} component={SignInPage} />
 

@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "3.1.3",
+    "@babel/parser": "^7.16.7",
     "@dcl/schemas": "^1.0.0",
     "@testing-library/jest-dom": "4.2.4",
     "@testing-library/react": "9.3.2",
@@ -20,7 +21,9 @@
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.7",
     "apollo-boost": "^0.4.7",
+    "astroturf": "^1.0.0",
     "axios": "^0.21.1",
+    "bootstrap": "^5.1.3",
     "connected-react-router": "^6.6.1",
     "date-fns": "^2.8.1",
     "dcl-tslint-config-standard": "^2.0.0",
@@ -33,12 +36,14 @@
     "graphql": "^14.5.8",
     "history": "^4.10.1",
     "install": "^0.13.0",
+    "next": "^12.0.7",
     "patch-package": "^6.4.7",
     "postinstall-postinstall": "^2.1.0",
     "prettier": "^1.19.1",
     "react": "^16.12.0",
     "react-copy-to-clipboard": "^5.0.2",
     "react-dom": "^16.12.0",
+    "react-icons": "^4.3.1",
     "react-lazy-images": "^1.1.0",
     "react-redux": "^7.1.3",
     "react-router-dom": "^5.1.2",
@@ -57,7 +62,10 @@
     "web3x-es": "^4.0.6"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "build:css": "postcss src/index.css -o src/index.css",
+    "watch:css": "postcss src/index.css -o src/styles/output.css -w",
+    "start": "PORT=3002 react-scripts start",
+    "start-js": "PORT=3002 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -83,6 +91,11 @@
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^4.13.0",
-    "@typescript-eslint/parser": "^4.13.0"
+    "@typescript-eslint/parser": "^4.13.0",
+    "autoprefixer": "^10.4.1",
+    "npm-run-all": "^4.1.5",
+    "postcss": "^8.4.5",
+    "postcss-cli": "^9.1.0",
+    "tailwindcss": "^3.0.10"
   }
 }

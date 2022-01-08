@@ -1,12 +1,20 @@
 
 
 
+import { RankFetchParams, Ranking, UserRankFetchParams } from '../rank/types';
 import { TransferType } from './types'
 
 
 
 
-
+export interface RankService{
+  topNRanking:(
+    params:RankFetchParams
+  )=>Promise<readonly [Ranking[]]>
+  userRanking:(
+    params:UserRankFetchParams
+  )=>Promise< Ranking>
+}
 
 export interface ContractService {
   contractAddresses: Record<string, string>

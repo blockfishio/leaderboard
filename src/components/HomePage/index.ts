@@ -1,2 +1,2 @@
-import HomePage from './SignInPage'
-export { HomePage }
+import RankingPage from './RankingPage.container'
+export { RankingPage }

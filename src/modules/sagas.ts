@@ -5,6 +5,7 @@ import { translationSaga } from './translation/sagas'
 // import { createProfileSaga } from 'decentraland-dapps/dist/modules/profile/sagas'
 
 import { walletSaga } from './wallet/sagas'
+import {rankingSaga} from './rank/sagas'
 
 
 const analyticsSaga = createAnalyticsSaga()
@@ -17,7 +18,8 @@ export function* rootSaga() {
     analyticsSaga(),
     transactionSaga(),
     translationSaga(),
-    walletSaga()
+    walletSaga(),
+    rankingSaga()
     
     // profileSaga(),
   ])
