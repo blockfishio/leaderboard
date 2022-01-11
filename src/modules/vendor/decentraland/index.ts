@@ -1,17 +1,16 @@
 import { ContractService } from './ContractService'
 
-import { ClaimMetamarsService } from './ClaimMetamarsService'
 import { RankService} from './RankService'
+import {RewardService} from './RewardService'
 
 export * from './routing'
 
 export * from './ContractService'
+export * from './RewardService'
 
-export * from './ClaimMetamarsService'
 
 export const services = {
   ContractService,
- 
-  ClaimMetamarsService,
+ RewardService,
   RankService
 }

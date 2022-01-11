@@ -1,11 +1,15 @@
-import { takeEvery, all, } from 'redux-saga/effects'
+import { takeEvery, all, put, } from 'redux-saga/effects'
 import { createWalletSaga } from 'decentraland-dapps/dist/modules/wallet/sagas'
 import {
   CONNECT_WALLET_SUCCESS,
 
   CHANGE_ACCOUNT,
-  CHANGE_NETWORK
+  CHANGE_NETWORK,
+  ChangeAccountAction,
+  ChangeNetworkAction,
+  ConnectWalletSuccessAction
 } from 'decentraland-dapps/dist/modules/wallet/actions'
+import { fetchRewardRequest } from '../reward/actions'
 
 
 
@@ -29,9 +33,11 @@ function* fullWalletSaga() {
 }
 
 function* handleWallet(
+  action:ConnectWalletSuccessAction | ChangeAccountAction | ChangeNetworkAction
 ) {
   // const chainId: ChainId = yield select(getChainId)
 
+  const { address, providerType } = action.payload.wallet
 
   // const { MANAToken, Marketplace,
   //   AssetSale } = contractAddresses
@@ -40,6 +46,9 @@ function* handleWallet(
 
   // TODO: VendorFactory.build().contractService.getAllowances()
   // TODO: VendorFactory.build().contractService.getApprovals()
+
+  yield put(fetchRewardRequest(1))
+  yield put(fetchRewardRequest(2))
 
   
 }

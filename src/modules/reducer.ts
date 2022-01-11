@@ -9,6 +9,8 @@ import { profileReducer as profile } from 'decentraland-dapps/dist/modules/profi
 
 import { routingReducer as routing } from './routing/reducer'
 import {rankingReducer as ranking} from './rank/reducer'
+import { rewardReducer as reward } from './reward/reducer'
+
 
 
 export const createRootReducer = (history: History) =>
@@ -21,7 +23,8 @@ export const createRootReducer = (history: History) =>
     transaction,
     translation,
     wallet,
-    ranking
+    ranking,
+    reward
   })
 
 export type RootState = ReturnType<ReturnType<typeof createRootReducer>>

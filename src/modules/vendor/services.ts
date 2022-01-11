@@ -31,7 +31,12 @@ export class ContractService { }
 
 
 
-
+export interface RewardService {
+  userReward:(seasonID:number,
+    useraddress:string)=>Promise<string>
+  getSeasons:()=>Promise<number[]>
+  claim:(seasonID:number,useraddress:string)=>Promise<string>
+}
 
 
 export interface ClaimMetamarsService {
