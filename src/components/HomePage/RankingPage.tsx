@@ -1,4 +1,6 @@
 import React ,{useEffect, useState}from 'react'
+import { fromWei } from 'web3x-es/utils'
+
 import { Page } from 'decentraland-ui'
 import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
@@ -18,13 +20,15 @@ const HomePage = (props:Props) => {
   const {
     onFetchRankings,
     onFetchUserRanking,
+    onClaimReward,
     rankings,
-    wallet
+    wallet,
+    rewards
   }=props
 useEffect(()=>{
     const options:RankFetchOptions={
       params:{
-        seasonID:3,
+        seasonID:1,
         topN:50
 
       }
@@ -35,7 +39,7 @@ useEffect(()=>{
 useEffect(()=>{
   if(wallet && !rankings[wallet.address]){
     const params:UserRankFetchParams={
-      seasonID:3,
+      seasonID:1,
       address:wallet.address
     }
     onFetchUserRanking(params)
@@ -128,19 +132,18 @@ let records=null;
 
   const handleSeasonClick = (event:any) => {
     //output the option value 
-    console.log(event.target.value)
+    // console.log(event.target.value)
   }
-
   const userRank={
     "rank":wallet?(rankings[wallet.address]?rankings[wallet.address].Rank:0):0, 
-      "name": wallet?(rankings[wallet.address]?rankings[wallet.address].Username:"Guest"):"Guest", 
+      "name": wallet?(rankings[wallet.address]?(rankings[wallet.address].Username.length>0?rankings[wallet.address].Username:"Guest"):"Guest"):"Guest", 
     "wallet":getAbberv( wallet?(rankings[wallet.address]?rankings[wallet.address]?.Address:"0x00000000000"):"0x0000000000"),
       "score": wallet?(rankings[wallet.address]?rankings[wallet.address].Score:0):0,
       "wave": wallet?(rankings[wallet.address]?rankings[wallet.address].BestWave:0):0,
-      "token_rewards": 1000 ,
-      "mars_rewards": 800 
+      "total_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].total["1"]?rewards[wallet.address].total["1"]:"0"):"0"):"0" ,
+      "token_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].claimable["1"]?rewards[wallet.address].claimable["1"]:"0"):"0"):"0" ,
+      "mars_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].remaining["1"]?rewards[wallet.address].remaining["1"]:"0"):"0"):"0" 
   }
-
   /**
    * 
    * @param index used to determine the style. rank1 = 0, rank2 = 1, rank3 = 2, me = -1
@@ -235,7 +238,7 @@ let records=null;
                   <div className="text-xl px-3  mr-6">
                     <select className="bg-spacey-leaderboard-grey px-3 py-1" onChange={handleSeasonClick}>
                       <option value="1">1</option>
-                      <option value="2">2</option>
+                      {/* <option value="2">2</option> */}
                     </select>
                   </div>
               </div>
@@ -293,7 +296,7 @@ let records=null;
             <div className={"col-span-6 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(-1)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
-                 20
+                { userRank.total_rewards || "0"}
                 </div>
                 {/* <div className="ml-4 w-4 md:w-8">
                   20
@@ -308,8 +311,10 @@ let records=null;
       <ClaimModal
        open={isClaimOpen} 
        handleOpen={handleToggleClaimModal}
-      total={userRank.token_rewards}
-      remaining={userRank.mars_rewards}
+      claimable={userRank.token_rewards || "0"}
+      remaining={userRank.mars_rewards || "0"}
+      onClaimReward={onClaimReward}
+      seasonID={1}
          />
       {/* {<InfoModal open={isInfoOpen} handleOpen={setInfoOpen} />} */}
     </div>:null

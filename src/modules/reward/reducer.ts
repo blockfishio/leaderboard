@@ -28,7 +28,7 @@ import {
 } from './actions'
 
 export type RewardState = {
-  data: Record<string, Reward>
+  data: Record<string, Rewards>
   loading: LoadingState
   error: string | null
 }
@@ -38,8 +38,10 @@ const INITIAL_STATE = {
   loading: [],
   error: null
 }
-export const EMPTY_ADDRESS_STATE: Reward = {
-  
+export const EMPTY_ADDRESS_STATE: Rewards = {
+  claimable:{},
+  remaining:{},
+  total:{}
 }
 
 type RewardReducerAction =
@@ -64,18 +66,27 @@ export function rewardReducer(
       }
     }
     case FETCH_REWARD_SUCCESS: {
-      const { address, reward } = action.payload
+      const { address, rewards } = action.payload
       const addressState = state.data[address] || EMPTY_ADDRESS_STATE
 
 
-      const rewards={...addressState}
+      const claimable={...addressState.claimable}
+      const remaining={...addressState.remaining}
+      const total={...addressState.total}
+
 
       let season:SeasonID
-      for(season in reward){
-       
-        rewards[season]=reward[season]
+      for(season in rewards.claimable){
+       claimable[season]=rewards.claimable[season]
+       }
+       for(season in rewards.remaining){
+        remaining[season]=rewards.remaining[season]
+        }
+        for(season in rewards.remaining){
+          total[season]=rewards.total[season]
+          }
         
-      }
+      
            
       return {
         loading: loadingReducer(state.loading, action),

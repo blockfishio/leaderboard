@@ -6,7 +6,11 @@ export type Privilege = Record<Address, boolean>
 export type Privileges = Record<Address, Privilege>
 
 export type Reward=Record<SeasonID,string>
-export type Rewards=Record<Address,Reward>
+export type Rewards={
+  claimable:Partial<Reward>
+  remaining:Partial<Reward>
+  total:Partial<Reward>
+}
 
 export type Authorizations = {
   allowances: Partial<Privileges>

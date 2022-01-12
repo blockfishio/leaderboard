@@ -1,11 +1,15 @@
+import { claimRewardRequest } from "../../../modules/reward/actions"
 
 
 export type Props = {
   open:boolean
   // onClaimSpay:typeof ClaimSpayRequest
   handleOpen:()=>void,
-  total:number,
-  remaining:number
+  onClaimReward: typeof claimRewardRequest,
+
+  seasonID:number,
+  claimable:string,
+  remaining:string
 }
 
 export type MetaData ={

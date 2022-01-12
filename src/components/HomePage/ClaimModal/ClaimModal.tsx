@@ -1,7 +1,8 @@
-import React from "react";
+import React ,{useCallback}from "react";
 import {MdClose} from "react-icons/md"
 import { Props,MetaData } from './ClaimModal.types'
 
+import { fromWei } from 'web3x-es/utils'
 
 
 
@@ -10,10 +11,27 @@ const ClaimModal=( props: Props)=> {
     const {
         open,
         handleOpen ,
-        total,
-        remaining
+        claimable,
+        remaining,
+        seasonID,
+        onClaimReward
         // onClaimSpay
     }=props
+
+    const handleClaimReward=useCallback(()=>{
+        onClaimReward(seasonID)
+    },[seasonID,onClaimReward])
+
+
+    const handleSubmit = useCallback(() => {
+
+        handleClaimReward()
+    
+      }, [
+        handleClaimReward,
+      ])
+
+
 
   return (
     <>
@@ -33,7 +51,7 @@ const ClaimModal=( props: Props)=> {
                 <div className="relative px-24 py-6 flex-auto">
                   <div>
                   <h3 className="text-4xl mx-auto text-center font-bankgothic">
-                     Total Amount:{total}
+                     Claimable Amount:{claimable}
                      {/* { 
                         // claim.type == "mars" && " MetaMars: " +  claim.claimable
                         "MetaMars:"
@@ -45,7 +63,7 @@ const ClaimModal=( props: Props)=> {
                      } */}
                   </h3>
                    <h3 className="text-3xl mx-auto text-center  font-bankgothic mt-2">
-                     Claimable Amount:{remaining}
+                     Remaining Amount:{remaining}
 
                      {/* { 
                         // claim.type == "mars" && " MetaMars "
@@ -63,7 +81,12 @@ const ClaimModal=( props: Props)=> {
                   <div className="my-4 text-lg leading-relaxed flex flex-row justify-center	 gap-x-10 font-bankgothic mt-20">
                       <div className="flex flex-col justify-center" >
                         
-                        <div className="mx-auto  bg-spacey-leaderboard-button px-8 py-2  rounded-xl  hover:bg-spacey-leaderboard-button-highlight cursor-pointer" onClick={() => alert('Confirmed')}>
+                        <div className="mx-auto  bg-spacey-leaderboard-button px-8 py-2  rounded-xl  hover:bg-spacey-leaderboard-button-highlight cursor-pointer" onClick={
+                            ()=>{
+                                // console.log("on claim season reward "+seasonID)
+                                handleSubmit()
+                            }
+                        }>
                           Confirm
                         </div>
                         

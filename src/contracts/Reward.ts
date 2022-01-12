@@ -42,6 +42,8 @@ interface RewardMethods {
     claim(season: number ): TxSend<RewardTransactionReceipt>;
     userRewards(season:number,user:Address):TxCall<string>;
     getSeasons():TxCall<number[]>;
+    nextRewardTime(season:number,user:Address):TxCall<number>;
+    seasonRewardStartTime(season:number):TxCall<number>;
 
 }
 export interface DepositGMarsDefinition {

@@ -1,7 +1,7 @@
 import { Eth, SendTx } from 'web3x-es/eth'
 import { Address } from 'web3x-es/address'
 import { all, put, call, select, takeEvery } from 'redux-saga/effects'
-import { ChainId } from '@dcl/schemas'
+import { ChainId } from '../contract/types'
 import { Provider } from 'decentraland-connect'
 import { Wallet } from 'decentraland-dapps/dist/modules/wallet/types'
 import { getConnectedProvider } from 'decentraland-dapps/dist/lib/eth'
@@ -27,10 +27,11 @@ import {
 } from './actions'
 import { VendorFactory, Vendors } from '../vendor'
 import { Reward, Rewards } from './types'
+import { fromWei } from 'web3x-es/utils'
 
 export function* rewardSaga() {
   yield takeEvery(FETCH_REWARD_REQUEST, handleFetchRewardRequest)
-  // yield takeEvery(CLAIM_REWARD_REQUEST, handleClaimRewardRequest)
+  yield takeEvery(CLAIM_REWARD_REQUEST, handleClaimRewardRequest)
 }
 
 function* handleFetchRewardRequest(
@@ -45,11 +46,33 @@ function* handleFetchRewardRequest(
     }
     
     const chainId: ChainId = yield select(getChainId)
-    const claimable:string=yield call(()=>
-    rewardService?.userReward(seasonID,address)
+    const total:string=yield call(()=>
+    rewardService?.userReward(seasonID,chainId, address)
     )
-    const res:Reward={
-      [seasonID]:claimable
+    const seasonStartTime:number=yield call(()=>
+    rewardService?.getSeasonRewardStartTime(seasonID,chainId)
+    )
+    const UserNextRewardTime:number=yield call(()=>
+    rewardService?.getUserNextRewardTime(seasonID,chainId,address)
+    )
+    const currentTime=Math.floor( Date.now()/1000)
+    let claimable=0.0
+    let remaining=0.0
+    if (currentTime<UserNextRewardTime){
+       claimable=0
+    }
+    else{
+    const claimablePortion= Math.floor( (currentTime-UserNextRewardTime)/(3*86400))+1
+     claimable=parseFloat( fromWei(total,"ether"))/10*claimablePortion
+    const remainingPortion=10-(Math.floor(UserNextRewardTime-seasonStartTime)/(3*86400)+1)
+    remaining=parseFloat( fromWei(total,"ether"))/10*remainingPortion
+    }
+
+    const res:Rewards={
+      claimable: {[seasonID.toString()]:claimable.toString()},
+      remaining:{[seasonID.toString()]:remaining.toString()},
+      total:{[seasonID.toString()]:fromWei(total,"ether")}
+      
     }
     
     yield put(fetchRewardSuccess(address,res ))
@@ -58,43 +81,21 @@ function* handleFetchRewardRequest(
   }
 }
 
-// function* handleClaimRewardRequest(action: ClaimRewardRequestAction) {
-//   try {
-//     const { isAllowed, contractAddress, tokenContractAddress } = action.payload
+function* handleClaimRewardRequest(action: ClaimRewardRequestAction) {
+  const { seasonID } = action.payload
+  try {
+    const { rewardService } = VendorFactory.build(Vendors.DECENTRALAND)
 
-//     const provider: Provider | null = yield call(getConnectedProvider)
-//     if (!provider) {
-//       throw new Error('Could not connect to provider')
-//     }
-//     const eth = new Eth(provider)
+    const address: ReturnType<typeof getAddress> = yield select(getAddress)
+    const chainId: ChainId = yield select(getChainId)
 
-//     const wallet: Wallet | null = yield select(getWallet)
-//     const { address } = wallet!
-//     const amount = isAllowed ? getTokenAmountToApprove() : 0
-
-//     const tokenContract = new ERC20(
-//       eth,
-//       Address.fromString(tokenContractAddress)
-//     )
-//     const transaction: SendTx<ERC20TransactionReceipt> = yield call(() =>
-//       tokenContract.methods
-//         .approve(Address.fromString(contractAddress), amount)
-//         .send({ from: Address.fromString(address) })
-//     )
-//     const transactionHash: string = yield call(() => transaction.getTxHash())
-//     const chainId: ChainId = yield select(getChainId)
-//     yield put(
-//       allowTokenSuccess(
-//         chainId,
-//         transactionHash,
-//         address,
-//         isAllowed,
-//         contractAddress,
-//         tokenContractAddress
-//       )
-//     )
-//   } catch (error) {
-//     yield put(allowTokenFailure(error.message))
-//   }
-// }
+    const txHash: string = yield call(() =>
+      rewardService?.claim(seasonID,chainId, address!)
+    )
+    yield put(claimRewardSuccess(seasonID, chainId, txHash))
+    // yield put(push(locations.settings()))
+  } catch (error:any) {
+    yield put(claimRewardFailure(seasonID, error.message))
+  }
+}
 

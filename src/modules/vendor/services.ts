@@ -1,6 +1,7 @@
 
 
 
+import { ChainId } from '../contract/types';
 import { RankFetchParams, Ranking, UserRankFetchParams } from '../rank/types';
 import { TransferType } from './types'
 
@@ -33,9 +34,16 @@ export class ContractService { }
 
 export interface RewardService {
   userReward:(seasonID:number,
+    chainId:ChainId,
     useraddress:string)=>Promise<string>
-  getSeasons:()=>Promise<number[]>
-  claim:(seasonID:number,useraddress:string)=>Promise<string>
+  getSeasons:(chainId:ChainId)=>Promise<number[]>
+  claim:(seasonID:number,chainId:ChainId,useraddress:string)=>Promise<string>
+  getSeasonRewardStartTime:(seasonID:number,
+    chainId:ChainId,
+    )=>Promise<number>
+    getUserNextRewardTime:(seasonID:number,
+      chainId:ChainId,
+      useraddress:string)=>Promise<number>
 }
 
 

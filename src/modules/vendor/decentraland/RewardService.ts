@@ -14,11 +14,11 @@ import { Address } from 'web3x-es/address'
 
 
 export class RewardService implements RewardServiceInterface {
-  async claim (seasonID: number,
+  async claim (seasonID: number,chainId:ChainId,
     fromAddress:string){
     const reward=await ContractFactory.build(
       Reward,
-      ContractService.contractAddressesAll[ChainId.ETHEREUM_ROPSTEN].Reward
+      ContractService.contractAddressesAll[chainId].Reward
     )
     if (!fromAddress) {
       throw new Error('Invalid address. Wallet must be connected.')
@@ -28,10 +28,10 @@ export class RewardService implements RewardServiceInterface {
     return reward.methods.claim(seasonID).send({from}).getTxHash()
   }
 
-  async userReward (seasonID: number, fromAddress: string) {
+  async userReward (seasonID: number, chainId:ChainId, fromAddress: string) {
     const reward=await ContractFactory.build(
       Reward,
-      ContractService.contractAddressesAll[ChainId.ETHEREUM_ROPSTEN].Reward
+      ContractService.contractAddressesAll[chainId].Reward
     )
     if (!fromAddress) {
       throw new Error('Invalid address. Wallet must be connected.')
@@ -40,13 +40,34 @@ export class RewardService implements RewardServiceInterface {
     return reward.methods.userRewards(seasonID,from).call()
   }
 
-  async getSeasons()  {
+  async getSeasons(chainId:ChainId)  {
     const reward=await ContractFactory.build(
       Reward,
-      ContractService.contractAddressesAll[ChainId.ETHEREUM_ROPSTEN].Reward
+      ContractService.contractAddressesAll[chainId].Reward
     )
     return reward.methods.getSeasons().call()
   }
   
+  async getSeasonRewardStartTime(seasonID:number,chainId:ChainId) {
+    const reward=await ContractFactory.build(
+      Reward,
+      ContractService.contractAddressesAll[chainId].Reward
+    )
+    return reward.methods.seasonRewardStartTime(seasonID).call()
+  }
+
+  async getUserNextRewardTime(seasonID:number,chainId:ChainId,fromAddress:string) {
+    const reward=await ContractFactory.build(
+      Reward,
+      ContractService.contractAddressesAll[chainId].Reward
+    )
+    if (!fromAddress) {
+      throw new Error('Invalid address. Wallet must be connected.')
+    }
+    const from=Address.fromString(fromAddress)
+
+    return reward.methods.nextRewardTime(seasonID,from).call()
+  }
+
 
 }

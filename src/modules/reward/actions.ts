@@ -4,7 +4,7 @@ import { buildTransactionPayload } from 'decentraland-dapps/dist//modules/transa
 import { Authorizations,
    AuthorizationsRequest,
     Address,
-    Reward
+    Rewards
    } from './types'
 
 // Fetch authorization
@@ -19,8 +19,8 @@ export const fetchRewardRequest = (
 
 export const fetchRewardSuccess = (
   address: string,
-  reward: Reward
-) => action(FETCH_REWARD_SUCCESS, { address, reward })
+  rewards: Rewards
+) => action(FETCH_REWARD_SUCCESS, { address, rewards })
 
 export const fetchRewardFailure = (error: string) =>
   action(FETCH_REWARD_FAILURE, { error })
@@ -42,39 +42,29 @@ export const CLAIM_REWARD_SUCCESS = '[Success] Claim Reward'
 export const CLAIM_REWARD_FAILURE = '[Failure] Claim Reward'
 
 export const claimRewardRequest = (
-  isAllowed: boolean,
-  contractAddress: Address,
-  tokenContractAddress: Address
+  seasonID:number
 ) =>
   action(CLAIM_REWARD_REQUEST, {
-    isAllowed,
-    contractAddress,
-    tokenContractAddress
+    seasonID
   })
 
 export const claimRewardSuccess = (
-  chainId: ChainId,
-  txHash: string,
-  address: string,
-  isAllowed: boolean,
-  contractAddress: Address,
-  tokenContractAddress: Address
+  seasonID:number,
+  chainId:ChainId,
+  txHash:string
 ) =>
   action(CLAIM_REWARD_SUCCESS, {
+    seasonID,
     ...buildTransactionPayload(chainId, txHash, {
-      address,
-      isAllowed,
-      contractAddress,
-      tokenContractAddress
+      seasonID
     }),
-    address,
-    isAllowed,
-    contractAddress,
-    tokenContractAddress
+    
   })
 
-export const claimRewardFailure = (error: string) =>
-  action(CLAIM_REWARD_FAILURE, { error })
+export const claimRewardFailure = (
+  seasonID:number,
+  error: string) =>
+  action(CLAIM_REWARD_FAILURE, { seasonID,error })
 
 export type ClaimRewardRequestAction = ReturnType<typeof claimRewardRequest>
 export type ClaimRewardSuccessAction = ReturnType<typeof claimRewardSuccess>
