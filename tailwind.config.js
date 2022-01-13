@@ -34,6 +34,9 @@ module.exports = {
         '120': '36rem',
         '192': '48rem'
       },
+        maxHeight: {
+        '120': '36rem'
+      },
       fontSize: {
         'nav': ['13px', '20px']
      },
