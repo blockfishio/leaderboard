@@ -93,7 +93,7 @@ export function rewardReducer(
         error: null,
         data: {
           ...state.data,
-          [address]: rewards
+          [address]: {claimable,remaining,total}
         }
       }
     }

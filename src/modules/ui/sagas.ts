@@ -23,4 +23,5 @@ function* handleConnectWalletSuccess(_action: ConnectWalletSuccessAction) {
 }
 function* handleClaimRewardSuccess(_action: ClaimRewardSuccessAction) {
     yield put(push(locations.root()))
+    window.location.reload()
 }

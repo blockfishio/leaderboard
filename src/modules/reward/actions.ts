@@ -1,6 +1,6 @@
 import { action } from 'typesafe-actions'
 import { ChainId } from '@dcl/schemas'
-import { buildTransactionPayload } from 'decentraland-dapps/dist//modules/transaction/utils'
+// import { buildTransactionPayload } from 'decentraland-dapps/dist//modules/transaction/utils'
 import { Authorizations,
    AuthorizationsRequest,
     Address,
@@ -55,9 +55,9 @@ export const claimRewardSuccess = (
 ) =>
   action(CLAIM_REWARD_SUCCESS, {
     seasonID,
-    ...buildTransactionPayload(chainId, txHash, {
-      seasonID
-    }),
+    // ...buildTransactionPayload(chainId, txHash, {
+    //   seasonID
+    // }),
     
   })
 

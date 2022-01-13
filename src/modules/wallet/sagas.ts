@@ -48,7 +48,6 @@ function* handleWallet(
   // TODO: VendorFactory.build().contractService.getApprovals()
 
   yield put(fetchRewardRequest(1))
-  yield put(fetchRewardRequest(2))
 
   
 }
