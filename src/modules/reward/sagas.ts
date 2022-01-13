@@ -60,13 +60,14 @@ function* handleFetchRewardRequest(
     let remaining=0.0
     if (currentTime<UserNextRewardTime){
        claimable=0
+     
     }
     else{
     const claimablePortion= Math.floor( (currentTime-UserNextRewardTime)/(3*86400))+1
      claimable=parseFloat( fromWei(total,"ether"))/10*claimablePortion
+    }
     const remainingPortion=10-(Math.floor(UserNextRewardTime-seasonStartTime)/(3*86400)+1)
     remaining=parseFloat( fromWei(total,"ether"))/10*remainingPortion
-    }
 
     const res:Rewards={
       claimable: {[seasonID.toString()]:claimable.toString()},

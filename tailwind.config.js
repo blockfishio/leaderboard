@@ -1,24 +1,22 @@
 module.exports = {
-  // purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}','./layouts/**/*.{js,ts,jsx,tsx}',"./src/**/*.{js,jsx,ts,tsx}"],
+  // purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}','./layouts/**/*.{js,ts,jsx,tsx}'],
+  purge:[],
   darkMode: false, // or 'media' or 'class'
-  content: [
-    "./src/components/**/*.{js,jsx,ts,tsx}",
-  ],
   theme: {
     extend: {
       backgroundImage: theme => ({
-        'hero-image': "url(/images/home_section_1.jpg)",
-        'hero-image-mobile': "url(/images/home_section_1_mobile.jpg)",
-        'hero-image-lg': "url(/images/home_section_1_extra_lg.png)",
-        'explore-image': "url(/images/explore.jpg)",
-        'defense-image': "url(/images/defense_bg.png)",
-        'defense-image-mobile': "url(/images/defense_bg_mobile.png)",
-        "defense-right-background": "url(/images/defend@2x.png)",
-        "astro-background": "url(/images/astro.jpg)",
-        "astro-background-mobile": "url(/images/astro_mobile.jpg)",
-        "login-background": "url(/images/ic_loginbasemap.png)",
-        "dot-image": "url(/images/ic_dottedline.png)",
-        "triangle-bg": "url(/images/triangle_bg@2x.png)"
+        'hero-image': "url(./images/home_section_1.jpg)",
+        'hero-image-mobile': "url(./images/home_section_1_mobile.jpg)",
+        'hero-image-lg': "url(./images/home_section_1_extra_lg.png)",
+        'explore-image': "url(./images/explore.jpg)",
+        'defense-image': "url(./images/defense_bg.png)",
+        'defense-image-mobile': "url(./images/defense_bg_mobile.png)",
+        "defense-right-background": "url(./images/defend@2x.png)",
+        "astro-background": "url(./images/astro.jpg)",
+        "astro-background-mobile": "url(./images/astro_mobile.jpg)",
+        "login-background": "url(./images/ic_loginbasemap.png)",
+        "dot-image": "url(./images/ic_dottedline.png)",
+        "triangle-bg": "url(./images/triangle_bg@2x.png)"
       }), 
  
       maxWidth: {
@@ -101,11 +99,19 @@ module.exports = {
       'spacey-leaderboard-blue': '#0ba29a',
       'spacey-leaderboard-button': '#B88B68',
       'spacey-leaderboard-button-highlight': '#e6931d',
-      'spacey-leaderboard-yellow': '#f39800'
+      'spacey-leaderboard-yellow': '#f39800',
+      'spacey-leader-grey-heavy' : '#0e1622',
+      'spacey-leaderboard-very-easy': '#8fbd7a',
+      'spacey-leaderboard-easy': '#367336',
+      'spacey-leaderboard-medium': '#e8bc37',
+      'spacey-leaderboard-hard': '#f3951b',
+      'spacey-leaderboard-very-hard': '#d56363',
+      'spacey-leaderboard-insane':  '#a2bce2', 
+      'spacey-leaderboard-impossible': '#8878b6'
      },
       gridTemplateColumns: {
         // Simple 16 column grid
-        '18': 'repeat(18, minmax(0, 1fr))',
+        '17': 'repeat(17, minmax(0, 1fr))',
       }
     },
     fontFamily: {

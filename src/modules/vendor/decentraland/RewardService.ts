@@ -53,6 +53,7 @@ export class RewardService implements RewardServiceInterface {
       Reward,
       ContractService.contractAddressesAll[chainId].Reward
     )
+    console.log("get start time")
     return reward.methods.seasonRewardStartTime(seasonID).call()
   }
 

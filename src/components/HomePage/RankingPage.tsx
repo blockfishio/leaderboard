@@ -15,6 +15,7 @@ import { RankFetchOptions,
   UserRankFetchParams,
   Ranking } from '../../modules/rank/types'
 import { ClaimModal } from './ClaimModal'
+import { InfoModal} from './InfoModal'
 
 const HomePage = (props:Props) => {
   const {
@@ -52,6 +53,9 @@ useEffect(()=>{
   const handleToggleClaimModal = () => {
     setClaimOpen(!isClaimOpen)
 };
+const handleToggleInfoModal = () => {
+  setInfoOpen(!isInfoOpen)
+};
 const getLeadBoradData = () => {
   let totalRecords = 300
   let records = []
@@ -63,7 +67,9 @@ const getLeadBoradData = () => {
       "score": 1000000 - i, 
       "wave": Math.floor(100 - i / 10), 
       "token_rewards": 1000 -i, 
-      "mars_rewards": 800 -i
+      "mars_rewards": 800 -i,
+      "difficulty_level":i%8
+
     })
   }
   return records
@@ -82,7 +88,8 @@ const getRealLeadBoradData = (rankings:Record<string,Ranking>) => {
       "score": rankingArr[i].Score, 
       "wave": rankingArr[i].BestWave, 
       "token_rewards": 1000 -i, 
-      "mars_rewards": 800 -i
+      "mars_rewards": 800 -i,
+      "difficulty_level":i%8
     })
   }}
   records.sort((a,b)=>(a.rank>b.rank)?1:((a.rank<b.rank)?-1:0))
@@ -133,6 +140,50 @@ let records=null;
   const handleSeasonClick = (event:any) => {
     //output the option value 
     // console.log(event.target.value)
+  }
+  const getDifficulty = (level: number) => {
+    switch(level){
+      case 1: 
+         return {
+          "text": "VERY EASY", 
+          "cssClass": "bg-spacey-leaderboard-very-easy"
+         }
+     case 2: 
+         return {
+          "text": "EASY", 
+          "cssClass": "bg-spacey-leaderboard-easy"
+         }
+    case 3: 
+         return {
+          "text": "MEDIUM", 
+          "cssClass": "bg-spacey-leaderboard-medium"
+        }
+    case 4: 
+        return {
+         "text": "HARD", 
+         "cssClass": "bg-spacey-leaderboard-hard"
+        }
+    case 5: 
+        return {
+         "text": "VERY HARD", 
+         "cssClass": "bg-spacey-leaderboard-very-hard"
+        }
+    case 6: 
+        return {
+         "text": "INSANE", 
+         "cssClass": "bg-spacey-leaderboard-insane"
+        }
+    case 7: 
+        return {
+         "text": "IMPOSSIBLE", 
+         "cssClass": "bg-spacey-leaderboard-impossible"
+        }
+    default: 
+      return {
+        "text": "VERY EASY", 
+        "cssClass": "bg-spacey-leaderboard-very-easy"
+      }
+    }
   }
   const userRank={
     "rank":wallet?(rankings[wallet.address]?rankings[wallet.address].Rank:0):0, 
@@ -237,7 +288,7 @@ let records=null;
                   </div>
                   <div className="text-xl px-3  mr-6">
                     <select className="bg-spacey-leaderboard-grey px-3 py-1" onChange={handleSeasonClick}>
-                      <option value="1">1</option>
+                      <option value="1">S1</option>
                       {/* <option value="2">2</option> */}
                     </select>
                   </div>
@@ -246,61 +297,81 @@ let records=null;
         </div>
       </div>
       <div>
-        <div className="container md:max-w-1064 mx-auto">
-          <div className="grid grid-cols-18 gap-2 font-bankgothic pr-6 text-xs md:text-base">
+      <div className="container md:max-w-1064 mx-auto">
+          <div className="grid grid-cols-17 gap-2 font-bankgothic pr-6 text-xs md:text-base">
             <div className="bg-spacey-leaderboard-grey text-center  py-2 rounded-xl col-span-1 self-end" >#</div>
-            <div className="bg-spacey-leaderboard-grey rounded-xl py-2 pl-1 col-span-3 self-end">NAME</div>
-            <div  className="bg-spacey-leaderboard-grey rounded-xl py-2 pl-1 col-span-3 self-end">WALLET</div>
-            <div className="bg-spacey-leaderboard-grey  rounded-xl py-2 pl-1  col-span-3 self-end">SCORE</div>
-            <div className="bg-spacey-leaderboard-grey rounded-xl py-2 pl-1 col-span-2 self-end">WAVES</div>
-            <div className="col-span-6 bg-triangle-bg bg-spacey-leaderboard-grey  py-2 rounded-xl self-end bg-auto bg-no-repeat bg-left-top">
+            <div className="bg-spacey-leaderboard-grey rounded-xl py-2 pl-2 col-span-3 self-end">NAME</div>
+            <div  className="bg-spacey-leaderboard-grey rounded-xl py-2 pl-2 col-span-3 self-end">WALLET</div>
+            <div className="bg-spacey-leaderboard-grey  rounded-xl py-2 pl-2  col-span-3 self-end">SCORE</div>
+            <div className="bg-spacey-leaderboard-grey rounded-xl py-2  col-span-4 self-end flex flex-row justify-between px-2">
+              <div>
+                WAVES
+              </div>
+              <div>
+                DIFFICULTY
+              </div>
+            </div>
+            <div className="col-span-3 bg-triangle-bg bg-spacey-leaderboard-grey  py-2 rounded-xl self-end bg-auto bg-no-repeat bg-left-top">
 
               <div className="ml-12 text-center md:text-xl text-xs">Reward</div>
-              <div className="flex flex-row justify-evenly py-3">
+              <div className="flex flex-row justify-evenly py-2">
                 <div className="ml-4 w-4 md:w-8">
                    <img src={token} 
                   //  layout="responsive"
                     alt="token Rounded"/>
                 </div>
-                
+             
               </div>
             </div>
           </div>
          
          <div className="overflow-auto h-96 md:h-120 pr-2 mt-2 relative" id="leaderboard">
-          {records.map(({rank, name, wallet, score, wave, token_rewards, mars_rewards}, id) => (
-          <div className="grid grid-cols-18 gap-2 font-bankgothic text-xs md:text-base" key={id}>
+          {records.map(({rank, name, wallet, score, wave, token_rewards, difficulty_level}, id) => (
+          <div className="grid grid-cols-17 gap-2 font-bankgothic text-xs md:text-base" key={id}>
             <div className={"text-center py-2 col-span-1 self-end " + getStyle(id, 0) } >{rank}</div>
-            <div className={" py-2 pl-1 col-span-3 self-end "  + getStyle(id)}>{name}</div>
-            <div  className={" py-2 pl-1 col-span-3 self-end " + getStyle(id)}>{wallet}</div>
-            <div className={"py-2 pl-1 col-span-3 self-end " + getStyle(id)}>{score}</div>
-            <div className={" py-2 pl-1 col-span-2 self-end " + getStyle(id)}>{wave}</div>
-            <div className={"col-span-6 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(id, 2)}>
+            <div className={" py-2 pl-2 col-span-3 self-end "  + getStyle(id)}>{name}</div>
+            <div  className={" py-2 pl-2 col-span-3 self-end " + getStyle(id)}>{wallet}</div>
+            <div className={"py-2 pl-2 col-span-3 self-end " + getStyle(id)}>{score}</div>
+            <div className={"flex flex-row justify-between py-2 px-2 col-span-4 self-end " + getStyle(id)}>
+              <div className="w-8"> 
+              {wave}
+              </div>
+              <div className={"rounded w-1/2 align-middle pt-1 text-xs px-2 text-center " + getDifficulty(difficulty_level).cssClass}>
+                {getDifficulty(difficulty_level).text}
+              </div>
+            </div>
+            <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(id, 2)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
                   {token_rewards}
                 </div>
-                
+          
               </div>
             </div>
             </div>
           ))}
 
            {/** my score section */}
-           <div className="grid grid-cols-18 gap-2 font-bankgothic  bottom-0 sticky">
-            <div className={"text-center  col-span-1 self-end " + getStyle(-1) + " " + resizeFont(4555) } >{userRank.rank}</div>
-            <div className={" py-2 pl-1 col-span-3 self-end "  + getStyle(-1)}>{userRank.name}</div>
-            <div  className={" py-2 pl-1 col-span-3 self-end " + getStyle(-1)}>{userRank.wallet}</div>
-            <div className={"py-2 pl-1 col-span-3 self-end " + getStyle(-1)}>{userRank.score}</div>
-            <div className={" py-2 pl-1 col-span-2 self-end " + getStyle(-1)}>{userRank.wave}</div>
-            <div className={"col-span-6 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(-1)}>
+           <div className="grid grid-cols-17 gap-2 font-bankgothic absolute bottom-0 sticky">
+            <div className={"text-center py-2 col-span-1 self-end " + getStyle(-1) + " " + resizeFont(4555) } >{userRank.rank}</div>
+            <div className={" py-2 pl-2 col-span-3 self-end "  + getStyle(-1)}>{userRank.name}</div>
+            <div  className={" py-2 pl-2 col-span-3 self-end " + getStyle(-1)}>{userRank.wallet}</div>
+            <div className={"py-2 pl-2 col-span-3 self-end " + getStyle(-1)}>{userRank.score}</div>
+     
+            <div className={"flex flex-row justify-between py-2 px-2 col-span-4 self-end " + getStyle(-1)}>
+            <div className="w-8"> 
+                {userRank.wave}
+              </div>
+              <div className={"rounded w-1/2 align-middle pt-1 text-xs px-2 text-center " + getDifficulty(2).cssClass}>
+                {getDifficulty(2).text}
+              </div>
+            </div>
+            <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(-1)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
-                { userRank.total_rewards || "0"}
+                 {userRank.total_rewards}
                 </div>
-                {/* <div className="ml-4 w-4 md:w-8">
-                  20
-                </div> */}
+           
               </div>
             </div>
             </div>
@@ -316,7 +387,7 @@ let records=null;
       onClaimReward={onClaimReward}
       seasonID={1}
          />
-      {/* {<InfoModal open={isInfoOpen} handleOpen={setInfoOpen} />} */}
+      {<InfoModal open={isInfoOpen} handleOpen={handleToggleInfoModal} />}
     </div>:null
       }
       {/* </Page> */}
