@@ -325,7 +325,7 @@ let records=null;
             </div>
           </div>
          
-         <div className="overflow-auto h-96 md:h-120 pr-2 mt-2 relative" id="leaderboard">
+         <div className="overflow-y-scroll max-h-96 md:max-h-120 pr-2 mt-2 relative" id="leaderboard">
           {records.map(({rank, name, wallet, score, wave, token_rewards, difficulty_level}, id) => (
           <div className="grid grid-cols-17 gap-2 font-bankgothic text-xs md:text-base" key={id}>
             <div className={"text-center py-2 col-span-1 self-end " + getStyle(id, 0) } >{rank}</div>
