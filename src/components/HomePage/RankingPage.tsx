@@ -257,9 +257,18 @@ let records=null;
       </div>
       <div className="gradientBackgroundFull my-5" >
         <div className="container mx-auto py-5 flex flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 ">
-              <div className="flex flex-row">
-                <div className="mr-2  text-lg">
-                Leaderboard will be cleared every season. And seasonal rewards are distributed according to players&apos; leaderboard ranking.
+        <div className="flex flex-row">
+              <div className="mr-2 font-bankgothic text-lg  flex-col flex md:flex-row content-center">
+                  <div className="text-5xl text-spacey-leaderboard-yellow mr-4">Price Pool: </div>
+                  <div  className="w-4 md:w-12 flex content-center">
+                  <img
+                      src={token} 
+                      // layout="responsive" 
+                      alt="token Rounded"  />  
+                  </div> 
+                  <div className="text-5xl text-spacey-leaderboard-yellow">
+                    100,000.00
+                  </div>
                  </div>
                </div>
         </div>
