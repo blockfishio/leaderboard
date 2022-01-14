@@ -130,10 +130,10 @@ let records=null;
 
   const resizeFont = (rank: number) => {
     if (rank >= 1000 && rank < 100000) {
-      return "text-xs tracking-tight py-3"
+      return "text-xs tracking-tight h-full"
     } 
     if (rank >= 100000) {
-      return "text-xs tracking-tighter py-3"
+      return "text-xs tracking-tighter h-full"
     }
   }
 
