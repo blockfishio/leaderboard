@@ -366,7 +366,8 @@ let records=null;
             <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(id, 2)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
-                  {token_rewards}
+                  {/* {token_rewards} */}
+                  TBD
                 </div>
           
               </div>
@@ -392,7 +393,9 @@ let records=null;
             <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(-1)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
-                 {userRank.total_rewards}
+                 {/* {userRank.total_rewards} */}
+                 TBD
+
                 </div>
            
               </div>
