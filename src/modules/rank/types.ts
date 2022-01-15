@@ -20,6 +20,7 @@ export type UserRankFetchParams = {
     Username:string
     Score:number
     BestWave:number
+    Difficulty:number
     
   }
 
@@ -28,3 +29,7 @@ export type UserRankFetchParams = {
     params: RankFetchParams
   }
   
+  export type RankingResponse={
+    rankings:Ranking[],
+    totalPlayer:number
+  }

@@ -51,9 +51,9 @@ function* handleFetchRankingsRequest(action: FetchRankingsRequestAction) {
 
     const { rankService } = VendorFactory.build(Vendors.DECENTRALAND)
     if (rankService) {
-      const [rankings]: AwaitFn<typeof rankService.topNRanking> = yield call(() =>
+      const rankingRes: AwaitFn<typeof rankService.topNRanking> = yield call(() =>
         rankService.topNRanking(params))
-      yield put(fetchRankingsSuccess(options,rankings,timestamp))
+      yield put(fetchRankingsSuccess(options,rankingRes.rankings,rankingRes.totalPlayer, timestamp))
 
     }
 

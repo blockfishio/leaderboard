@@ -9,9 +9,10 @@ import { fetchRankingsRequest,
 import { Wallet } from 'decentraland-dapps/dist/modules/wallet/types'
 import { Rewards } from '../../modules/reward/types'
 import { claimRewardRequest, ClaimRewardRequestAction } from '../../modules/reward/actions'
+import { Rankings } from '../../modules/rank/reducer'
 export type Props = {
   wallet:Wallet | null
-  rankings: Record<string ,Ranking>
+  rankings: Rankings
   rewards: Record<string ,Rewards>
 
   onFetchRankings:typeof fetchRankingsRequest
