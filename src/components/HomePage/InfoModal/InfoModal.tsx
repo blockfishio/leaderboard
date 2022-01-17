@@ -27,9 +27,9 @@ const InfoModal=( props: Props)=> {
          <div
            className="justify-center w-12/12 items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none" 
          >
-           <div className="relative w-11/12 md:w-auto  my-6 mx-auto max-w-4xl  ">
+           <div className="relative w-8/12   ">
              {/*content*/}
-             <div className="border-0  relative flex flex-col w-full outline-none focus:outline-none">
+             <div className="border-0  relative flex flex-col w-full outline-none focus:outline-none justify-center">
                {/*header*/}
         
                <div className="flex items-start justify-between relative">
@@ -44,8 +44,8 @@ const InfoModal=( props: Props)=> {
                </div>
                
                {/*body*/}
-               <div className="relative flex-auto">
-                   <div className="w-screen md:w-128">
+               <div className="relative  justify-center">
+                   <div className="w-full">
                        <img src={ranks}
                         // layout="responsive"
                         alt="ranks" />

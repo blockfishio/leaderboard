@@ -228,7 +228,7 @@ let records=null;
       <div className="mt-32 container mx-auto md:max-w-1064  ">
         <div className="flex flex-col md:flex-row text-center justify-center md:justify-between gap-4 md:gap-0">
             <div className="flex flex-row font-bankgothic text-4xl md:text-6xl ">
-              <div>Leader Board</div>
+              <div className="mr-2">Leader Board</div>
               <div className=" w-8 md:w-12">
               <img src={arrowIcon} 
               // layout="fill" 
@@ -242,7 +242,7 @@ let records=null;
                   // setClaim(claims['spray']);
                    setClaimOpen(true);
                   }}> 
-                   <div className="w-4 md:w-8">
+                   <div className="w-4 md:w-8 mr-2">
                      <img
                       src={token} 
                       // layout="responsive" 
@@ -260,7 +260,7 @@ let records=null;
         <div className="flex flex-row">
               <div className="mr-2 font-bankgothic text-lg  flex-col flex md:flex-row content-center">
                   <div className="text-5xl text-spacey-leaderboard-yellow mr-16">Price Pool: </div>
-                  <div  className="w-4 md:w-12 flex content-center">
+                  <div  className="w-4 md:w-12 flex content-center mr-2">
                   <img
                       src={token} 
                       // layout="responsive" 
@@ -296,7 +296,7 @@ let records=null;
                     Season
                   </div>
                   <div className="text-xl px-3  mr-6">
-                    <select className="bg-spacey-leaderboard-grey px-3 py-1" onChange={handleSeasonClick}>
+                    <select className="bg-spacey-leaderboard-grey px-3 py-1 rounded-xl" onChange={handleSeasonClick}>
                       <option value="1">S1</option>
                       {/* <option value="2">2</option> */}
                     </select>
@@ -336,7 +336,7 @@ let records=null;
          
          <div className="overflow-y-scroll max-h-96 md:max-h-120 pr-2 mt-2 relative" id="leaderboard">
           {records.map(({rank, name, wallet, score, wave, token_rewards, difficulty_level}, id) => (
-          <div className="grid grid-cols-17 gap-2 font-bankgothic text-xs md:text-base" key={id}>
+          <div className={"grid grid-cols-17 gap-2 font-bankgothic text-xs md:text-base " + (records.length && records.length === id + 1 ? "mb-1" : "")}  key={id}>
             <div className={"text-center py-2 col-span-1 self-end " + getStyle(id, 0) } >{rank}</div>
             <div className={" py-2 pl-2 col-span-3 self-end "  + getStyle(id)}>{name}</div>
             <div  className={" py-2 pl-2 col-span-3 self-end " + getStyle(id)}>{wallet}</div>
