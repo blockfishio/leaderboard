@@ -135,6 +135,7 @@ let records=null;
     "rank3": "bg-spacey-leaderboard-orange-lighter", 
     "rank_grey": "bg-spacey-leaderboard-grey",
     "rank_me": "bg-spacey-leaderboard-blue", 
+    "rank_origin": "bg-spacey-leader-grey-heavy"
   }
 
   const resizeFont = (rank: number) => {
@@ -214,7 +215,7 @@ let records=null;
    * @param position 
    * @returns 
    */
-  const getStyle = (index:Number, position:Number = 1) => {
+  const getStyle = (index:number, position:Number = 1) => {
     if (index === 0){
       if (position === 0) 
         return leaderBoardStyle["rank1"] + " rounded-tl-lg"
@@ -229,6 +230,8 @@ let records=null;
         return leaderBoardStyle["rank3"];
     if (index === -1)
         return leaderBoardStyle["rank_me"];
+   if (index % 2 === 1) 
+        return leaderBoardStyle['rank_origin'];
     else return leaderBoardStyle["rank_grey"];
   }
 
@@ -242,7 +245,7 @@ let records=null;
       <div className="mt-32 container mx-auto md:max-w-1064  ">
         <div className="flex flex-col md:flex-row text-center justify-center md:justify-between gap-4 md:gap-0">
             <div className="flex flex-row font-bankgothic text-4xl md:text-6xl ">
-              <div className="mr-2">Leader Board</div>
+              <div className="mr-8">Leader Board</div>
               <div className=" w-8 md:w-12">
               <img src={arrowIcon} 
               // layout="fill" 
@@ -252,7 +255,7 @@ let records=null;
             <div className="flex flex-row font-bankgothic text-4xl md:text-5xl items-center  gap-4">
               <div>Claim</div>
               <div>
-                <div className="flex flex-row bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer px-4 py-2  rounded-xl jutisfy-between gap-2  items-center"  onClick={(event) => {
+                <div className="flex flex-row bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer px-10 py-2  rounded-xl jutisfy-between gap-2  items-center mr-8"  onClick={(event) => {
                   // setClaim(claims['spray']);
                    setClaimOpen(true);
                   }}> 
@@ -275,7 +278,7 @@ let records=null;
               <div className="mr-2 font-bankgothic text-lg  flex-col flex md:flex-row content-center">
 
                   <div className="text-5xl text-spacey-leaderboard-yellow mr-16">Reward Pool: </div>
-                  <div  className="w-4 md:w-12 flex content-center mr-2">
+                  <div  className="w-4 md:w-12 flex content-center mr-4">
 
                   <img
                       src={token} 
