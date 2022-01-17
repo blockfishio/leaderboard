@@ -23,11 +23,13 @@ export const fetchRankingsRequest = (options: RankFetchOptions ) =>
 export const fetchRankingsSuccess = (
   options: RankFetchOptions,
   rankings: Ranking[],
+  totalPlayers:number,
   timestamp: number
 ) =>
   action(FETCH_RANKINGS_SUCCESS, {
     options,
     rankings,
+    totalPlayers,
     timestamp
   })
 export const fetchRankingsFailure = (

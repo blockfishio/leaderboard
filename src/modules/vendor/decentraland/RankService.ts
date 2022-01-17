@@ -3,7 +3,7 @@
 import { RankService as RankServiceInterface } from '../services'
 // import { Vendors } from '../types'
 import { rankAPI } from './rank/api'
-import { RankFetchParams, Ranking, UserRankFetchParams } from '../../rank/types'
+import { RankFetchParams, Ranking, UserRankFetchParams ,RankingResponse} from '../../rank/types'
 
 
 
@@ -17,8 +17,12 @@ export class RankService implements RankServiceInterface {
   
         rankings.push(remoteRanking)
       }
-      
-      return [rankings] as const
+      const res:RankingResponse={
+        rankings:rankings,
+        totalPlayer:remoteRankings.TotalPlayers
+      }
+
+      return res
   }
   // toRanking(asset: AssetFragment): Ranking {
   //   return {
@@ -41,7 +45,8 @@ export class RankService implements RankServiceInterface {
       Address:"",
       Username:remoteRanking.Username,
       Score:remoteRanking.Score,
-      BestWave:remoteRanking.BestWave
+      BestWave:remoteRanking.BestWave,
+      Difficulty:remoteRanking.Difficulty
     }
     return ranking
 

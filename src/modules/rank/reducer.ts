@@ -20,15 +20,24 @@ import {
  FETCH_USERRANKING_FAILURE
 } from './actions'
 
+
+
+export type Rankings={
+  totalPlayer:number
+  rankings:Record<string,Ranking>
+}
 export type RankingState = {
-  data: Record<string,Ranking>
+  data: Rankings
   loading: LoadingState
   error: string | null
 }
 
 const INITIAL_STATE = {
   loading: [],
-  data: {},
+  data: {
+    totalPlayer:0,
+    rankings:{}
+  },
   error: null
 }
 
@@ -70,10 +79,14 @@ export function rankingReducer(
         loading: loadingReducer(state.loading, action),
         data: {
           ...state.data,
-          [options.address]: {
-            ...ranking,
-            Address:options.address
+          rankings:{
+            ...state.data.rankings,
+            [options.address]: {
+              ...ranking,
+              Address:options.address
+            }
           }
+          
         },
         error: null
       }
@@ -83,12 +96,13 @@ export function rankingReducer(
         ...state,
         loading: loadingReducer(state.loading, action),
         data: {
-          ...state.data,
-          // ...action.payload.rankings
+          totalPlayer:action.payload.totalPlayers,
+          rankings:{
+            ...state.data.rankings,
           ...action.payload.rankings.reduce((obj, ranking) => {
             obj[ranking.Address] = ranking
             return obj
-          }, {} as Record<string, Ranking>)
+          }, {} as Record<string, Ranking>)}
         }
       }
     }

@@ -2,7 +2,8 @@
 
 
 import { ChainId } from '../contract/types';
-import { RankFetchParams, Ranking, UserRankFetchParams } from '../rank/types';
+import { RankFetchParams, Ranking, UserRankFetchParams ,RankingResponse} from '../rank/types';
+
 import { TransferType } from './types'
 
 
@@ -11,7 +12,7 @@ import { TransferType } from './types'
 export interface RankService{
   topNRanking:(
     params:RankFetchParams
-  )=>Promise<readonly [Ranking[]]>
+  )=>Promise<RankingResponse>
   userRanking:(
     params:UserRankFetchParams
   )=>Promise< Ranking>

@@ -38,7 +38,7 @@ useEffect(()=>{
 
 },[onFetchRankings])
 useEffect(()=>{
-  if(wallet && !rankings[wallet.address]){
+  if(wallet && !rankings.rankings[wallet.address]){
     const params:UserRankFetchParams={
       seasonID:1,
       address:wallet.address
@@ -51,11 +51,14 @@ useEffect(()=>{
   const [isInfoOpen, setInfoOpen] = useState(false)
   // const [claim, setClaim] = useState<MetaData>({type: "", claimable: 0, remaining: 0})
   const handleToggleClaimModal = () => {
-    setClaimOpen(!isClaimOpen)
+    // setClaimOpen(!isClaimOpen)
+    setClaimOpen(false)
 };
 const handleToggleInfoModal = () => {
   setInfoOpen(!isInfoOpen)
 };
+const totalReward=54331.20
+
 const getLeadBoradData = () => {
   let totalRecords = 300
   let records = []
@@ -81,24 +84,30 @@ const getRealLeadBoradData = (rankings:Record<string,Ranking>) => {
     if(rankingArr[i].Rank<=50 && rankingArr[i].Rank>0){
     records.push({
       "rank": rankingArr[i].Rank, 
-      "name": rankingArr[i].Username.length==0?"Mars":rankingArr[i].Username.length, 
+      "name": rankingArr[i].Username.length==0?"Guest":rankingArr[i].Username, 
       // "name": "Mars", 
 
       "wallet": rankingArr[i].Address.substr(0,4)+"..."+rankingArr[i].Address.substr( rankingArr[i].Address.length-4,4),
       "score": rankingArr[i].Score, 
       "wave": rankingArr[i].BestWave, 
-      "token_rewards": 1000 -i, 
-      "mars_rewards": 800 -i,
-      "difficulty_level":i%8
+      "token_rewards": getRewardByRank(totalReward,rankingArr[i].Rank), 
+      "mars_rewards": 0,
+      "difficulty_level":rankingArr[i].Difficulty+1
     })
   }}
   records.sort((a,b)=>(a.rank>b.rank)?1:((a.rank<b.rank)?-1:0))
   return records
 }
 
+const getRewardByRank=(total:number,rank:number)=>{
+  if (rank<=0){
+    return 0
+  }
+  return  (total/rank).toFixed(2)
+}
 
 let records=null;
-  records = getRealLeadBoradData(rankings)
+  records = getRealLeadBoradData(rankings.rankings)
   // records = getLeadBoradData()
 
   const getAbberv=(address:string)=>{
@@ -186,14 +195,18 @@ let records=null;
     }
   }
   const userRank={
-    "rank":wallet?(rankings[wallet.address]?rankings[wallet.address].Rank:0):0, 
-      "name": wallet?(rankings[wallet.address]?(rankings[wallet.address].Username.length>0?rankings[wallet.address].Username:"Guest"):"Guest"):"Guest", 
-    "wallet":getAbberv( wallet?(rankings[wallet.address]?rankings[wallet.address]?.Address:"0x00000000000"):"0x0000000000"),
-      "score": wallet?(rankings[wallet.address]?rankings[wallet.address].Score:0):0,
-      "wave": wallet?(rankings[wallet.address]?rankings[wallet.address].BestWave:0):0,
-      "total_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].total["1"]?rewards[wallet.address].total["1"]:"0"):"0"):"0" ,
+    "rank":wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address].Rank:0):0, 
+      "name": wallet?(rankings.rankings[wallet.address]?(rankings.rankings[wallet.address].Username.length>0?rankings.rankings[wallet.address].Username:"Guest"):"Guest"):"Guest", 
+    "wallet":getAbberv( wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address]?.Address:"0x00000000000"):"0x0000000000"),
+      "score": wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address].Score:0):0,
+      "wave": wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address].BestWave:0):0,
+      // "total_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].total["1"]?rewards[wallet.address].total["1"]:"0"):"0"):"0" ,
+      // "token_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].claimable["1"]?rewards[wallet.address].claimable["1"]:"0"):"0"):"0" ,
+      // "mars_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].remaining["1"]?rewards[wallet.address].remaining["1"]:"0"):"0"):"0" ,
+      "total_rewards": wallet?(rankings.rankings[wallet.address]?getRewardByRank(totalReward,rankings.rankings[wallet.address].Rank):"0"):"0" ,
       "token_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].claimable["1"]?rewards[wallet.address].claimable["1"]:"0"):"0"):"0" ,
-      "mars_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].remaining["1"]?rewards[wallet.address].remaining["1"]:"0"):"0"):"0" 
+      "mars_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].remaining["1"]?rewards[wallet.address].remaining["1"]:"0"):"0"):"0" ,
+      "difficulty_level":wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address].Difficulty+1:1):1,
   }
   /**
    * 
@@ -218,6 +231,7 @@ let records=null;
         return leaderBoardStyle["rank_me"];
     else return leaderBoardStyle["rank_grey"];
   }
+
   return (
     <>
       <Navbar isFullscreen />
@@ -259,15 +273,17 @@ let records=null;
         <div className="container mx-auto py-5 flex flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 ">
         <div className="flex flex-row">
               <div className="mr-2 font-bankgothic text-lg  flex-col flex md:flex-row content-center">
-                  <div className="text-5xl text-spacey-leaderboard-yellow mr-16">Price Pool: </div>
+
+                  <div className="text-5xl text-spacey-leaderboard-yellow mr-16">Reward Pool: </div>
                   <div  className="w-4 md:w-12 flex content-center mr-2">
+
                   <img
                       src={token} 
                       // layout="responsive" 
                       alt="token Rounded"  />  
                   </div> 
                   <div className="text-5xl text-spacey-leaderboard-yellow">
-                    100,000.00
+                    {totalReward}
                   </div>
                  </div>
                </div>
@@ -277,7 +293,7 @@ let records=null;
         <div className="container  mx-auto py-3  flex flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 justify-between">
           <div className="flex flex-row">
             <div className="">
-               <div>The prize pool contains 80% SPAY income of each season and MetaMars with the same value as SPAY.
+               <div>The reward pool contains 80% SPAY income of each season.
                </div>
                <div className="mt-2">
                 Your seasonal rewards will be unlocked within 30 days (10% of total rewards every 3 days).
@@ -352,7 +368,8 @@ let records=null;
             <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(id, 2)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
-                  {token_rewards}
+                  {/* {token_rewards} */}
+                  TBD
                 </div>
           
               </div>
@@ -362,7 +379,7 @@ let records=null;
 
            {/** my score section */}
            <div className="grid grid-cols-17 gap-2 font-bankgothic absolute bottom-0 sticky">
-            <div className={"text-center py-2 col-span-1 self-end " + getStyle(-1) + " " + resizeFont(4555) } >{userRank.rank}</div>
+            <div className={"text-center py-2 col-span-1 self-end " + getStyle(-1) + " " + resizeFont(userRank.rank) } >{userRank.rank}</div>
             <div className={" py-2 pl-2 col-span-3 self-end "  + getStyle(-1)}>{userRank.name}</div>
             <div  className={" py-2 pl-2 col-span-3 self-end " + getStyle(-1)}>{userRank.wallet}</div>
             <div className={"py-2 pl-2 col-span-3 self-end " + getStyle(-1)}>{userRank.score}</div>
@@ -371,14 +388,16 @@ let records=null;
             <div className="w-8"> 
                 {userRank.wave}
               </div>
-              <div className={"rounded w-1/2 align-middle pt-1 text-xs px-2 text-center " + getDifficulty(2).cssClass}>
-                {getDifficulty(2).text}
+              <div className={"rounded w-1/2 align-middle pt-1 text-xs px-2 text-center " + getDifficulty(userRank.difficulty_level).cssClass}>
+                {getDifficulty(userRank.difficulty_level).text}
               </div>
             </div>
             <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(-1)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
-                 {userRank.total_rewards}
+                 {/* {userRank.total_rewards} */}
+                 TBD
+
                 </div>
            
               </div>
@@ -389,7 +408,7 @@ let records=null;
         </div>
       </div>
       <ClaimModal
-       open={isClaimOpen} 
+       open={false} 
        handleOpen={handleToggleClaimModal}
       claimable={userRank.token_rewards || "0"}
       remaining={userRank.mars_rewards || "0"}
