@@ -77,7 +77,7 @@ const getLeadBoradData = () => {
   }
   return records
 }
-const getRealLeadBoradData = (rankings:Record<string,Ranking>) => {
+const getRealLeadBoradData = (rankings:Record<string,Ranking>,totalPlayer:number) => {
   const rankingArr=Object.values(rankings)
   let records = []
   for (let i = 0; i < rankingArr.length; i++) {
@@ -90,7 +90,7 @@ const getRealLeadBoradData = (rankings:Record<string,Ranking>) => {
       "wallet": rankingArr[i].Address.substr(0,4)+"..."+rankingArr[i].Address.substr( rankingArr[i].Address.length-4,4),
       "score": rankingArr[i].Score, 
       "wave": rankingArr[i].BestWave, 
-      "token_rewards": getRewardByRank(totalReward,rankingArr[i].Rank), 
+      "token_rewards": getRewardByRank(totalReward, totalPlayer, rankingArr[i].Rank), 
       "mars_rewards": 0,
       "difficulty_level":rankingArr[i].Difficulty+1
     })
@@ -99,15 +99,84 @@ const getRealLeadBoradData = (rankings:Record<string,Ranking>) => {
   return records
 }
 
-const getRewardByRank=(total:number,rank:number)=>{
+const getRewardByRank=(totalReward:number,totalPlayer:number,rank:number)=>{
+  let res=0.0
   if (rank<=0){
-    return 0
+    res= 0
   }
-  return  (total/rank).toFixed(2)
+  if (rank==1){
+    res= totalReward*21.75
+  }
+  if (rank==2){
+    res=totalReward*12.75
+  }
+  if (rank==3){
+    res=totalReward*8.3
+  }
+  if (rank==4){
+    res=totalReward*6.3
+  }
+  if (rank==5){
+    res=totalReward*5.3
+  }
+  if (rank==6){
+    res=totalReward*3.8
+  }
+  if (rank==7){
+    res=totalReward*2.8
+  }
+  if (rank==8){
+    res=totalReward*1.8
+  }
+  if (rank==9){
+    res=totalReward*1.25
+  }
+  if (rank>=10 && rank<=15){
+    res=totalReward*0.95
+  }
+  if (rank>=16 && rank<=20){
+    res=totalReward*0.55
+  }
+  if (rank>=21 && rank<=25){
+    res=totalReward*0.45
+  }
+  if (rank>=26 && rank<=30){
+    res=totalReward*0.4
+  }
+  if (rank>=31 && rank<=35){
+    res=totalReward*0.35
+  }
+  if (rank>=36 && rank<=40){
+    res=totalReward*0.3
+  }
+  if (rank>=41 && rank<=50){
+    res=totalReward*0.24
+  }
+  if (rank>=51 && rank<=60){
+    res=totalReward*0.2
+  }
+  if (rank>=61 && rank<=75){
+    res=totalReward*0.19
+  }
+  if (rank>=76 && rank<=100){
+    res=totalReward*0.15
+  }
+  if (rank>=101 && rank<=125){
+    res=totalReward*0.13
+  }
+  if (rank>=126 && rank<=150){
+    res=totalReward*0.12
+  }
+  if (rank>=151 && rank<=175){
+    res=totalReward*0.11
+  }
+  
+
+  return  (res/100.0).toFixed(2)
 }
 
 let records=null;
-  records = getRealLeadBoradData(rankings.rankings)
+  records = getRealLeadBoradData(rankings.rankings,rankings.totalPlayer)
   // records = getLeadBoradData()
 
   const getAbberv=(address:string)=>{
@@ -204,7 +273,7 @@ let records=null;
       // "total_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].total["1"]?rewards[wallet.address].total["1"]:"0"):"0"):"0" ,
       // "token_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].claimable["1"]?rewards[wallet.address].claimable["1"]:"0"):"0"):"0" ,
       // "mars_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].remaining["1"]?rewards[wallet.address].remaining["1"]:"0"):"0"):"0" ,
-      "total_rewards": wallet?(rankings.rankings[wallet.address]?getRewardByRank(totalReward,rankings.rankings[wallet.address].Rank):"0"):"0" ,
+      "total_rewards": wallet?(rankings.rankings[wallet.address]?getRewardByRank(totalReward,rankings.totalPlayer, rankings.rankings[wallet.address].Rank):"0"):"0" ,
       "token_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].claimable["1"]?rewards[wallet.address].claimable["1"]:"0"):"0"):"0" ,
       "mars_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].remaining["1"]?rewards[wallet.address].remaining["1"]:"0"):"0"):"0" ,
       "difficulty_level":wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address].Difficulty+1:1):1,
@@ -302,12 +371,12 @@ let records=null;
                 Your seasonal rewards will be unlocked within 30 days (10% of total rewards every 3 days).
                </div>
             </div>
-            <div className="w-16 md:w-8 ml-4 mt-4 cursor-pointer" onClick={(event) => {setInfoOpen(true)}} >
+            {/* <div className="w-16 md:w-8 ml-4 mt-4 cursor-pointer" onClick={(event) => {setInfoOpen(true)}} >
               <img className="w-4 h-4" src={infoIcon} 
               // layout="responsive" 
               alt="info icon"/>
 
-            </div>
+            </div> */}
             </div>
        
               <div className="flex flex-row items-center ">
@@ -376,8 +445,8 @@ let records=null;
             <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(id, 2)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
-                  {/* {token_rewards} */}
-                  TBD
+                  {token_rewards}
+                  {/* TBD */}
                 </div>
           
               </div>
@@ -403,8 +472,8 @@ let records=null;
             <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(-1)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
-                 {/* {userRank.total_rewards} */}
-                 TBD
+                 {userRank.total_rewards}
+                 {/* TBD */}
 
                 </div>
            
@@ -423,7 +492,7 @@ let records=null;
       onClaimReward={onClaimReward}
       seasonID={1}
          />
-      {<InfoModal open={isInfoOpen} handleOpen={handleToggleInfoModal} />}
+      {/* {<InfoModal open={isInfoOpen} handleOpen={handleToggleInfoModal} />} */}
     </div>:null
       }
       {/* </Page> */}
