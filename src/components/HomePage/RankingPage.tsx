@@ -325,9 +325,14 @@ let records=null;
         </div>
       </div>
       <div>
-      <div className="container md:max-w-1064 mx-auto">
+ 
+      <div className="container md:max-w-1064 mx-auto relative">
+          <div className="font-bankgothic absolute top-2.5 text-2xl">
+                Top 50
+          </div>
           <div className="grid grid-cols-17 gap-2 font-bankgothic pr-6 text-xs md:text-base">
-            <div className="bg-spacey-leaderboard-grey text-center  py-2 rounded-xl col-span-1 self-end" >#</div>
+            <div className="bg-spacey-leaderboard-grey text-center  py-2 rounded-xl col-span-1 self-end" >
+              #</div>
             <div className="bg-spacey-leaderboard-grey rounded-xl py-2 pl-2 col-span-3 self-end">NAME</div>
             <div  className="bg-spacey-leaderboard-grey rounded-xl py-2 pl-2 col-span-3 self-end">WALLET</div>
             <div className="bg-spacey-leaderboard-grey  rounded-xl py-2 pl-2  col-span-3 self-end">SCORE</div>
