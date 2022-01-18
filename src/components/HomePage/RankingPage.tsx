@@ -375,7 +375,7 @@ let records=null;
             </div>
             <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(id, 2)}>
               <div className="flex flex-row justify-evenly ">
-                <div className="ml-4 w-4 md:w-8 ">
+                <div className="">
                   {/* {token_rewards} */}
                   TBD
                 </div>
