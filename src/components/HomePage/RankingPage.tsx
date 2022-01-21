@@ -303,6 +303,8 @@ let records=null;
         return leaderBoardStyle['rank_origin'];
     else return leaderBoardStyle["rank_grey"];
   }
+  console.log(               rankings
+    )
 
   return (
     <>
@@ -377,6 +379,14 @@ let records=null;
               alt="info icon"/>
 
             </div> */}
+            </div>
+            <div className="flex flex-row">
+            <div className="">
+               {rankings.proposals?rankings.proposals[0].body:""}
+               {rankings.proposals?rankings.proposals[0].author:""}
+
+            </div>
+            
             </div>
        
               <div className="flex flex-row items-center ">

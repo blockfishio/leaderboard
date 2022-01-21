@@ -10,6 +10,8 @@ import { RankFetchParams, Ranking, UserRankFetchParams ,RankingResponse} from '.
 export class RankService implements RankServiceInterface {
   async topNRanking (params: RankFetchParams) {
       const remoteRankings=await rankAPI.topNRanking(params)
+      const proposals=await rankAPI.getProposals()
+      console.log(proposals)
       const rankings:Ranking[] = []
       for (const remoteRanking of remoteRankings.Rankings) {
         // const ranking = this.toRanking(remoteRanking)
@@ -24,17 +26,7 @@ export class RankService implements RankServiceInterface {
 
       return res
   }
-  // toRanking(asset: AssetFragment): Ranking {
-  //   return {
-  //     Category: asset.Category,
-  //     ImageURL: asset.ImageURL,
-  //     Price: asset.Price,
-  //     PriceUnit: asset.PriceUnit,
-  //     OptionID: asset.OptionID,
-  //     Count: asset.Count
-
-  //   }
-  // }
+ 
 
   async userRanking (params: UserRankFetchParams) {
     
@@ -53,7 +45,10 @@ export class RankService implements RankServiceInterface {
 
 
   }
-
+async getProposals(){
+  const remoteProposals:string=await rankAPI.getProposals()
+  return remoteProposals
+}
 
   
 

@@ -81,4 +81,30 @@ export type FetchUserRankingFailureAction = ReturnType<typeof fetchUserRankingFa
 
 
 
+// Fetch Proposals
 
+export const FETCH_PROPOSALS_REQUEST = '[Request] Fetch Proposals '
+export const FETCH_PROPOSALS_SUCCESS = '[Success] Fetch Proposals '
+export const FETCH_PROPOSALS_FAILURE = '[Failure] Fetch Proposals '
+
+export const fetchProposalsRequest = (options:UserRankFetchParams) =>
+  action(FETCH_PROPOSALS_REQUEST, { 
+      timestamp: Date.now()
+    })
+export const fetchProposalsSuccess = (
+    proposals:any,
+    timestamp:number
+    ) =>
+  action(FETCH_PROPOSALS_SUCCESS, {
+    proposals,
+    timestamp
+})
+export const fetchProposalsFailure = (
+  error:any,
+  timestamp:number
+) => action(FETCH_PROPOSALS_FAILURE, { 
+     error,timestamp })
+
+export type FetchProposalRequestAction = ReturnType<typeof fetchProposalsRequest>
+export type FetchProposalSuccessAction = ReturnType<typeof fetchProposalsSuccess>
+export type FetchProposalFailureAction = ReturnType<typeof fetchProposalsFailure>

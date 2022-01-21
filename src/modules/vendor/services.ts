@@ -16,6 +16,8 @@ export interface RankService{
   userRanking:(
     params:UserRankFetchParams
   )=>Promise< Ranking>
+  getProposals:(
+  )=>Promise< string>
 }
 
 export interface ContractService {

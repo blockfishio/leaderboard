@@ -8,6 +8,7 @@ import {
   FetchUserRankingRequestAction,
   fetchUserRankingSuccess,
   fetchUserRankingFailure,
+  fetchProposalsSuccess,
   
 
 } from './actions'
@@ -53,7 +54,9 @@ function* handleFetchRankingsRequest(action: FetchRankingsRequestAction) {
     if (rankService) {
       const rankingRes: AwaitFn<typeof rankService.topNRanking> = yield call(() =>
         rankService.topNRanking(params))
+      const proposalsRes:AwaitFn<typeof rankService.getProposals > = yield call(()=>rankService.getProposals())
       yield put(fetchRankingsSuccess(options,rankingRes.rankings,rankingRes.totalPlayer, timestamp))
+      yield put(fetchProposalsSuccess(proposalsRes,timestamp))
 
     }
 

@@ -17,14 +17,17 @@ import {
  FetchUserRankingFailureAction,
  FETCH_USERRANKING_REQUEST,
  FETCH_USERRANKING_SUCCESS,
- FETCH_USERRANKING_FAILURE
+ FETCH_USERRANKING_FAILURE,
+ FETCH_PROPOSALS_SUCCESS,
+ FetchProposalSuccessAction
 } from './actions'
 
 
 
 export type Rankings={
   totalPlayer:number
-  rankings:Record<string,Ranking>
+  rankings:Record<string,Ranking>,
+  proposals?:any
 }
 export type RankingState = {
   data: Rankings
@@ -36,7 +39,8 @@ const INITIAL_STATE = {
   loading: [],
   data: {
     totalPlayer:0,
-    rankings:{}
+    rankings:{},
+    proposals:null
   },
   error: null
 }
@@ -47,7 +51,8 @@ type RankingReducerAction =
   | FetchUserRankingFailureAction
   | FetchRankingsRequestAction
   | FetchRankingsSuccessAction
-  | FetchRankingsFailureAction
+  | FetchRankingsFailureAction 
+  | FetchProposalSuccessAction
   
 
 export function rankingReducer(
@@ -103,6 +108,16 @@ export function rankingReducer(
             obj[ranking.Address] = ranking
             return obj
           }, {} as Record<string, Ranking>)}
+        }
+      }
+    }
+    case FETCH_PROPOSALS_SUCCESS: {
+      return {
+        ...state,
+        loading: loadingReducer(state.loading, action),
+        data: {
+          ...state.data,
+          proposals:action.payload.proposals
         }
       }
     }
