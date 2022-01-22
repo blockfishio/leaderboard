@@ -5,6 +5,7 @@ import { translationSaga } from './translation/sagas'
 import { rewardSaga } from './reward/sagas'
 import { walletSaga } from './wallet/sagas'
 import {rankingSaga} from './rank/sagas'
+import {proposalSaga} from './proposal/sagas'
 import {uiSaga} from './ui/sagas'
 
 
@@ -20,6 +21,7 @@ export function* rootSaga() {
     translationSaga(),
     walletSaga(),
     rankingSaga(),
+    proposalSaga(),
     rewardSaga(),
     uiSaga()    
   ])

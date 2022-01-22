@@ -1,0 +1,8 @@
+.ProposalPage {
+  display: flex;
+  justify-content: center;
+}
+
+.ProposalPage .SignIn.center {
+  position: relative;
+}

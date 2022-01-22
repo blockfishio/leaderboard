@@ -2,6 +2,7 @@
 
 
 import { ChainId } from '../contract/types';
+import { Proposal } from '../proposal/types';
 import { RankFetchParams, Ranking, UserRankFetchParams ,RankingResponse} from '../rank/types';
 
 import { TransferType } from './types'
@@ -16,9 +17,17 @@ export interface RankService{
   userRanking:(
     params:UserRankFetchParams
   )=>Promise< Ranking>
-  getProposals:(
-  )=>Promise< string>
+  
 }
+
+export interface ProposalService{
+  getProposals:(
+    )=>Promise< Proposal[]>
+  getProposal:(
+    proposalId:string
+  ) =>Promise<Proposal>
+}
+
 
 export interface ContractService {
   contractAddresses: Record<string, string>

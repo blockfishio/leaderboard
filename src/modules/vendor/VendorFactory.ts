@@ -4,6 +4,7 @@ import {
   ContractService,
  RankService,
  RewardService,
+ ProposalService
 } from './services'
 import { Vendors } from './types'
 
@@ -16,6 +17,7 @@ export class VendorFactory {
           new decentraland.ContractService(),
           new decentraland.RewardService(),
           new decentraland.RankService(),
+          new decentraland.ProposalService()
           
         )
 
@@ -30,6 +32,8 @@ export class Vendor<V extends Vendors> {
     public type: V,
     public contractService: ContractService,
     public rewardService?:RewardService, 
-    public rankService?:RankService
+    public rankService?:RankService,
+    public proposalService?: ProposalService
+
   ) { }
 }

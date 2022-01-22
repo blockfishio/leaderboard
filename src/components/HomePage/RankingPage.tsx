@@ -57,7 +57,7 @@ useEffect(()=>{
 const handleToggleInfoModal = () => {
   setInfoOpen(!isInfoOpen)
 };
-const totalReward=54331.20
+const totalReward=55398.40
 
 const getLeadBoradData = () => {
   let totalRecords = 300
@@ -380,14 +380,7 @@ let records=null;
 
             </div> */}
             </div>
-            <div className="flex flex-row">
-            <div className="">
-               {rankings.proposals?rankings.proposals[0].body:""}
-               {rankings.proposals?rankings.proposals[0].author:""}
-
-            </div>
-            
-            </div>
+           
        
               <div className="flex flex-row items-center ">
                   <div className="text-xl mr-4">

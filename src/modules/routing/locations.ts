@@ -8,7 +8,9 @@ export const locations = {
   claim: () => '/claim',
   deposit: () => '/deposit',
 
-
+  proposal: (
+    proposalId: string = ':proposalId'
+  ) => `/proposal/${proposalId}`,
 
  
  
