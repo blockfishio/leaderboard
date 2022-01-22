@@ -30,7 +30,7 @@ useEffect(()=>{
     const options:RankFetchOptions={
       params:{
         seasonID:1,
-        topN:50
+        topN:63
 
       }
     }
@@ -105,71 +105,71 @@ const getRewardByRank=(totalReward:number,totalPlayer:number,rank:number)=>{
     res= 0
   }
   if (rank==1){
-    res= totalReward*21.75
+    res= totalReward*12
   }
   if (rank==2){
-    res=totalReward*12.75
+    res=totalReward*11
   }
   if (rank==3){
-    res=totalReward*8.3
+    res=totalReward*10
   }
   if (rank==4){
-    res=totalReward*6.3
+    res=totalReward*9
   }
   if (rank==5){
-    res=totalReward*5.3
+    res=totalReward*8
   }
   if (rank==6){
-    res=totalReward*3.8
+    res=totalReward*7
   }
   if (rank==7){
-    res=totalReward*2.8
+    res=totalReward*6
   }
   if (rank==8){
-    res=totalReward*1.8
+    res=totalReward*5
   }
   if (rank==9){
-    res=totalReward*1.25
+    res=totalReward*4
   }
-  if (rank>=10 && rank<=15){
-    res=totalReward*0.95
+  if (rank>=10 && rank<=20){
+    res=totalReward*1
   }
-  if (rank>=16 && rank<=20){
-    res=totalReward*0.55
+  if (rank>=21 && rank<=40){
+    res=totalReward*0.5
   }
-  if (rank>=21 && rank<=25){
-    res=totalReward*0.45
+  if (rank>=41 && rank<=63){
+    res=totalReward*0.25
   }
-  if (rank>=26 && rank<=30){
-    res=totalReward*0.4
-  }
-  if (rank>=31 && rank<=35){
-    res=totalReward*0.35
-  }
-  if (rank>=36 && rank<=40){
-    res=totalReward*0.3
-  }
-  if (rank>=41 && rank<=50){
-    res=totalReward*0.24
-  }
-  if (rank>=51 && rank<=60){
-    res=totalReward*0.2
-  }
-  if (rank>=61 && rank<=75){
-    res=totalReward*0.19
-  }
-  if (rank>=76 && rank<=100){
-    res=totalReward*0.15
-  }
-  if (rank>=101 && rank<=125){
-    res=totalReward*0.13
-  }
-  if (rank>=126 && rank<=150){
-    res=totalReward*0.12
-  }
-  if (rank>=151 && rank<=175){
-    res=totalReward*0.11
-  }
+  // if (rank>=26 && rank<=30){
+  //   res=totalReward*0.4
+  // }
+  // if (rank>=31 && rank<=35){
+  //   res=totalReward*0.35
+  // }
+  // if (rank>=36 && rank<=40){
+  //   res=totalReward*0.3
+  // }
+  // if (rank>=41 && rank<=50){
+  //   res=totalReward*0.24
+  // }
+  // if (rank>=51 && rank<=60){
+  //   res=totalReward*0.2
+  // }
+  // if (rank>=61 && rank<=75){
+  //   res=totalReward*0.19
+  // }
+  // if (rank>=76 && rank<=100){
+  //   res=totalReward*0.15
+  // }
+  // if (rank>=101 && rank<=125){
+  //   res=totalReward*0.13
+  // }
+  // if (rank>=126 && rank<=150){
+  //   res=totalReward*0.12
+  // }
+  // if (rank>=151 && rank<=175){
+  //   res=totalReward*0.11
+  // }
   
 
   return  (res/100.0).toFixed(2)
@@ -397,7 +397,7 @@ let records=null;
  
       <div className="container md:max-w-1064 mx-auto relative">
           <div className="font-bankgothic absolute top-2.5 text-2xl">
-                Top 50
+                Top Players
           </div>
           <div className="grid grid-cols-17 gap-2 font-bankgothic pr-6 text-xs md:text-base">
             <div className="bg-spacey-leaderboard-grey text-center  py-2 rounded-xl col-span-1 self-end" >
