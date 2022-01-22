@@ -30,7 +30,7 @@ useEffect(()=>{
     const options:RankFetchOptions={
       params:{
         seasonID:1,
-        topN:63
+        topN:62
 
       }
     }
@@ -81,7 +81,7 @@ const getRealLeadBoradData = (rankings:Record<string,Ranking>,totalPlayer:number
   const rankingArr=Object.values(rankings)
   let records = []
   for (let i = 0; i < rankingArr.length; i++) {
-    if(rankingArr[i].Rank<=50 && rankingArr[i].Rank>0){
+    if(rankingArr[i].Rank>0){
     records.push({
       "rank": rankingArr[i].Rank, 
       "name": rankingArr[i].Username.length==0?"Guest":rankingArr[i].Username, 
@@ -108,47 +108,50 @@ const getRewardByRank=(totalReward:number,totalPlayer:number,rank:number)=>{
     res= totalReward*12
   }
   if (rank==2){
-    res=totalReward*11
-  }
-  if (rank==3){
     res=totalReward*10
   }
-  if (rank==4){
+  if (rank==3){
     res=totalReward*9
   }
-  if (rank==5){
+  if (rank==4){
     res=totalReward*8
   }
-  if (rank==6){
+  if (rank==5){
     res=totalReward*7
   }
-  if (rank==7){
+  if (rank==6){
     res=totalReward*6
   }
-  if (rank==8){
+  if (rank==7){
     res=totalReward*5
   }
-  if (rank==9){
+  if (rank==8){
     res=totalReward*4
   }
-  if (rank>=10 && rank<=20){
-    res=totalReward*1
+  if (rank==9){
+    res=totalReward*3
   }
-  if (rank>=21 && rank<=40){
-    res=totalReward*0.5
+  if (rank==10){
+    res=totalReward*2.1
   }
-  if (rank>=41 && rank<=63){
-    res=totalReward*0.25
+  if (rank>=11 && rank<=15){
+    res=totalReward*1.6
   }
-  // if (rank>=26 && rank<=30){
-  //   res=totalReward*0.4
-  // }
-  // if (rank>=31 && rank<=35){
-  //   res=totalReward*0.35
-  // }
-  // if (rank>=36 && rank<=40){
-  //   res=totalReward*0.3
-  // }
+  if (rank>=16 && rank<=20){
+    res=totalReward*1.25
+  }
+  if (rank>=21 && rank<=30){
+    res=totalReward*0.75
+  }
+  if (rank>=31 && rank<=40){
+    res=totalReward*0.55
+  }
+  if (rank>=41 && rank<=45){
+    res=totalReward*0.35
+  }
+  if (rank>=46 && rank<=63){
+    res=totalReward*0.3
+  }
   // if (rank>=41 && rank<=50){
   //   res=totalReward*0.24
   // }
