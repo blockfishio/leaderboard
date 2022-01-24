@@ -7,27 +7,29 @@ import { locations } from '../../modules/routing/locations'
 
 
 
-import {SignInPage} from '../SignInPage'
+import { SignInPage } from '../SignInPage'
 import { RankingPage } from '../HomePage'
-import {ProposalPage} from '../ProposalPage'
+import { ProposalPage } from '../ProposalPage'
+import { CommunityPage } from '../Community'
 
 const Routes = () => {
   const APP_ID = process.env.REACT_APP_INTERCOM_APP_ID
   return (
     <>
       <Switch>
-        
-        {/* <Route exact path={locations.bid()} component={BidPage} /> */}
 
-        
+        {/* <Route exact path={locations.bid()} component={BidPage} /> */}
+        <Route exact path={locations.root()} component={CommunityPage} />
+
+
         <Route exact path={locations.root()} component={RankingPage} />
 
         <Route exact path={locations.signIn()} component={SignInPage} />
-    <Route exact path={locations.proposal()} component={ProposalPage} />
+        <Route exact path={locations.proposal()} component={ProposalPage} />
 
 
-       
-        <Redirect to={locations.root()} />
+
+        <Redirect to={locations.community()} />
       </Switch>
       {APP_ID ? (
         <Intercom appId={APP_ID} settings={{ alignment: 'right' }} />

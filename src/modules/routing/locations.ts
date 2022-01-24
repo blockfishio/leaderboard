@@ -7,6 +7,7 @@ export const locations = {
   bids: () => '/bids',
   claim: () => '/claim',
   deposit: () => '/deposit',
+  community: () => '/community',
 
   proposal: (
     proposalId: string = ':proposalId'
