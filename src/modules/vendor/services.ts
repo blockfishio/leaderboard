@@ -2,7 +2,7 @@
 
 
 import { ChainId } from '../contract/types';
-import { Proposal } from '../proposal/types';
+import { Proposal, Vote } from '../proposal/types';
 import { RankFetchParams, Ranking, UserRankFetchParams ,RankingResponse} from '../rank/types';
 
 import { TransferType } from './types'
@@ -26,6 +26,9 @@ export interface ProposalService{
   getProposal:(
     proposalId:string
   ) =>Promise<Proposal>
+  getAllVotes:(
+    proposalId:string
+  )=>Promise<Vote[]>
 }
 
 

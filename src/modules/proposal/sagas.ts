@@ -44,13 +44,14 @@ function* handleFetchProposalsRequest(action: FetchProposalsRequestAction) {
 
 function* handleFetchProposalRequest(action: FetchProposalRequestAction) {
   const { proposalId } = action.payload
-  console.log(proposalId)
   try {
 
     const { proposalService } = VendorFactory.build(Vendors.DECENTRALAND)
     if (proposalService) {
      
       const proposalsRes:AwaitFn<typeof proposalService.getProposal > = yield call(()=>proposalService.getProposal(proposalId))
+      const votesRes:AwaitFn<typeof proposalService.getAllVotes> = yield call(()=>proposalService.getAllVotes(proposalId))
+      console.log(votesRes)
       yield put(fetchProposalSuccess(proposalsRes))
 
     }

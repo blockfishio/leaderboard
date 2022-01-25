@@ -37,15 +37,43 @@ useEffect(()=>{
   }
 },[proposal,proposalId,onFetchProposal])
 
+// useEffect(()=>{
+//   if (!votings && proposal){
+//     onFetchVotings(proposalId)
+//   }
+// },[proposal,proposalId,votings,onFetchVotings])
+
   
 
   return (
     <>
       <Navbar isFullscreen />
+        {proposal?
+        <div>
+        <div>{proposal.title}</div>
+        <div>{proposal.state}</div>
+        <div>{proposal.id}</div>
+          <div>{proposal.body}</div>
+          <div>{proposal.choices}</div>
+</div>
+         :null }
+      
+      
+      
+
+
+      {isLoading?
+      
       <Page className='ProposalPage' isFullscreen >
-      {isLoading?<Loading />:null}
-      {!isLoading && !proposal ? <NotFound /> : null}
-</Page>
+      <Loading />
+      </Page>
+      :null}
+      {!isLoading && !proposal ? 
+      <Page className='ProposalPage' isFullscreen >
+      <NotFound />
+      </Page>
+      
+      : null}
       <Footer isFullscreen />
     </>
   )
