@@ -87,13 +87,13 @@
 }
 .outactive {
   border: 2px solid #f4921e;
-  border-radius: 10px;
+  border-radius: 20px;
   margin-right: 8px;
   font-size: 14px;
 }
 .outpoll {
   background-color: #fbb03f;
-  border-radius: 10px;
+  border-radius: 20px;
   margin-right: 8px;
   font-size: 14px;
 }

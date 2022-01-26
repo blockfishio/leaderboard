@@ -9,10 +9,24 @@ import select04 from '../../images/Select a file name for output files_Camera 1_
 import select09 from '../../images/Select a file name for output files_Camera 1_009.png'
 import select24 from '../../images/Select a file name for output files_Camera 2_004.png'
 import select29 from '../../images/Select a file name for output files_Camera 2_009.png'
-import { Button } from 'antd';
+import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 import './CommunityPage.css'
 import { locations } from '../../modules/routing/locations'
 import { ProposalsFetchParams } from '../../modules/proposal/types'
+import { Loader, Page } from 'decentraland-ui'
+
+
+const Loading = () => (
+  <div className="nft-center">
+    <Loader active size="huge" />
+  </div>
+)
+
+const NotFound = () => (
+  <div className="nft-center">
+    <p className="secondary-text">{t('global.not_found')}&hellip;</p>
+  </div>
+)
 
 const CommunityPage = (props: Props) => {
   const {
@@ -54,7 +68,7 @@ const CommunityPage = (props: Props) => {
             <div className='container mx-auto py-5 flex  justify-center md:justify-between flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 '>
               <div className='text-2xl '>The virtual world in your hands.</div>
               <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer' onClick={handCreate}>
-                <div>START VOTING</div>
+                <button className='ui'>START VOTING</button>
               </div>
             </div>
           </div>
@@ -153,6 +167,16 @@ const CommunityPage = (props: Props) => {
           </div>
         </div>
       }
+      {isLoading ?
+        <Page className='ProposalPage' isFullscreen >
+          <Loading />
+        </Page>
+        : null}
+      {!isLoading ?
+        <Page className='ProposalPage' isFullscreen >
+          <NotFound />
+        </Page>
+        : null}
       <Footer isFullscreen />
     </div>
   )
