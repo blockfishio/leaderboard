@@ -2,7 +2,7 @@
 
 import { ProposalService as ProposalServiceInterface } from '../services'
 import { proposalAPI } from './proposal/api'
-import { Proposal, Vote } from '../../proposal/types'
+import { Proposal } from '../../proposal/types'
 
 
 

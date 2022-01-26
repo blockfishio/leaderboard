@@ -32,6 +32,8 @@ const ProposalPage = (props:Props) => {
     isVPLoading,
     onFetchProposal,
     onFetchVotingpower,
+    onFetchVotes,
+    votes,
     proposalId
   }=props
 useEffect(()=>{
@@ -48,13 +50,23 @@ useEffect(()=>{
     }
     onFetchVotingpower(options)
   }
-},[proposal,onFetchVotingpower])
+},[proposal,wallet,onFetchVotingpower])
+useEffect(()=>{
+  if (proposal ){
+    
+    onFetchVotes(proposal)
+  }
+},[proposal,onFetchVotes])
+let vpSum:Record<number,number>={}
+if(votes){
+vpSum= getVPSum(votes)
+}
 
 
 
 
-const handleOnvote=()=>{
-
+const handleOnvote=(index:number)=>{
+    alert(index)
 }
 
   return (
@@ -66,9 +78,25 @@ const handleOnvote=()=>{
         <div>{proposal.state}</div>
         <div>{proposal.id}</div>
           <div>{proposal.body}</div>
+          {
+            proposal.choices.map(
+              (choice,index)=>{
+                return <div key={index}>
+                  
+                  <Button onClick={
+                    ()=>{
+                    handleOnvote(index+1)
+                    
+                    }}>{choice}</Button>
+                  
+                  
+                   vp: {vpSum[index+1] || 0}</div>
+              }
+            )
+          }
          
 
-
+          <div>My Votingpower:</div>
           {
             wallet?(isVPLoading?<div>VPLOADING....</div>:
             
@@ -76,7 +104,7 @@ const handleOnvote=()=>{
             <div>
               {votingpower?.[wallet.address]
               }
-            </div>):null
+            </div>):<div>--</div>
           }
           
 

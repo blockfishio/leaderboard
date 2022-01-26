@@ -26,9 +26,9 @@ import { stat } from 'fs'
 
 
 
-export type Proposals={
-  proposals:Record<string,Proposal>,
-}
+export type Proposals=
+  Record<string,Proposal>
+
 export type ProposalState = {
   data: Record<string,Proposal>
   loading: LoadingState
@@ -78,10 +78,8 @@ export function proposalReducer(
       return {
         ...state,
         loading: loadingReducer(state.loading, action),
-        data: {
-          ...state.data,
-          proposals:action.payload.proposals
-        }
+        data: 
+          action.payload.proposals
       }
     }
     case FETCH_PROPOSAL_SUCCESS: {
@@ -91,7 +89,7 @@ export function proposalReducer(
         loading: loadingReducer(state.loading, action),
         data: {
           ...state.data,
-          [action.payload.proposal.id]:proposal
+          [proposal.id]:proposal
         }
       }
     }

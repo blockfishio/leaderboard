@@ -1,4 +1,5 @@
 import { action } from 'typesafe-actions'
+import { Proposal } from '../proposal/types'
 import { VotingPower } from './reducer'
 import {
  
@@ -43,21 +44,21 @@ export const FETCH_VOTES_REQUEST = '[Request] Fetch Votes '
 export const FETCH_VOTES_SUCCESS = '[Success] Fetch Votes '
 export const FETCH_VOTES_FAILURE = '[Failure] Fetch Votes '
 
-export const fetchVotesRequest = (proposalId:string) =>
+export const fetchVotesRequest = (proposal:Proposal) =>
   action(FETCH_VOTES_REQUEST, { 
-      proposalId
+      proposal
     })
 export const fetchVotesSuccess = (
-    votesRes:Vote[]
+    votesRes:Record<string,Vote>
     ) =>
   action(FETCH_VOTES_SUCCESS, {
     votesRes
 })
 export const fetchVotesFailure = (
-  proposalId:string,
+  proposal:Proposal,
   error:string
 ) => action(FETCH_VOTES_FAILURE, { 
-     proposalId,error })
+     proposal,error })
 
 export type FetchVotesRequestAction = ReturnType<typeof fetchVotesRequest>
 export type FetchVotesSuccessAction = ReturnType<typeof fetchVotesSuccess>

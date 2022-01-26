@@ -42,6 +42,7 @@ export type Vote= {
   voter: string
   created: number
   space: Space
+  votingpower?:number
   proposal: {
     choices: Proposal['choices']
   }

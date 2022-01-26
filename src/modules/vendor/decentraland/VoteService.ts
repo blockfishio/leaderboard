@@ -2,9 +2,10 @@
 
 import { VoteService as VoteServiceInterface } from '../services'
 import { voteAPI } from './vote/api'
-import { Proposal, Vote } from '../../proposal/types'
+import { Vote } from '../../vote/types'
 import { VotingPower } from '../../vote/reducer'
 import snapshot from '@snapshot-labs/snapshot.js';
+import { Proposal } from '../../proposal/types';
 
 
 
@@ -37,8 +38,8 @@ return remoteVotingpower[0]
 
 }
 
-async getAllVotes(proposalId:string){
-  const remoteVotes:Vote[]=await voteAPI.getAllVotes(proposalId)
+async getAllVotes(proposal:Proposal){
+  const remoteVotes:Record<string,Vote>=await voteAPI.getAllVotes(proposal)
   return remoteVotes
 }
 

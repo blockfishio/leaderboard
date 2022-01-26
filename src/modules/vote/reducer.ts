@@ -3,7 +3,7 @@ import {
   loadingReducer
 } from 'decentraland-dapps/dist/modules/loading/reducer'
 
-import { Proposal } from './types'
+import { Proposal, Vote } from './types'
 import {
 
  
@@ -28,7 +28,10 @@ import {
 export type VotingPower=
   Record<string,number>
 export type VoteState = {
-  data: VotingPower
+  data:  {
+    vp:VotingPower
+    votes:Record<string,Vote>
+  }
   loading: LoadingState
   error: string | null
 }
@@ -36,6 +39,8 @@ export type VoteState = {
 const INITIAL_STATE = {
   loading: [],
   data: {
+    vp:{},
+    votes:{}
     
   },
   error: null
@@ -82,13 +87,25 @@ export function voteReducer(
           return {
             ...state,
             loading: loadingReducer(state.loading, action),
-            data: 
-             votingpower
+            data: {
+              ...state.data,
+              vp:votingpower
+            }
             
               
             
           }
         }
+      case FETCH_VOTES_SUCCESS:{
+        return {
+          ...state,
+          loading:loadingReducer(state.loading,action),
+          data:{
+            ...state.data,
+            votes:action.payload.votesRes
+          }
+        }
+      }
     
     
    

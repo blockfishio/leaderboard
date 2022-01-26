@@ -1,34 +1,24 @@
-import { Vote } from "../proposal/types"
-import { Proposal } from "./types"
+import { Vote} from "./types"
 
-export function getProposal(
-    
-    proposalId: string | null,
-    proposals: Record<string, Proposal>
-  ): Proposal | null {
-    if (!proposalId) {
-      return null
-    }
-  
-    return proposalId in proposals ?proposals[proposalId] : null
-  }
+
 
 export function getVPSum(
-  votes:Vote[]
-):Record<number,string>{
+  votes:Record<string,Vote>
+):Record<number,number>{
   
 
-  const res:Record<number,string>={}
+  const res:Record<number,number>={}
 
-  votes.forEach((vote)=>{
+  for (const vote of Object.values(votes)){
     const {choice}=vote
-    let accum=0.0
-    if (res[choice]!==undefined){
-       accum=parseFloat(res[choice])
-    }
-    
-    
-  })
+    const vp:number=vote.votingpower || 0
+    if (res[choice]){
+    res[vote.choice]+=vp
+  } else{
+    res[choice]=vp
+  }
+}
+
 
 
 

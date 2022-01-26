@@ -24,7 +24,7 @@ const PollPage = (props: Props) => {
     onFetchProposals(option)
   }, [onFetchProposals])
 
-  console.log(props);
+   console.log(proposals);
 
 
   const [top, setTop] = useState(true)
@@ -34,6 +34,7 @@ const PollPage = (props: Props) => {
     setTop(!top)
 
   }
+  
 
   return (
     <div className='bg-spacey-heavy'>
@@ -94,6 +95,31 @@ const PollPage = (props: Props) => {
               </div>
             </div>
             <div className='container  md:max-w-1064 mx-auto'>
+               {
+                 Object.keys(proposals).map(
+                   (key)=>{
+                     const proposal=proposals[key]
+                     return (
+                     <div key={proposal.id} className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30'>
+                     <div className='px-9 py-2'>
+                       <div className='text-2xl'>{proposal.title}</div>
+                       {/* <div className='mt-29'>Leading: 3. Slot Price: USD 500 / Commission for Curators: USD 50</div> */}
+                       <div className='mt-29'>
+                         <span className='outactive px-3 '>{proposal.state}</span>
+                         {/* <span className='outpoll px-2'>POLL</span> */}
+                         <span>Ends:{proposal.end}</span>
+                       </div>
+                     </div>
+                   </div>)
+
+                   }
+                 )
+
+
+               }
+
+
+
               <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30'>
                 <div className='px-9 py-2'>
                   <div className='text-2xl'>Third Party Wearables submission fees</div>

@@ -2,8 +2,7 @@ import { action } from 'typesafe-actions'
 import {
   Proposal,
   ProposalsFetchParams,
-  RankFetchOptions,
-  UserRankFetchParams
+ 
 
 } from './types'
 

@@ -25,7 +25,6 @@ export function* voteSaga() {
 function* handleFetchVotingpowerRequest(action: FetchVotingpowerRequestAction) {
   const options=action.payload
   const { address,blocknumber } = options
-  console.log("request fetch voting power")
   try {
     
     const { voteService } = VendorFactory.build(Vendors.DECENTRALAND)
@@ -45,21 +44,21 @@ function* handleFetchVotingpowerRequest(action: FetchVotingpowerRequestAction) {
 }
 
 function* handleFetchVotesRequest(action: FetchVotesRequestAction) {
-  const { proposalId } = action.payload
+  const { proposal } = action.payload
   try {
 
     const { voteService } = VendorFactory.build(Vendors.DECENTRALAND)
     if (voteService) {
      
-      const remoteProposal:AwaitFn<typeof voteService.getAllVotes> = yield call(()=>voteService.getAllVotes(proposalId))
+      const remoteVotes:AwaitFn<typeof voteService.getAllVotes> = yield call(()=>voteService.getAllVotes(proposal))
       
-      yield put(fetchVotesSuccess(remoteProposal))
+      yield put(fetchVotesSuccess(remoteVotes))
 
     }
 
    
 
   } catch (error:any) {
-    yield put(fetchVotesFailure(proposalId, error.message))
+    yield put(fetchVotesFailure(proposal, error.message))
   }
 }

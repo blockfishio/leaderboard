@@ -2,7 +2,8 @@
 
 
 import { ChainId } from '../contract/types';
-import { Proposal, Vote } from '../proposal/types';
+import { Proposal } from '../proposal/types';
+import {Vote} from '../vote/types'
 import { RankFetchParams, Ranking, UserRankFetchParams ,RankingResponse} from '../rank/types';
 import { VotingPower } from '../vote/reducer';
 
@@ -36,8 +37,8 @@ export interface VoteService{
     blockNumber:string
   )=>Promise<VotingPower>
   getAllVotes:(
-    proposalId:string
-  )=>Promise<Vote[]>
+    proposal:Proposal
+  )=>Promise<Record<string,Vote>>
 }
 
 
