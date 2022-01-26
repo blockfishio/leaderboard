@@ -1,5 +1,5 @@
 import React ,{useEffect, useState}from 'react'
-import { Loader, Page } from 'decentraland-ui'
+import { Button, Loader, Page } from 'decentraland-ui'
 import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 
 import { Navbar } from '../Navbar'
@@ -7,9 +7,9 @@ import { Footer } from '../Footer'
 
 import {Props} from './ProposalPage.types'
 import './ProposalPage.css'
-import { RankFetchOptions,
-  UserRankFetchParams,
-  Ranking } from '../../modules/rank/types'
+
+import { VotingPowerFetchParams } from '../../modules/vote/types'
+import { getVPSum } from '../../modules/vote/utils'
 
   const Loading = () => (
     <div className="nft-center">
@@ -28,7 +28,10 @@ const ProposalPage = (props:Props) => {
     proposal,
     wallet,
     isLoading,
+    votingpower,
+    isVPLoading,
     onFetchProposal,
+    onFetchVotingpower,
     proposalId
   }=props
 useEffect(()=>{
@@ -37,13 +40,22 @@ useEffect(()=>{
   }
 },[proposal,proposalId,onFetchProposal])
 
-// useEffect(()=>{
-//   if (!votings && proposal){
-//     onFetchVotings(proposalId)
-//   }
-// },[proposal,proposalId,votings,onFetchVotings])
+useEffect(()=>{
+  if (proposal && wallet){
+    const options:VotingPowerFetchParams ={
+      address:wallet.address,
+      blocknumber:proposal.snapshot
+    }
+    onFetchVotingpower(options)
+  }
+},[proposal,onFetchVotingpower])
 
-  
+
+
+
+const handleOnvote=()=>{
+
+}
 
   return (
     <>
@@ -54,7 +66,20 @@ useEffect(()=>{
         <div>{proposal.state}</div>
         <div>{proposal.id}</div>
           <div>{proposal.body}</div>
-          <div>{proposal.choices}</div>
+         
+
+
+          {
+            wallet?(isVPLoading?<div>VPLOADING....</div>:
+            
+            
+            <div>
+              {votingpower?.[wallet.address]
+              }
+            </div>):null
+          }
+          
+
 </div>
          :null }
       

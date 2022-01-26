@@ -18,10 +18,6 @@ async getProposal(proposalId:string){
   return remoteProposal
 }
   
-async getAllVotes(proposalId:string){
-  const remoteVotes:Vote[]=await proposalAPI.getAllVotes(proposalId)
-  return remoteVotes
-}
 
   
 

@@ -61,28 +61,3 @@ export type FetchProposalRequestAction = ReturnType<typeof fetchProposalRequest>
 export type FetchProposalSuccessAction = ReturnType<typeof fetchProposalSuccess>
 export type FetchProposalFailureAction = ReturnType<typeof fetchProposalFailure>
 
-// Fetch Votes
-
-export const FETCH_VOTES_REQUEST = '[Request] Fetch Votes '
-export const FETCH_VOTES_SUCCESS = '[Success] Fetch Votes '
-export const FETCH_VOTES_FAILURE = '[Failure] Fetch Votes '
-
-export const fetchVotesRequest = (proposalId:string) =>
-  action(FETCH_VOTES_REQUEST, { 
-      proposalId
-    })
-export const fetchVotesSuccess = (
-    proposal:Proposal
-    ) =>
-  action(FETCH_VOTES_SUCCESS, {
-    proposal
-})
-export const fetchVotesFailure = (
-  proposalId:string,
-  error:string
-) => action(FETCH_VOTES_FAILURE, { 
-     proposalId,error })
-
-export type FetchVotesRequestAction = ReturnType<typeof fetchVotesRequest>
-export type FetchVotesSuccessAction = ReturnType<typeof fetchVotesSuccess>
-export type FetchVotesFailureAction = ReturnType<typeof fetchVotesFailure>

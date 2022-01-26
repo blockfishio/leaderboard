@@ -1,21 +1,7 @@
 
-
-
-
-
-export type UserRankFetchParams = {
-    seasonID:number,
-    address:string
-  
-  }
-export type ProposalsFetchParams = {
-  first:number,
-  skip:number,
-  state:string
-}
-
-export type ProposalFetchParams={
-  id:string
+export type VotingPowerFetchParams={
+  address:string,
+  blocknumber:string
 }
 
   export type Proposal = {
@@ -32,15 +18,14 @@ export type ProposalFetchParams={
     
   }
 
+
+
   export type Space={
     id:string,
     name:string
   }
 
-  export type RankFetchOptions = {
-   
-    params: ProposalFetchParams
-  }
+
   
   
 export type VoteWhere ={
@@ -60,7 +45,6 @@ export type Vote= {
   proposal: {
     choices: Proposal['choices']
   }
-  votingpower:number
   choice: number
   metadata?: {
     votingPower: string
@@ -68,3 +52,5 @@ export type Vote= {
   }
   _inValid?: boolean
 }
+
+export type Votes=Record<string,Vote[]>
