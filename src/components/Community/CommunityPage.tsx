@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
 import { Props } from './CommunityPage.type'
@@ -9,42 +9,39 @@ import select04 from '../../images/Select a file name for output files_Camera 1_
 import select09 from '../../images/Select a file name for output files_Camera 1_009.png'
 import select24 from '../../images/Select a file name for output files_Camera 2_004.png'
 import select29 from '../../images/Select a file name for output files_Camera 2_009.png'
-
+import { Button } from 'antd';
 import './CommunityPage.css'
+import { locations } from '../../modules/routing/locations'
+import { ProposalsFetchParams } from '../../modules/proposal/types'
 
 const CommunityPage = (props: Props) => {
   const {
-    proposal,
+    proposals,
     wallet,
     isLoading,
-    onFetchProposal,
-    proposalId
+    onFetchProposals,
+    onNavigate,
   } = props
   useEffect(() => {
-    if (!proposal && proposalId) {
-      onFetchProposal(proposalId)
+    const option: ProposalsFetchParams = {
+      first: 5,
+      skip: 0,
+      state: ''
     }
-  }, [proposal, proposalId, onFetchProposal])
-
-  console.log(proposal);
-  
-
-  const [voting, setVoting] = useState(true)
-  const [select, setSelect] = useState(false)
+    onFetchProposals(option)
+  }, [onFetchProposals])
 
 
-  const handleVotingonClick = () => {
-    setVoting(!voting)
-    console.log(voting);
-  }
-  const handleSelectonClick = () => {
-    setSelect(!select)
-  }
+  const handCreate = useCallback(() => onNavigate(locations.pollPage()), [
+    onNavigate
+  ])
+
+
   return (
     <div className='bg-spacey-heavy'>
       <Navbar isFullscreen />
       {
-        voting ? <div>
+        <div>
           <div className='mt-33 container  md:max-w-1064 mx-auto'>
             <div className='flex flex-row text-4xl md:text-6xl'>
               <div className='mr-9 '>DOA</div>
@@ -56,7 +53,7 @@ const CommunityPage = (props: Props) => {
           <div className='gradientBackgroundFull my-5'>
             <div className='container mx-auto py-5 flex  justify-center md:justify-between flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 '>
               <div className='text-2xl '>The virtual world in your hands.</div>
-              <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer' onClick={handleVotingonClick}>
+              <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer' onClick={handCreate}>
                 <div>START VOTING</div>
               </div>
             </div>
@@ -151,82 +148,6 @@ const CommunityPage = (props: Props) => {
                     con-trolled its smart contract has been thrown away</div>
                 </div>
                 <div></div>
-              </div>
-            </div>
-          </div>
-        </div> : <div>
-          <div className='mt-34 container  md:max-w-1064 mx-auto'>
-          </div>
-          <div className='gradientBackgroundFull my-5 '>
-            <div className='container mx-auto py-5 flex justify-center md:justify-between flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 '>
-              <div className='text-1xl flex  justify-center content-center items-center'>
-                <div className='mr-8 cursor-pointer font-size-color'>Proposals</div>
-                <div className='cursor-pointer font-size-color'>Voting Power</div>
-              </div>
-              <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer'>
-                <div>START VOTING</div>
-              </div>
-            </div>
-          </div>
-          <div className='gradientBackgroundFull my-5 container  md:max-w-1064 mx-auto br-33'>
-            <div className='container mx-auto py-5 '>
-              <div className='flex  justify-center content-center items-center md:justify-between flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 '>
-                <div className='flex justify-center content-center items-center  flex-col md:flex-row   md:max-w-1064'>
-                  <div className=' background-e78f32 bor-d'></div>
-                  <div>
-                    <div className='text-2xl'>Poll</div>
-                    <div className='text-1xl'>Ask community members for their opinion on an issue or topic.</div>
-                  </div>
-                </div>
-                <div className='selectrel'>
-                  <div className='gradientBackgroundFull my-5 w-60 flex br-33 cursor-pointer ' onClick={handleSelectonClick}>
-                    <div className='px-5 py-1 '>ALL OUTCOMES</div>
-                    <div className={select ? 'icon-d3' : 'icon-z3'}></div>
-                  </div>
-                  <div className={select ? 'selectabs dis-li' : 'selectabs dis-li active'} >
-                    <li className='cursor-pointer'>ALL OUTCOMES</li>
-                    <li className='cursor-pointer'>ACTIVE OUTCOMES</li>
-                    <li className='cursor-pointer'>FINISHED OUTCOMES</li>
-                    <li className='cursor-pointer'>PASSED OUTCOMES</li>
-                    <li className='cursor-pointer'>REJECTED OUTCOMES</li>
-                    <li className='cursor-pointer'>ENACTED OUTCOMES</li>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='container  md:max-w-1064 mx-auto'>
-            <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30'>
-              <div className='px-9 py-2'>
-                <div className='text-2xl'>Third Party Wearables submission fees</div>
-                <div className='mt-29'>Leading: 3. Slot Price: USD 500 / Commission for Curators: USD 50</div>
-                <div className='mt-29'>
-                  <span className='outactive px-3 '>ACTIVE</span>
-                  <span className='outpoll px-2'>POLL</span>
-                  <span>Ends in 7 days</span>
-                </div>
-              </div>
-            </div>
-            <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-29'>
-              <div className='px-9 py-2'>
-                <div className='text-2xl'>Third Party Wearables submission fees</div>
-                <div className='mt-29'>Leading: 3. Slot Price: USD 500 / Commission for Curators: USD 50</div>
-                <div className='mt-29'>
-                  <span className='outactive px-3 '>ACTIVE</span>
-                  <span className='outpoll px-2'>POLL</span>
-                  <span>Ends in 7 days</span>
-                </div>
-              </div>
-            </div>
-            <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-29'>
-              <div className='px-9 py-2'>
-                <div className='text-2xl'>Third Party Wearables submission fees</div>
-                <div className='mt-29'>Leading: 3. Slot Price: USD 500 / Commission for Curators: USD 50</div>
-                <div className='mt-29'>
-                  <span className='outactive px-3 '>ACTIVE</span>
-                  <span className='outpoll px-2'>POLL</span>
-                  <span>Ends in 7 days</span>
-                </div>
               </div>
             </div>
           </div>

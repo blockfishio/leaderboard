@@ -1,31 +1,35 @@
 import { connect } from 'react-redux'
 import { isLoadingType } from 'decentraland-dapps/dist/modules/loading/selectors'
-import { push } from 'connected-react-router'
+
 import { RootState } from '../../modules/reducer'
 import { FETCH_PROPOSAL_REQUEST,
-  fetchProposalsRequest, 
+  fetchProposalRequest, 
   } from '../../modules/proposal/actions'
 
-import { MapStateProps, MapDispatch, MapDispatchProps } from './CommunityPage.type'
-import { getData as getProposals,getLoading as getProposalLoading,} from '../../modules/proposal/selectors'
+import { MapStateProps, MapDispatch, MapDispatchProps } from './CreatePage.type'
+import { getData as getProposals,getLoading as getProposalLoading,getProposalId} from '../../modules/proposal/selectors'
 import { getWallet, isConnecting } from '../../modules/wallet/selectors'
 
-import CommunityPage from './CommunityPage'
-import { ProposalsFetchParams } from '../../modules/proposal/types'
+import CreatePage from './CreatePage'
+import { getProposal } from '../../modules/proposal/utils'
 
 const mapState = (state: RootState): MapStateProps =>{ 
+  const proposalId=getProposalId(state)
   const proposals=getProposals(state)
+  const proposal=getProposal(proposalId,proposals)
   return {
   wallet:getWallet(state),
-  proposals: proposals,
+  proposal:proposal,
+  proposalId:proposalId,
   isConnecting: isConnecting(state),
   isLoading: isLoadingType(getProposalLoading(state), FETCH_PROPOSAL_REQUEST) 
 }}
 
 const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({
-  onFetchProposals: (option:ProposalsFetchParams) => dispatch(fetchProposalsRequest(option)),
-  onNavigate: (path:string) => dispatch(push(path)),
-
+  onFetchProposal: (proposalId:string) => dispatch(fetchProposalRequest(
+    proposalId
+  )),
+  
 })
 
-export default connect(mapState, mapDispatch)(CommunityPage)
+export default connect(mapState, mapDispatch)(CreatePage)

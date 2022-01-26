@@ -8,6 +8,8 @@ export const locations = {
   claim: () => '/claim',
   deposit: () => '/deposit',
   community: () => '/community',
+  createProposal: () => '/create',
+  pollPage: () => '/poll',
 
   proposal: (
     proposalId: string = ':proposalId'
