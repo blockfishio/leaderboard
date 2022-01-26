@@ -1,5 +1,5 @@
-import { Proposal } from "./types"
-
+import { Proposal  } from "./types"
+// ProposalsFetchParams
 export function getProposal(
     
     proposalId: string | null,
@@ -11,3 +11,8 @@ export function getProposal(
   
     return proposalId in proposals ?proposals[proposalId] : null
   }
+
+
+  // export function getProposalsFetchParams(
+  //   start
+  // )

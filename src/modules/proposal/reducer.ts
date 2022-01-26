@@ -41,9 +41,7 @@ export type ProposalState = {
 
 const INITIAL_STATE = {
   loading: [],
-  data: {
-    
-  },
+  data:{},
   error: null
 }
 

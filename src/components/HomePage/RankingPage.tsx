@@ -31,7 +31,6 @@ useEffect(()=>{
       params:{
         seasonID:1,
         topN:50
-
       }
     }
     onFetchRankings(options)
