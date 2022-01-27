@@ -54,7 +54,7 @@ const ProposalPage = (props: Props) => {
       <Navbar isFullscreen />
       {proposal ?
         <div>
-          <div className='ProposalDetailPage mb-30'>
+          <div className='ProposalDetailPage  mb-30'>
             <div className='mt-34 container  md:max-w-1064 mx-auto'></div>
             <div className='gradientBackgroundFull my-5 '>
               <div className='container py-2 md:max-w-1064 mx-auto flex items-center'>
@@ -67,7 +67,7 @@ const ProposalPage = (props: Props) => {
               <span className='outpoll px-2 flex justify-center content-center items-center'>POLL</span>
             </div>
             <div className='container md:max-w-1064 mx-auto flex ui grid '>
-              <div className='rows  flex mt-31'>
+              <div className='rows flex mt-31'>
                 <div className='body-left mx-6  '>
                   <p>{proposal.body}</p>
                   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -89,7 +89,7 @@ const ProposalPage = (props: Props) => {
                     pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
                     culpa qui officia deserunt mollit anim id est laborum.</p>
                 </div>
-                <div className='body-right '>
+                <div className='body-right'>
                   <div className='right-top mx-6 px-3'>
                     <div><div>CURRENT RESULT</div></div>
                     <div className='mt-30'>

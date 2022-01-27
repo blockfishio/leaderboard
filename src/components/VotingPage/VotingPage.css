@@ -1,0 +1,116 @@
+.mt-33 {
+  margin-top: 6rem;
+}
+.mt-31 {
+  margin-top: 3rem;
+}
+.mt-30 {
+  margin-top: 2rem;
+}
+.mt-29 {
+  margin-top: 10px;
+}
+.mt-34 {
+  margin-top: 7rem;
+}
+.mr-9 {
+  padding-right: 20rem;
+}
+.pt-30{
+  padding-top: 1rem;
+}
+.background-e78f32 {
+  background-color: #e78f32;
+}
+.font-size {
+  font-size: 1rem;
+}
+.br-33 {
+  border-radius: 5px;
+}
+.br-34 {
+  border-radius: 10px;
+}
+.bor-rediuo {
+  border-radius: 50%;
+  margin-right: 1rem;
+  display: inline-block;
+  width: 17px;
+  height: 16px;
+}
+.bor-d {
+  border-radius: 50%;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  display: inline-block;
+  width: 50px;
+  height: 49px;
+}
+.img-font {
+  width: 20rem;
+  height: 15rem;
+}
+.icon-d3 {
+  width: 0;
+  height: 0;
+  border-width: 7px;
+  border-style: solid;
+  border-color: #e78f32 transparent transparent transparent;
+  margin-top: 11px;
+}
+.icon-z3 {
+  width: 0;
+  height: 0;
+  border-width: 7px;
+  border-style: solid;
+  border-color: transparent transparent #e78f32 transparent;
+  margin-top: 4px;
+}
+.font-size-color:hover {
+  color: #e78f32;
+}
+.selectrel {
+  position: relative;
+}
+.selectabs {
+  list-style: none;
+  position: absolute;
+  top: 3rem;
+}
+
+.dis-li {
+  border: 3px solid #e78f32;
+  border-radius: 1rem;
+  background: rgba(145, 147, 148, 0.3);
+}
+.dis-li li {
+  margin: 1rem;
+}
+.br {
+  border: 2px solid #f4921e;
+}
+
+.outcomes {
+  background-color: #535b77;
+}
+.outactive {
+  border: 2px solid #f4921e;
+  border-radius: 20px;
+  margin-right: 8px;
+  font-size: 14px;
+}
+.outpoll {
+  background-color: #fbb03f;
+  border-radius: 20px;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+.action {
+  color: #e78f32;
+}
+.hide {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

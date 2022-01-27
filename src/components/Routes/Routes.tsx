@@ -13,6 +13,7 @@ import { ProposalPageUI } from '../ProposoalPageUI'
 import { CreatePage } from '../CreatePage'
 import { CommunityPage } from '../Community'
 import { PollPage } from '../PollPage'
+import { VotingPage } from '../VotingPage'
 
 const Routes = () => {
   const APP_ID = process.env.REACT_APP_INTERCOM_APP_ID
@@ -31,6 +32,7 @@ const Routes = () => {
         <Route exact path={locations.createProposal()} component={CreatePage} />
         <Route exact path={locations.community()} component={CommunityPage} />
         <Route exact path={locations.pollPage()} component={PollPage} />
+        <Route exact path={locations.voting()} component={VotingPage} />
 
 
         <Redirect to={locations.root()} />
