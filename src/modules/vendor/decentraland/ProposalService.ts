@@ -2,7 +2,7 @@
 
 import { ProposalService as ProposalServiceInterface } from '../services'
 import { proposalAPI } from './proposal/api'
-import { Proposal, Vote } from '../../proposal/types'
+import { Proposal } from '../../proposal/types'
 
 
 
@@ -18,10 +18,6 @@ async getProposal(proposalId:string){
   return remoteProposal
 }
   
-async getAllVotes(proposalId:string){
-  const remoteVotes:Vote[]=await proposalAPI.getAllVotes(proposalId)
-  return remoteVotes
-}
 
   
 

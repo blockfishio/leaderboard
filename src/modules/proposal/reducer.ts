@@ -18,21 +18,17 @@ import {
  FETCH_PROPOSAL_REQUEST,
  FETCH_PROPOSAL_SUCCESS,
  FETCH_PROPOSAL_FAILURE,
- FetchVotesRequestAction,
- FetchVotesSuccessAction,
- FetchVotesFailureAction,
- FETCH_VOTES_REQUEST,
- FETCH_VOTES_SUCCESS,
- FETCH_VOTES_FAILURE
+
 
 
 } from './actions'
+import { stat } from 'fs'
 
 
 
-export type Proposals={
-  proposals:Record<string,Proposal>,
-}
+export type Proposals=
+  Record<string,Proposal>
+
 export type ProposalState = {
   data: Record<string,Proposal>
   loading: LoadingState
@@ -52,9 +48,7 @@ type ProposalReducerAction =
   | FetchProposalRequestAction
   | FetchProposalSuccessAction
   | FetchProposalFailureAction
-  | FetchVotesRequestAction
-  | FetchVotesSuccessAction
-  | FetchVotesFailureAction
+  
   
 
 export function proposalReducer(
@@ -64,7 +58,6 @@ export function proposalReducer(
   switch (action.type) {
     case FETCH_PROPOSALS_REQUEST:
     case FETCH_PROPOSAL_REQUEST:
-    case FETCH_VOTES_REQUEST:
       {
         return {
           ...state,
@@ -73,7 +66,6 @@ export function proposalReducer(
       }
     case FETCH_PROPOSALS_FAILURE:
     case FETCH_PROPOSAL_FAILURE:
-    case FETCH_VOTES_FAILURE:
       {
         return {
           ...state,
@@ -86,21 +78,18 @@ export function proposalReducer(
       return {
         ...state,
         loading: loadingReducer(state.loading, action),
-        data: {
-          ...state.data,
-          proposals:action.payload.proposals
-        }
+        data: 
+          action.payload.proposals
       }
     }
     case FETCH_PROPOSAL_SUCCESS: {
       const {proposal}=action.payload
-      console.log(proposal)
       return {
         ...state,
         loading: loadingReducer(state.loading, action),
         data: {
           ...state.data,
-          [action.payload.proposal.id]:action.payload.proposal
+          [proposal.id]:proposal
         }
       }
     }

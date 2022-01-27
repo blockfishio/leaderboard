@@ -28,7 +28,7 @@ export type ProposalFetchParams={
     space: Space,
     start: number,
     state: string,
-    title: string
+    title: string,
     
   }
 
@@ -52,18 +52,19 @@ export type VoteWhere ={
     proposal_in?: string[]
 }
 
-export type Vote= {
-  id: string
-  voter: string
-  created: number
-  space: Space
-  proposal: {
-    choices: Proposal['choices']
-  }
-  choice: number
-  metadata?: {
-    votingPower: string
-    verificationHash: string
-  }
-  _inValid?: boolean
-}
+// export type Vote= {
+//   id: string
+//   voter: string
+//   created: number
+//   space: Space
+//   proposal: {
+//     choices: Proposal['choices']
+//   }
+//   votingpower:number
+//   choice: number
+//   metadata?: {
+//     votingPower: string
+//     verificationHash: string
+//   }
+//   _inValid?: boolean
+// }

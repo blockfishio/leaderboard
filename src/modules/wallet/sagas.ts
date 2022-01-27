@@ -35,17 +35,8 @@ function* fullWalletSaga() {
 function* handleWallet(
   action:ConnectWalletSuccessAction | ChangeAccountAction | ChangeNetworkAction
 ) {
-  // const chainId: ChainId = yield select(getChainId)
 
   const { address, providerType } = action.payload.wallet
-
-  // const { MANAToken, Marketplace,
-  //   AssetSale } = contractAddresses
-
-  
-
-  // TODO: VendorFactory.build().contractService.getAllowances()
-  // TODO: VendorFactory.build().contractService.getApprovals()
 
   yield put(fetchRewardRequest(1))
 

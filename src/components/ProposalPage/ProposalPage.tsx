@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { Loader, Page } from 'decentraland-ui'
+import React ,{useEffect, useState}from 'react'
+import { Button, Loader, Page } from 'decentraland-ui'
 import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 
 import { Navbar } from '../Navbar'
@@ -7,11 +7,9 @@ import { Footer } from '../Footer'
 
 import { Props } from './ProposalPage.types'
 import './ProposalPage.css'
-import {
-  RankFetchOptions,
-  UserRankFetchParams,
-  Ranking
-} from '../../modules/rank/types'
+
+import { VotingPowerFetchParams } from '../../modules/vote/types'
+import { getVPSum } from '../../modules/vote/utils'
 
 const Loading = () => (
   <div className="nft-center">
@@ -30,7 +28,12 @@ const ProposalPage = (props: Props) => {
     proposal,
     wallet,
     isLoading,
+    votingpower,
+    isVPLoading,
     onFetchProposal,
+    onFetchVotingpower,
+    onFetchVotes,
+    votes,
     proposalId
   } = props
   useEffect(() => {
@@ -45,7 +48,32 @@ const ProposalPage = (props: Props) => {
   //   }
   // },[proposal,proposalId,votings,onFetchVotings])
 
+useEffect(()=>{
+  if (proposal && wallet){
+    const options:VotingPowerFetchParams ={
+      address:wallet.address,
+      blocknumber:proposal.snapshot
+    }
+    onFetchVotingpower(options)
+  }
+},[proposal,wallet,onFetchVotingpower])
+useEffect(()=>{
+  if (proposal ){
+    
+    onFetchVotes(proposal)
+  }
+},[proposal,onFetchVotes])
+let vpSum:Record<number,number>={}
+if(votes){
+vpSum= getVPSum(votes)
+}
 
+
+
+
+const handleOnvote=(index:number)=>{
+    alert(index)
+}
 
   return (
     <>
@@ -56,26 +84,55 @@ const ProposalPage = (props: Props) => {
           <div>{proposal.state}</div>
           <div>{proposal.id}</div>
           <div>{proposal.body}</div>
-          <div>{proposal.choices}</div>
-        </div>
-        : null}
+          {
+            proposal.choices.map(
+              (choice,index)=>{
+                return <div key={index}>
+                  
+                  <Button onClick={
+                    ()=>{
+                    handleOnvote(index+1)
+                    
+                    }}>{choice}</Button>
+                  
+                  
+                   vp: {vpSum[index+1] || 0}</div>
+              }
+            )
+          }
+         
+
+          <div>My Votingpower:</div>
+          {
+            wallet?(isVPLoading?<div>VPLOADING....</div>:
+            
+            
+            <div>
+              {votingpower?.[wallet.address]
+              }
+            </div>):<div>--</div>
+          }
+          
+
+</div>
+         :null }
+      
+      
+      
 
 
-
-
-
-      {isLoading ?
-
-        <Page className='ProposalPage' isFullscreen >
-          <Loading />
-        </Page>
-        : null}
-      {!isLoading && !proposal ?
-        <Page className='ProposalPage' isFullscreen >
-          <NotFound />
-        </Page>
-
-        : null}
+      {isLoading?
+      
+      <Page className='ProposalPage' isFullscreen >
+      <Loading />
+      </Page>
+      :null}
+      {!isLoading && !proposal ? 
+      <Page className='ProposalPage' isFullscreen >
+      <NotFound />
+      </Page>
+      
+      : null}
       <Footer isFullscreen />
     </>
   )

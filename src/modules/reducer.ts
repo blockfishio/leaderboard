@@ -11,6 +11,8 @@ import { routingReducer as routing } from './routing/reducer'
 import {rankingReducer as ranking} from './rank/reducer'
 import { rewardReducer as reward } from './reward/reducer'
 import { proposalReducer as proposal } from './proposal/reducer'
+import { voteReducer as vote } from './vote/reducer'
+
 
 
 
@@ -26,6 +28,7 @@ export const createRootReducer = (history: History) =>
     wallet,
     ranking,
     proposal,
+    vote,
     reward
   })
 
