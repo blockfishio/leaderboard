@@ -13,8 +13,8 @@ import { getData as getVotes,getLoading as getVotesLoading} from '../../modules/
 
 import ProposalPage from './ProposalPage'
 import { getProposal } from '../../modules/proposal/utils'
-import { VotingPowerFetchParams } from '../../modules/vote/types'
-import { fetchVotesRequest, fetchVotingpowerRequest, FETCH_VOTINGPOWER_REQUEST } from '../../modules/vote/actions'
+import { VoteMsg, VotingPowerFetchParams } from '../../modules/vote/types'
+import { castVoteRequest, fetchVotesRequest, fetchVotingpowerRequest, FETCH_VOTINGPOWER_REQUEST } from '../../modules/vote/actions'
 import { Proposal } from '../../modules/proposal/types'
 
 const mapState = (state: RootState): MapStateProps =>{ 
@@ -40,7 +40,8 @@ const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({
   onFetchVotingpower:(options:VotingPowerFetchParams)=>dispatch(fetchVotingpowerRequest(options)),
   onFetchVotes:(proposal:Proposal) => dispatch(fetchVotesRequest(
     proposal
-  ))
+  )),
+  onCastVote:(voteMsg:string)=>dispatch(castVoteRequest(voteMsg))
   
 })
 

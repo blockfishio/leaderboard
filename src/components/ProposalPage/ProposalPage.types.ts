@@ -9,7 +9,9 @@ import { Wallet } from 'decentraland-dapps/dist/modules/wallet/types'
 import { fetchVotingpowerRequest,
    FetchVotingpowerRequestAction,
    fetchVotesRequest,
-   FetchVotesRequestAction
+   FetchVotesRequestAction,
+   castVoteRequest,
+   CastVoteRequestAction
 
    } from '../../modules/vote/actions'
 import { VotingPower } from '../../modules/vote/reducer'
@@ -23,6 +25,7 @@ export type Props = {
   onFetchProposal:typeof fetchProposalRequest
   onFetchVotingpower:typeof fetchVotingpowerRequest
   onFetchVotes:typeof fetchVotesRequest
+  onCastVote:typeof castVoteRequest
 
   isLoading: boolean
   isConnecting: boolean
@@ -34,5 +37,5 @@ export type MapStateProps = Pick<
   Props,
   'isLoading' | "wallet" | "isConnecting" | "proposal" | "proposalId" | "votingpower" | "isVPLoading" | "votes"
 >
-export type MapDispatchProps = Pick<Props, 'onFetchProposal' | 'onFetchVotingpower' | 'onFetchVotes'>
-export type MapDispatch = Dispatch<FetchProposalRequestAction | FetchVotingpowerRequestAction | FetchVotesRequestAction>
+export type MapDispatchProps = Pick<Props, 'onFetchProposal' | 'onFetchVotingpower' | 'onFetchVotes' | 'onCastVote'>
+export type MapDispatch = Dispatch<FetchProposalRequestAction | FetchVotingpowerRequestAction | FetchVotesRequestAction | CastVoteRequestAction>

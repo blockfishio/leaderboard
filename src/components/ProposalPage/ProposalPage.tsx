@@ -9,7 +9,8 @@ import {Props} from './ProposalPage.types'
 import './ProposalPage.css'
 
 import { VotingPowerFetchParams } from '../../modules/vote/types'
-import { getVPSum } from '../../modules/vote/utils'
+import { getVPSum,generatePayloadData,sendSnapshotData } from '../../modules/vote/utils'
+import {Message,SnapshotCommand } from '../../modules/vote/types'
 
   const Loading = () => (
     <div className="nft-center">
@@ -34,7 +35,8 @@ const ProposalPage = (props:Props) => {
     onFetchVotingpower,
     onFetchVotes,
     votes,
-    proposalId
+    proposalId,
+    onCastVote
   }=props
 useEffect(()=>{
   if (!proposal && proposalId){
@@ -65,10 +67,17 @@ vpSum= getVPSum(votes)
 
 
 
-const handleOnvote=(index:number)=>{
-    alert(index)
+const handleOnvote=(choice:number)=>{
+    const voteMsg = JSON.stringify({
+      ...generatePayloadData(),
+      type: SnapshotCommand.VOTE,
+      payload: {
+        proposal: proposalId,
+        choice: choice,
+      },
+    })
+    onCastVote(voteMsg)
 }
-
   return (
     <>
       <Navbar isFullscreen />
