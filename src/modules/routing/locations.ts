@@ -10,6 +10,7 @@ export const locations = {
   community: () => '/community',
   createProposal: () => '/create',
   pollPage: () => '/poll',
+  voting: () => '/voting',
 
   proposal: (
     proposalId: string = ':proposalId'
