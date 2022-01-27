@@ -5,26 +5,26 @@ import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
 
-import {Props} from './ProposalPage.types'
+import { Props } from './ProposalPage.types'
 import './ProposalPage.css'
 
 import { VotingPowerFetchParams } from '../../modules/vote/types'
 import { getVPSum,generatePayloadData,sendSnapshotData } from '../../modules/vote/utils'
 import {Message,SnapshotCommand } from '../../modules/vote/types'
 
-  const Loading = () => (
-    <div className="nft-center">
-      <Loader active size="huge" />
-    </div>
-  )
-  
-  const NotFound = () => (
-    <div className="nft-center">
-      <p className="secondary-text">{t('global.not_found')}&hellip;</p>
-    </div>
-  )
+const Loading = () => (
+  <div className="nft-center">
+    <Loader active size="huge" />
+  </div>
+)
 
-const ProposalPage = (props:Props) => {
+const NotFound = () => (
+  <div className="nft-center">
+    <p className="secondary-text">{t('global.not_found')}&hellip;</p>
+  </div>
+)
+
+const ProposalPage = (props: Props) => {
   const {
     proposal,
     wallet,
@@ -81,11 +81,11 @@ const handleOnvote=(choice:number)=>{
   return (
     <>
       <Navbar isFullscreen />
-        {proposal?
+      {proposal ?
         <div>
-        <div>{proposal.title}</div>
-        <div>{proposal.state}</div>
-        <div>{proposal.id}</div>
+          <div>{proposal.title}</div>
+          <div>{proposal.state}</div>
+          <div>{proposal.id}</div>
           <div>{proposal.body}</div>
           {
             proposal.choices.map(

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
 import { Props } from './CreatePage.type'
@@ -26,12 +26,15 @@ const CreatePage = (props: Props) => {
 
   const [data, setData] = useState('')
   const [area, setArea] = useState('')
+  const [weekStep, setWeekStep] = useState([])
 
   const handleDataonChange = (e: any) => {
     setData(e.target.value)
   }
   const handleAreaonChange = (e: any) => {
     setArea(e.target.value)
+  }
+  const handleAddonClick = () =>{
   }
 
   return (
@@ -73,11 +76,11 @@ const CreatePage = (props: Props) => {
             </div>
             <div className='mt-31 w-80'>
               <label className='text-3xl'>Options</label>
-              <div>
-                <div className='mt-30'><input className='title-inp br-33 w-80  py-3' type="text" placeholder='  Vote option 1' /></div>
-                <div className='mt-30'><input className='title-inp br-33 w-80 py-3'  type="text" placeholder='  Vote option 2' /></div>
-              </div>
-              <button></button>
+              {
+
+              }
+              <div className='mt-30 flex justify-center md:justify-center flex-col md:flex-row items-center' onClick={handleAddonClick}><button className='add'>ADD OPTION</button></div>
+              <div className='text-center text-1xl  mt-30 px-2 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer'><button>SUBMIT A PROPOSAL</button></div>
             </div>
           </div>
 
