@@ -111,7 +111,7 @@ const handleOnvote=(choice:number)=>{
             
             
             <div>
-              {votingpower?.[wallet.address]
+              {votingpower?.map( (vp)=>{return vp[wallet.address]})
               }
             </div>):<div>--</div>
           }

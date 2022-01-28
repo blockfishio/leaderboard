@@ -20,7 +20,7 @@ export type Props = {
   wallet:Wallet | null
   proposal:Proposal | null
   proposalId:string | null
-  votingpower:VotingPower | null
+  votingpower:VotingPower[] | null
   votes:Record<string,Vote> | null
   onFetchProposal:typeof fetchProposalRequest
   onFetchVotingpower:typeof fetchVotingpowerRequest

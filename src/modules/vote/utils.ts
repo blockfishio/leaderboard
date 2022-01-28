@@ -59,3 +59,15 @@ export function getVPSum(
   const data = await response.json()
   return data
 }
+
+export const UserVoted = (votes:Record<string,Vote>,address:string)=>{
+  for (const vote of Object.values(votes)){
+  
+    if (vote.voter.toLowerCase() == address.toLowerCase()){
+      return true
+    }
+
+    }
+    return   false
+
+}

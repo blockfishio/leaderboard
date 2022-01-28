@@ -22,7 +22,7 @@ export const fetchVotingpowerRequest = (
   action(FETCH_VOTINGPOWER_REQUEST, options)
 export const fetchVotingpowerSuccess = (
   options:VotingPowerFetchParams,
-  votingpower:VotingPower
+  votingpower:VotingPower[]
 
     ) =>
   action(FETCH_VOTINGPOWER_SUCCESS, {

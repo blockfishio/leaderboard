@@ -2,7 +2,6 @@ import React, { useEffect, useState, useCallback } from 'react'
 import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
 import { Props } from './CommunityPage.type'
-import { UserRankFetchParams } from '../../modules/rank/types'
 import arrowIcon from '../../images/ic_icon@2x.png'
 import building from '../../images/Building04.png'
 import select04 from '../../images/Select a file name for output files_Camera 1_004.png'
@@ -12,7 +11,6 @@ import select29 from '../../images/Select a file name for output files_Camera 2_
 import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 import './CommunityPage.css'
 import { locations } from '../../modules/routing/locations'
-import { ProposalsFetchParams } from '../../modules/proposal/types'
 import { Loader, Page } from 'decentraland-ui'
 
 
@@ -30,20 +28,11 @@ const NotFound = () => (
 
 const CommunityPage = (props: Props) => {
   const {
-    proposals,
     wallet,
     isLoading,
-    onFetchProposals,
     onNavigate,
   } = props
-  useEffect(() => {
-    const option: ProposalsFetchParams = {
-      first: 5,
-      skip: 0,
-      state: ''
-    }
-    onFetchProposals(option)
-  }, [onFetchProposals])
+
 
 
   const handCreate = useCallback(() => onNavigate(locations.pollPage()), [
@@ -58,7 +47,7 @@ const CommunityPage = (props: Props) => {
         <div>
           <div className='mt-33 container  md:max-w-1064 mx-auto'>
             <div className='flex flex-row text-4xl md:text-6xl'>
-              <div className='mr-9 '>DOA</div>
+              <div className='mr-9 '>DAO</div>
               <div className='w-8 md:w-12'>
                 <img src={arrowIcon} alt="arrow icon" />
               </div>

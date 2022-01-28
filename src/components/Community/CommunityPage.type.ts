@@ -9,8 +9,6 @@ import { Wallet } from 'decentraland-dapps/dist/modules/wallet/types'
 import { CallHistoryMethodAction } from 'connected-react-router'
 export type Props = {
     wallet: Wallet | null
-    proposals: Record<string,Proposal>
-    onFetchProposals: typeof fetchProposalsRequest
 
     onNavigate: (path: string) => void
 
@@ -20,8 +18,8 @@ export type Props = {
 
 export type MapStateProps = Pick<
     Props,
-    'isLoading' | 'wallet' | 'isConnecting' | 'proposals' 
+    'isLoading' | 'wallet' | 'isConnecting' 
 >
-export type MapDispatchProps = Pick<Props, 'onFetchProposals' | 'onNavigate'>
+export type MapDispatchProps = Pick<Props, 'onNavigate'>
 export type MapDispatch = Dispatch<
     FetchProposalsRequestAction | CallHistoryMethodAction>

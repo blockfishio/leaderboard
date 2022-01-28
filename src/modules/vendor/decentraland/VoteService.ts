@@ -18,8 +18,15 @@ export class VoteService implements VoteServiceInterface {
         name: 'erc20-balance-of',
         params: {
           address: '0x13A637026dF26F846D55ACC52775377717345c06',
-          symbol: 'DAI',
+          symbol: 'SPAY',
           decimals: 18
+        }
+      },
+      {
+        "name": "spacey2025",
+        "params": {
+          "address": "0x230185C3B02b897B89cb1e62717AD7772b8319DA",
+          "symbol": "NFT"
         }
       }
     ];
@@ -30,17 +37,32 @@ export class VoteService implements VoteServiceInterface {
     strategies,
     network,
     voters,
-    blockNumber
+    parseInt(blockNumber)
   )
+  let res:VotingPower[]=[]
+  for (const remoteVp of remoteVotingpower){
+    res.push(this.parseVotingPower(remoteVp))
+  }
+ 
 
 
-return remoteVotingpower[0]
+return res
 
 }
 
 async getAllVotes(proposal:Proposal){
   const remoteVotes:Record<string,Vote>=await voteAPI.getAllVotes(proposal)
   return remoteVotes
+}
+
+parseVotingPower(remoteVotingPower: VotingPower){
+  const res:VotingPower={}
+  Object.keys(remoteVotingPower).map(
+    (key)=>{
+      res[key.toLowerCase()]=remoteVotingPower[key]
+    }
+  )
+  return res
 }
 
   

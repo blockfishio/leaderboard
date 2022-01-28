@@ -36,7 +36,7 @@ export type VotingPower=
   Record<string,number>
 export type VoteState = {
   data:  {
-    vp:VotingPower
+    vp:VotingPower[]
     votes:Record<string,Vote>
   }
   loading: LoadingState
@@ -46,7 +46,7 @@ export type VoteState = {
 const INITIAL_STATE = {
   loading: [],
   data: {
-    vp:{},
+    vp:[],
     votes:{}
     
   },

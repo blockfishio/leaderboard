@@ -31,7 +31,8 @@ const mapState = (state: RootState): MapStateProps =>{
   isConnecting: isConnecting(state),
   isLoading: isLoadingType(getProposalLoading(state), FETCH_PROPOSAL_REQUEST) ,
   isVPLoading:isLoadingType(getVotesLoading(state),FETCH_VOTINGPOWER_REQUEST)
-}}
+}
+}
 
 const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({
   onFetchProposal: (proposalId:string) => dispatch(fetchProposalRequest(

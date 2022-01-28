@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { isLoadingType } from 'decentraland-dapps/dist/modules/loading/selectors'
 import { push } from 'connected-react-router'
 import { RootState } from '../../modules/reducer'
-import { FETCH_PROPOSAL_REQUEST,
+import { FETCH_PROPOSALS_REQUEST,
   fetchProposalsRequest, 
   } from '../../modules/proposal/actions'
 
@@ -19,7 +19,7 @@ const mapState = (state: RootState): MapStateProps =>{
   wallet:getWallet(state),
   proposals: proposals,
   isConnecting: isConnecting(state),
-  isLoading: isLoadingType(getProposalLoading(state), FETCH_PROPOSAL_REQUEST) 
+  isLoading: isLoadingType(getProposalLoading(state), FETCH_PROPOSALS_REQUEST) 
 }}
 
 const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({

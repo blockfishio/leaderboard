@@ -17,7 +17,7 @@ export const fetchProposalsRequest = (options:ProposalsFetchParams) =>
       timestamp: Date.now()
     })
 export const fetchProposalsSuccess = (
-    proposals:any,
+    proposals:Proposal[],
     timestamp:number
     ) =>
   action(FETCH_PROPOSALS_SUCCESS, {

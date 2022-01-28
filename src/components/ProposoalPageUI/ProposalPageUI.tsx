@@ -7,12 +7,9 @@ import { Footer } from '../Footer'
 
 import { Props } from './ProposalPageUI.types'
 import './ProposalPageUI.css'
-import {
-  RankFetchOptions,
-  UserRankFetchParams,
-  Ranking
-} from '../../modules/rank/types'
 import { locations } from '../../modules/routing/locations'
+import { SnapshotCommand, VotingPowerFetchParams } from '../../modules/vote/types'
+import { generatePayloadData,UserVoted } from '../../modules/vote/utils'
 
 const Loading = () => (
   <div className="nft-center">
@@ -31,9 +28,14 @@ const ProposalPage = (props: Props) => {
     proposal,
     wallet,
     isLoading,
+    votes,
+    votingpower,
     onFetchProposal,
+    onCastVote,
+    onFetchVotes,
+    onFetchVotingpower,
     proposalId,
-    onNavigate
+    onNavigate,
   } = props
   useEffect(() => {
     if (!proposal && proposalId) {
@@ -41,14 +43,51 @@ const ProposalPage = (props: Props) => {
     }
   }, [proposal, proposalId, onFetchProposal])
 
-  // useEffect(()=>{
-  //   if (!votings && proposal){
-  //     onFetchVotings(proposalId)
-  //   }
-  // },[proposal,proposalId,votings,onFetchVotings])
+  useEffect(()=>{
+    if (proposal && wallet){
+      const options:VotingPowerFetchParams ={
+        address:wallet.address,
+        blocknumber:proposal.snapshot
+      }
+      onFetchVotingpower(options)
+    }
+  },[proposal,wallet,onFetchVotingpower])
+  useEffect(()=>{
+    if (proposal ){
+      
+      onFetchVotes(proposal)
+    }
+  },[proposal,onFetchVotes])
+
+
   const handlePollonClick = useCallback(() => onNavigate(locations.pollPage()), [
     onNavigate
   ])
+
+  const handleOnvote=(choice:number)=>{
+    const voteMsg = JSON.stringify({
+      ...generatePayloadData(),
+      type: SnapshotCommand.VOTE,
+      payload: {
+        proposal: proposalId,
+        choice: choice,
+      },
+    })
+    onCastVote(voteMsg)
+}
+
+  let userVp=0
+  if (votingpower && wallet?.address){
+  for (const vp of votingpower){
+    console.log(vp)
+    console.log(wallet.address)
+    userVp+=vp[wallet.address] || 0
+  }
+  }
+  let voted=false
+  if (votes && wallet?.address){
+    voted=UserVoted(votes,wallet.address)
+  }
   return (
     <>
       <Navbar isFullscreen />
@@ -92,62 +131,58 @@ const ProposalPage = (props: Props) => {
                 <div className='body-right'>
                   <div className='right-top mx-6 px-3'>
                     <div><div>CURRENT RESULT</div></div>
-                    <div className='mt-30'>
-                      <div className='text-1xl'>Yes, I agree.</div>
-                      <div>
-                        <div className='message'>0%</div>
-                        <div className='progress progress--status-0'><div className='progress--bar' style={{ width: "23%" }}></div></div>
-                        <div>0 VP (0 votes)</div>
+                  {
+                    proposal.choices.map(
+                      (choice,index)=>{
+                        return <div className='mt-30' key={index}>
+                        <div className='text-1xl'>{choice}</div>
+                        <div>
+                          <div className='message'>0%</div>
+                          <div className='progress progress--status-0'><div className='progress--bar' style={{ width: "23%" }}></div></div>
+                          <div>0 VP (0 votes)</div>
+                        </div>
                       </div>
-                    </div>
-                    <div className='mt-30'>
-                      <div>No, I don't agree.</div>
-                      <div>
-                        <div className='message'>0%</div>
-                        <div className='progress progress--status-0'><div className='progress--bar' style={{ width: "43%" }}></div></div>
-                        <div>0 VP (0 votes)</div>
-                      </div>
-                    </div>
-                    <div className='mt-30'>
-                      <div>Invalid question/options</div>
-                      <div>
-                        <div className='message'>0%</div>
-                        <div className='progress progress--status-0'><div className='progress--bar' style={{ width: "63%" }}></div></div>
-                        <div>0 VP (0 votes)</div>
-                      </div>
-                    </div>
-                    <div className='mt-30 mb-30'>
-                      <div>Yes, I agree.</div>
-                      <div>
-                        <div className='message'>0%</div>
-                        <div className='progress progress--status-0'><div className='progress--bar' style={{ width: "83%" }}></div></div>
-                        <div>0 VP (0 votes)</div>
-                      </div>
-                    </div>
+                      }
+                    )
+
+                  }
                   </div>
                   <div className='right-main flex flex-col mx-6 px-3 mb-30'>
-                    <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 '>Vote Yes, I agree.</button></div>
-                    <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 '>Vote No, I don't agree.</button></div>
-                    <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 '>Vote Invalid question/options</button></div>
-                    <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 '>Vote Yes, I agree.</button></div>
-                    <div className='mt-29 mb-30'><div>Voting with <span></span>0 VP</div></div>
+                    {
+                      proposal.choices.map(
+                        (choice,index)=>{
+                          return  <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 ' onClick={ ()=>{
+                            handleOnvote(index+1)
+                          } }>Vote {choice}</button></div>
+
+                        }
+                      )
+                    }
+                    <div className='mt-29 mb-30'>
+                      { voted?                      <div>Voted with <span></span>{wallet?userVp:"--"} VP</div>
+:
+                      <div>Vote with <span></span>{wallet?userVp:"--"} VP</div>
+}
+                      
+                      </div>
                   </div>
                   <div className='right-bottom mx-6 px-3 '>
                     <div className='mt-29'>DETAILS</div>
                     <div className='flex justify-between md:justify-between flex-row md:flex-row mt-29'>
                       <div>Created by</div>
-                      <a href=""><img src="" alt="" /> rokusho#9245</a>
+                      <a href=""><img src="" alt="" /> {proposal.author}</a>
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29'>
                       <div>Started</div>
-                      <div>Jan 11 12:53</div>
+                      <div>{proposal.start}</div>
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29'>
                       <div>Ends</div>
-                      <div>Jan 11 12:53</div>
+                      <div>{proposal.end}</div>
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29 mb-30'>
                       <div>Snapshot</div>
+                      <div>{proposal.snapshot}</div>
                     </div>
                   </div>
                 </div>
