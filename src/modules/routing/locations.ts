@@ -11,11 +11,7 @@ export const locations = {
   createProposal: () => '/create',
   pollPage: () => '/poll',
   voting: () => '/voting',
-<<<<<<< HEAD
   rankPage: () => '/rank',
-=======
-  ranking: () => '/ranking',
->>>>>>> 16f07382afd0e811438c4ef0373fa880aa7f361e
 
 
 

@@ -27,11 +27,7 @@ const Routes = () => {
 
         <Route exact path={locations.root()} component={CommunityPage} />
 
-<<<<<<< HEAD
         <Route exact path={locations.rankPage()} component={RankingPage} />
-=======
-        <Route exact path={locations.ranking()} component={RankingPage} />
->>>>>>> 16f07382afd0e811438c4ef0373fa880aa7f361e
         <Route exact path={locations.signIn()} component={SignInPage} />
         <Route exact path={locations.proposalfake()} component={ProposalFake} />
         <Route exact path={locations.proposal()} component={ProposalPageUI} />
