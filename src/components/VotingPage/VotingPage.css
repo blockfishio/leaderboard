@@ -16,7 +16,7 @@
 .mr-9 {
   padding-right: 20rem;
 }
-.pt-30{
+.pt-30 {
   padding-top: 1rem;
 }
 .background-e78f32 {
@@ -116,5 +116,22 @@
 }
 
 @media screen and (min-width: 767px) {
+<<<<<<< HEAD
     
 }
+=======
+  .power-left,
+  .power-right {
+    width: 50% !important;
+  }
+}
+@media screen and (max-width: 767px) {
+  .power-left,
+  .power-right {
+    width: 100% !important;
+  }
+  .rows {
+    flex-direction: column;
+  }
+}
+>>>>>>> 16f07382afd0e811438c4ef0373fa880aa7f361e

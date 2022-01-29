@@ -3,18 +3,20 @@ import { isLoadingType } from 'decentraland-dapps/dist/modules/loading/selectors
 
 import { RootState } from '../../modules/reducer'
 import { FETCH_PROPOSAL_REQUEST,
-  fetchProposalRequest,
+  fetchProposalRequest, 
   } from '../../modules/proposal/actions'
 
-import { MapStateProps, MapDispatch, MapDispatchProps } from './ProposalPage.types'
+import { MapStateProps, MapDispatch, MapDispatchProps } from './ProposalFake.types'
 import { getData as getProposals,getLoading as getProposalLoading,getProposalId} from '../../modules/proposal/selectors'
-import { getWallet, isConnecting } from '../../modules/wallet/selectors'
 import { getData as getVotes,getLoading as getVotesLoading} from '../../modules/vote/selectors'
 
-import ProposalPage from './ProposalPage'
+import { getWallet, isConnecting } from '../../modules/wallet/selectors'
+
+import ProposalFake from './ProposalFake'
 import { getProposal } from '../../modules/proposal/utils'
-import { VoteMsg, VotingPowerFetchParams } from '../../modules/vote/types'
+import { push } from 'connected-react-router'
 import { castVoteRequest, fetchVotesRequest, fetchVotingpowerRequest, FETCH_VOTINGPOWER_REQUEST } from '../../modules/vote/actions'
+import { VotingPowerFetchParams } from '../../modules/vote/types'
 import { Proposal } from '../../modules/proposal/types'
 
 const mapState = (state: RootState): MapStateProps =>{ 
@@ -38,12 +40,12 @@ const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({
   onFetchProposal: (proposalId:string) => dispatch(fetchProposalRequest(
     proposalId
   )),
+  onNavigate: (path:string) => dispatch(push(path)),
   onFetchVotingpower:(options:VotingPowerFetchParams)=>dispatch(fetchVotingpowerRequest(options)),
   onFetchVotes:(proposal:Proposal) => dispatch(fetchVotesRequest(
     proposal
   )),
   onCastVote:(voteMsg:string)=>dispatch(castVoteRequest(voteMsg))
-  
 })
 
-export default connect(mapState, mapDispatch)(ProposalPage)
+export default connect(mapState, mapDispatch)(ProposalFake)

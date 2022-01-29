@@ -35,7 +35,7 @@ export interface VoteService{
   getVotingpower:(
     address:string,
     blockNumber:string
-  )=>Promise<VotingPower>
+  )=>Promise<VotingPower[]>
   getAllVotes:(
     proposal:Proposal
   )=>Promise<Record<string,Vote>>

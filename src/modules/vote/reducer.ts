@@ -19,6 +19,13 @@ import {
  FETCH_VOTES_REQUEST,
  FETCH_VOTES_SUCCESS,
  FETCH_VOTES_FAILURE,
+ CastVoteRequestAction,
+ CastVoteSuccessAction,
+ CastVoteFailureAction,
+ CAST_VOTE_REQUEST,
+ CAST_VOTE_SUCCESS,
+ CAST_VOTE_FAILURE,
+
 
 
 } from './actions'
@@ -29,7 +36,7 @@ export type VotingPower=
   Record<string,number>
 export type VoteState = {
   data:  {
-    vp:VotingPower
+    vp:VotingPower[]
     votes:Record<string,Vote>
   }
   loading: LoadingState
@@ -39,7 +46,7 @@ export type VoteState = {
 const INITIAL_STATE = {
   loading: [],
   data: {
-    vp:{},
+    vp:[],
     votes:{}
     
   },
@@ -53,6 +60,9 @@ type VoteReducerAction =
   | FetchVotesRequestAction
   | FetchVotesSuccessAction
   | FetchVotesFailureAction
+  | CastVoteRequestAction
+  | CastVoteSuccessAction
+  | CastVoteFailureAction
 
   
 
@@ -64,6 +74,7 @@ export function voteReducer(
     
     case FETCH_VOTINGPOWER_REQUEST:
     case FETCH_VOTES_REQUEST:
+    case CAST_VOTE_REQUEST:
       {
         return {
           ...state,
@@ -73,6 +84,7 @@ export function voteReducer(
     
     case FETCH_VOTINGPOWER_FAILURE:
     case FETCH_VOTES_FAILURE:
+    case CAST_VOTE_FAILURE:
       {
         return {
           ...state,
@@ -106,6 +118,15 @@ export function voteReducer(
           }
         }
       }
+      case CAST_VOTE_SUCCESS:{
+        return {
+          ...state,
+          loading:loadingReducer(state.loading,action),
+        
+        }
+      }
+
+      
     
     
    

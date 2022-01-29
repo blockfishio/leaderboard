@@ -55,3 +55,27 @@ export type Vote= {
 }
 
 export type Votes=Record<string,Vote[]>
+
+export interface Message {
+  address: string
+  msg: string
+  sig: string
+}
+
+export enum SnapshotCommand {
+  PROPOSAL = 'proposal',
+  VOTE = 'vote',
+}
+
+export type VoteMsg={
+  version:string
+  timestamp:string
+  space:string
+  type:SnapshotCommand
+  payload:VotePayload
+}
+
+export type VotePayload={
+  proposal:string
+  choice:number
+}

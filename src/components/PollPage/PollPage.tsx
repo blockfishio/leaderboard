@@ -44,9 +44,7 @@ const PollPage = (props: Props) => {
   console.log(proposals);
 
 
-  const [data, setData]: any = useState(proposals)
   const [top, setTop] = useState(false)
-  console.log(data);
 
 
   // const handleToponClick = () => {
@@ -110,7 +108,7 @@ const PollPage = (props: Props) => {
               </div>
               <div className='container  md:max-w-1064 mx-auto'>
                 {
-                  data.map((item: { title: string, body: string, state: string, id: string }, id: any) => (
+                  Object.values(proposals).map((item: { title: string, body: string, state: string, id: string }, id: any) => (
                     <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30' key={id} onClick={() => handleDataonClick(item.id)}>
                       <div className='px-9 py-2'>
                         <div className='text-2xl'>{item.title}</div>

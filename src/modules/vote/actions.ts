@@ -4,6 +4,7 @@ import { VotingPower } from './reducer'
 import {
  
   Vote,
+  VoteMsg,
   VotingPowerFetchParams
 
 } from './types'
@@ -21,7 +22,7 @@ export const fetchVotingpowerRequest = (
   action(FETCH_VOTINGPOWER_REQUEST, options)
 export const fetchVotingpowerSuccess = (
   options:VotingPowerFetchParams,
-  votingpower:VotingPower
+  votingpower:VotingPower[]
 
     ) =>
   action(FETCH_VOTINGPOWER_SUCCESS, {
@@ -63,3 +64,28 @@ export const fetchVotesFailure = (
 export type FetchVotesRequestAction = ReturnType<typeof fetchVotesRequest>
 export type FetchVotesSuccessAction = ReturnType<typeof fetchVotesSuccess>
 export type FetchVotesFailureAction = ReturnType<typeof fetchVotesFailure>
+
+// Cast Votes
+
+export const CAST_VOTE_REQUEST = '[Request] Cast Vote '
+export const CAST_VOTE_SUCCESS = '[Success] Cast Vote '
+export const CAST_VOTE_FAILURE = '[Failure] Cast Vote '
+
+export const castVoteRequest = (voteMsg:string) =>
+  action(CAST_VOTE_REQUEST, { 
+      voteMsg
+    })
+export const castVoteSuccess = (
+    
+    ) =>
+  action(CAST_VOTE_SUCCESS, {
+})
+export const castVoteFailure = (
+ voteMsg:string,
+  error:string
+) => action(CAST_VOTE_FAILURE, { 
+     voteMsg,error })
+
+export type CastVoteRequestAction = ReturnType<typeof castVoteRequest>
+export type CastVoteSuccessAction = ReturnType<typeof castVoteSuccess>
+export type CastVoteFailureAction = ReturnType<typeof castVoteFailure>

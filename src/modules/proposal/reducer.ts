@@ -75,11 +75,17 @@ export function proposalReducer(
       }
     
     case FETCH_PROPOSALS_SUCCESS: {
+      const {proposals}=action.payload
+      const newData:Record<string,Proposal>={}
+      proposals.map((p)=>newData[p.id]=p)
       return {
         ...state,
         loading: loadingReducer(state.loading, action),
-        data: 
-          action.payload.proposals
+        data: {
+          ...state.data,
+          ...newData
+        }
+        
       }
     }
     case FETCH_PROPOSAL_SUCCESS: {

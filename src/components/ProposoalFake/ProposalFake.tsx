@@ -5,8 +5,8 @@ import Returns from '../../images/DAO_04_04.jpg'
 import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
 
-import { Props } from './ProposalPageUI.types'
-import './ProposalPageUI.css'
+import { Props } from './ProposalFake.types'
+import './ProposalFake.css'
 import { locations } from '../../modules/routing/locations'
 import { SnapshotCommand, VotingPowerFetchParams } from '../../modules/vote/types'
 import { generatePayloadData,UserVoted } from '../../modules/vote/utils'
@@ -23,7 +23,7 @@ const NotFound = () => (
   </div>
 )
 
-const ProposalPage = (props: Props) => {
+const FakeProposalPage = (props: Props) => {
   const {
     proposal,
     wallet,
@@ -109,7 +109,7 @@ const ProposalPage = (props: Props) => {
               <div className='rows flex mt-31'>
                 <div className='body-left mx-6  '>
                   <p>{proposal.body}</p>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+                  <p>菅佳乐Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
                     enim ad minim veniam, quis nostrud exercitation ullamco laboris
                     nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
                     reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
@@ -151,7 +151,7 @@ const ProposalPage = (props: Props) => {
                     {
                       proposal.choices.map(
                         (choice,index)=>{
-                          return  <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 ' onClick={ ()=>{
+                          return  <div className='mt-29'><button disabled className='ui button ChoiceButton ChoiceButton--status-0 ' onClick={ ()=>{
                             handleOnvote(index+1)
                           } }>Vote {choice}</button></div>
 
@@ -213,4 +213,4 @@ const ProposalPage = (props: Props) => {
   )
 }
 
-export default React.memo(ProposalPage)
+export default React.memo(FakeProposalPage)
