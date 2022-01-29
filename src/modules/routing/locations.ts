@@ -12,6 +12,7 @@ export const locations = {
   pollPage: () => '/poll',
   voting: () => '/voting',
   rankPage: () => '/rank',
+  fakePage: () => '/fake',
 
 
 

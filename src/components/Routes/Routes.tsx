@@ -10,7 +10,7 @@ import { locations } from '../../modules/routing/locations'
 import { SignInPage } from '../SignInPage'
 import { RankingPage } from '../HomePage'
 import { ProposalPageUI } from '../ProposoalPageUI'
-import { ProposalFake } from '../ProposoalFake'
+import { ProposalFake } from '../ProposalFake'
 import { CreatePage } from '../CreatePage'
 import { CommunityPage } from '../Community'
 import { PollPage } from '../PollPage'
@@ -29,11 +29,11 @@ const Routes = () => {
 
         <Route exact path={locations.rankPage()} component={RankingPage} />
         <Route exact path={locations.signIn()} component={SignInPage} />
-        <Route exact path={locations.proposalfake()} component={ProposalFake} />
         <Route exact path={locations.proposal()} component={ProposalPageUI} />
         <Route exact path={locations.createProposal()} component={CreatePage} />
         <Route exact path={locations.pollPage()} component={PollPage} />
         <Route exact path={locations.voting()} component={VotingPage} />
+        <Route exact path={locations.fakePage()} component={ProposalFake} />
 
 
         <Redirect to={locations.root()} />

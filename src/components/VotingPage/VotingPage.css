@@ -116,10 +116,6 @@
 }
 
 @media screen and (min-width: 767px) {
-<<<<<<< HEAD
-    
-}
-=======
   .power-left,
   .power-right {
     width: 50% !important;
@@ -134,4 +130,3 @@
     flex-direction: column;
   }
 }
->>>>>>> 16f07382afd0e811438c4ef0373fa880aa7f361e
