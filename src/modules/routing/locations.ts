@@ -11,6 +11,7 @@ export const locations = {
   createProposal: () => '/create',
   pollPage: () => '/poll',
   voting: () => '/voting',
+  rankPage: () => '/rank',
 
   proposal: (
     proposalId: string = ':proposalId'

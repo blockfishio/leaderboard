@@ -167,16 +167,7 @@ const CommunityPage = (props: Props) => {
           </div>
         </div>
       }
-      {isLoading ?
-        <Page className='ProposalPage' isFullscreen >
-          <Loading />
-        </Page>
-        : null}
-      {!isLoading ?
-        <Page className='ProposalPage' isFullscreen >
-          <NotFound />
-        </Page>
-        : null}
+      
       <Footer isFullscreen />
     </div>
   )
