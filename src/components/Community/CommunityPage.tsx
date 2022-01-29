@@ -8,23 +8,23 @@ import select04 from '../../images/Select a file name for output files_Camera 1_
 import select09 from '../../images/Select a file name for output files_Camera 1_009.png'
 import select24 from '../../images/Select a file name for output files_Camera 2_004.png'
 import select29 from '../../images/Select a file name for output files_Camera 2_009.png'
-import { t } from 'decentraland-dapps/dist/modules/translation/utils'
+// import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 import './CommunityPage.css'
 import { locations } from '../../modules/routing/locations'
-import { Loader, Page } from 'decentraland-ui'
+// import { Loader, Page } from 'decentraland-ui'
 
 
-const Loading = () => (
-  <div className="nft-center">
-    <Loader active size="huge" />
-  </div>
-)
+// const Loading = () => (
+//   <div className="nft-center">
+//     <Loader active size="huge" />
+//   </div>
+// )
 
-const NotFound = () => (
-  <div className="nft-center">
-    <p className="secondary-text">{t('global.not_found')}&hellip;</p>
-  </div>
-)
+// const NotFound = () => (
+//   <div className="nft-center">
+//     <p className="secondary-text">{t('global.not_found')}&hellip;</p>
+//   </div>
+// )
 
 const CommunityPage = (props: Props) => {
   const {
@@ -156,7 +156,7 @@ const CommunityPage = (props: Props) => {
           </div>
         </div>
       }
-      {isLoading ?
+      {/* {isLoading ?
         <Page className='ProposalPage' isFullscreen >
           <Loading />
         </Page>
@@ -165,7 +165,7 @@ const CommunityPage = (props: Props) => {
         <Page className='ProposalPage' isFullscreen >
           <NotFound />
         </Page>
-        : null}
+        : null} */}
       <Footer isFullscreen />
     </div>
   )

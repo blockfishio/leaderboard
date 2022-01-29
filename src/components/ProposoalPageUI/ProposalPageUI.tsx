@@ -170,7 +170,7 @@ const ProposalPage = (props: Props) => {
                     <div className='mt-29'>DETAILS</div>
                     <div className='flex justify-between md:justify-between flex-row md:flex-row mt-29'>
                       <div>Created by</div>
-                      <a href=""><img src="" alt="" /> {proposal.author}</a>
+                      <a href=""><img src="" alt="" /> {proposal.author.substring(0,2) + '...' + proposal.author.substring(38)}</a>
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29'>
                       <div>Started</div>
