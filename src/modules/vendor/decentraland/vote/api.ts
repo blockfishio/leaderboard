@@ -41,10 +41,17 @@ class VoteAPI {
         name: 'erc20-balance-of',
         params: {
           address: '0x13A637026dF26F846D55ACC52775377717345c06',
-          symbol: 'DAI',
+          symbol: 'SPAY',
           decimals: 18
         }
-      }
+      },
+        {
+          name: "spacey2025",
+          params: {
+            address: "0x230185C3B02b897B89cb1e62717AD7772b8319DA",
+            symbol: "NFT"
+          }
+        }
     ];
    const network='56'
    let voters=response.votes.reduce((obj, vote) => {
@@ -52,17 +59,25 @@ class VoteAPI {
     return obj
   }, {} as Record<string,Vote>)
   let addresses=Object.keys(voters)
-   const remoteVotingpower=await snapshot.utils.getScores(
+   const remoteVotingpowers=await snapshot.utils.getScores(
     space,
     strategies,
     network,
     addresses,
-    proposal.snapshot
+    parseInt( proposal.snapshot)
   ) 
-  for (const k of Object.keys(remoteVotingpower[0])){
-
-    voters[k].votingpower=remoteVotingpower[0][k]
+  console.log(remoteVotingpowers)
+  for (const remoteVotingpower of remoteVotingpowers){
+    for (const k of Object.keys(remoteVotingpower)){
+      if (voters[k].votingpower){
+        voters[k].votingpower+=remoteVotingpower[k]
+      }
+      else {
+        voters[k].votingpower=remoteVotingpower[k]
+      }
+    }
   }
+
 
 
     return voters

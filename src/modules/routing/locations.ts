@@ -9,7 +9,7 @@ export const locations = {
   deposit: () => '/deposit',
   community: () => '/community',
   createProposal: () => '/create',
-  pollPage: () => '/poll',
+  proposals: () => '/proposals',
   voting: () => '/voting',
 
   proposal: (

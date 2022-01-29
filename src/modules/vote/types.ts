@@ -79,3 +79,8 @@ export type VotePayload={
   proposal:string
   choice:number
 }
+
+export type VoteSum={
+  vp:number,
+  count:number
+}

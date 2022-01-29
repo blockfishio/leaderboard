@@ -25,13 +25,12 @@ const Routes = () => {
         
 
 
-        <Route exact path={locations.root()} component={RankingPage} />
+        <Route exact path={locations.root()} component={CommunityPage} />
 
         <Route exact path={locations.signIn()} component={SignInPage} />
         <Route exact path={locations.proposal()} component={ProposalPageUI} />
         <Route exact path={locations.createProposal()} component={CreatePage} />
-        <Route exact path={locations.community()} component={CommunityPage} />
-        <Route exact path={locations.pollPage()} component={PollPage} />
+        <Route exact path={locations.proposals()} component={PollPage} />
         <Route exact path={locations.voting()} component={VotingPage} />
 
 

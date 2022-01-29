@@ -41,18 +41,16 @@ const PollPage = (props: Props) => {
     onFetchProposals(option)
   }, [onFetchProposals])
 
-  console.log(proposals);
 
 
   const [data, setData]: any = useState(proposals)
   const [top, setTop] = useState(true)
-  console.log(data);
 
 
   // const handleToponClick = () => {
   //   setTop(!top)
   // }
-  const handleToponClick = useCallback(() => onNavigate(locations.pollPage()), [
+  const handleToponClick = useCallback(() => onNavigate(locations.proposals()), [
     onNavigate
   ])
   const handleDataonClick = useCallback((id: string) => onNavigate(locations.proposal(id)), [

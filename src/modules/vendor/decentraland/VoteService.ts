@@ -23,10 +23,10 @@ export class VoteService implements VoteServiceInterface {
         }
       },
       {
-        "name": "spacey2025",
-        "params": {
-          "address": "0x230185C3B02b897B89cb1e62717AD7772b8319DA",
-          "symbol": "NFT"
+        name: "spacey2025",
+      params: {
+          address: "0x230185C3B02b897B89cb1e62717AD7772b8319DA",
+          symbol: "NFT"
         }
       }
     ];
@@ -40,6 +40,7 @@ export class VoteService implements VoteServiceInterface {
     parseInt(blockNumber)
   )
   let res:VotingPower[]=[]
+  console.log(remoteVotingpower)
   for (const remoteVp of remoteVotingpower){
     res.push(this.parseVotingPower(remoteVp))
   }
@@ -57,6 +58,7 @@ async getAllVotes(proposal:Proposal){
 
 parseVotingPower(remoteVotingPower: VotingPower){
   const res:VotingPower={}
+  console.log(remoteVotingPower)
   Object.keys(remoteVotingPower).map(
     (key)=>{
       res[key.toLowerCase()]=remoteVotingPower[key]

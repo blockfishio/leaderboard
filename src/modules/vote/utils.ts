@@ -1,21 +1,26 @@
-import { Vote,Message} from "./types"
+import { Vote,Message, VoteSum} from "./types"
 
 
 
 export function getVPSum(
   votes:Record<string,Vote>
-):Record<number,number>{
+):Record<number,VoteSum>{
   
 
-  const res:Record<number,number>={}
+  const res:Record<number,VoteSum>={}
 
   for (const vote of Object.values(votes)){
     const {choice}=vote
     const vp:number=vote.votingpower || 0
     if (res[choice]){
-    res[vote.choice]+=vp
+    res[choice].vp+=vp
+    res[choice].count+=1
   } else{
-    res[choice]=vp
+    const newChoiceRes:VoteSum={
+      vp:vp,
+      count:1
+    }
+    res[choice]=newChoiceRes
   }
 }
 

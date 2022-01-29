@@ -35,7 +35,7 @@ const CommunityPage = (props: Props) => {
 
 
 
-  const handCreate = useCallback(() => onNavigate(locations.pollPage()), [
+  const handCreate = useCallback(() => onNavigate(locations.proposals()), [
     onNavigate
   ])
 
