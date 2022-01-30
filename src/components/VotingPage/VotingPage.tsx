@@ -96,7 +96,7 @@ const PollPage = (props: Props) => {
             </div>
             <div className='container md:max-w-1064 mx-auto my-5 text-3xl'>DETAILS</div>
             <div className='container md:max-w-1064 mx-auto flex ui grid '>
-              <div className='rows flex  container  my-5'>
+              <div className='rows flex  container   md:flex-rows  justify-center md:justify-center  my-5'>
                 <div className='power-left  mx-6 '>
                   <div className='br br-34 flex flex-col  '>
                     <div className='px-10 mt-30'>
@@ -111,7 +111,7 @@ const PollPage = (props: Props) => {
                     </div>
                   </div>
                   <div className=' mt-29 flex justify-end md:justify-end'>
-                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 cursor-pointer'>Get SPAY</div>
+                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 mb-30 cursor-pointer'>Get SPAY</div>
                   </div>
 
                 </div>

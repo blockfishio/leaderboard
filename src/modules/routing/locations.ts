@@ -11,13 +11,20 @@ export const locations = {
   createProposal: () => '/create',
   proposals: () => '/proposals',
   voting: () => '/voting',
+  rankPage: () => '/rank',
+  fakePage: () => '/fake',
 
+
+
+  proposalfake: (
+    proposalId: string = ':proposalId'
+  ) => `/proposalfake/${proposalId}`,
+  
   proposal: (
     proposalId: string = ':proposalId'
   ) => `/proposal/${proposalId}`,
-
- 
- 
+  
+  
   nft: (
     contractAddress: string = ':contractAddress',
     tokenId: string = ':tokenId'
