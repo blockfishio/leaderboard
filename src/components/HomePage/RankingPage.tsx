@@ -302,8 +302,7 @@ let records=null;
         return leaderBoardStyle['rank_origin'];
     else return leaderBoardStyle["rank_grey"];
   }
-  console.log(               rankings
-    )
+ 
 
   return (
     <>

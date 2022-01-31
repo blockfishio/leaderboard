@@ -32,9 +32,9 @@ export interface ProposalService{
 }
 
 export interface VoteService{
-  getVotingpower:(
+  getUserVotingpower:(
     address:string,
-    blockNumber:string
+    blockNumber?:string
   )=>Promise<VotingPower[]>
   getAllVotes:(
     proposal:Proposal

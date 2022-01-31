@@ -1,7 +1,7 @@
 
 export type VotingPowerFetchParams={
   address:string,
-  blocknumber:string
+  blocknumber?:string
 }
 
   export type Proposal = {

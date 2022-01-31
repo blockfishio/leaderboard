@@ -34,6 +34,7 @@ import {
 
 export type VotingPower=
   Record<string,number>
+export type VotingPowerDetail=Record<string,number>
 export type VoteState = {
   data:  {
     vp:VotingPower[]

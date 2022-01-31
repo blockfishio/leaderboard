@@ -41,7 +41,6 @@ const PollPage = (props: Props) => {
     onFetchProposals(option)
   }, [onFetchProposals])
 
-  console.log(proposals);
 
 
   const [top, setTop] = useState(false)

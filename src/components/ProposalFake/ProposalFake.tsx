@@ -43,15 +43,14 @@ const FakeProposalPage = (props: Props) => {
     }
   }, [proposal, proposalId, onFetchProposal])
 
-  // useEffect(() => {
-  //   if (proposal && wallet) {
-  //     const options: VotingPowerFetchParams = {
-  //       address: wallet.address,
-  //       blocknumber: proposal.snapshot
-  //     }
-  //     onFetchVotingpower(options)
-  //   }
-  // }, [proposal, wallet, onFetchVotingpower])
+  useEffect(() => {
+    if (wallet) {
+      const options: VotingPowerFetchParams = {
+        address: wallet.address,
+      }
+      onFetchVotingpower(options)
+    }
+  }, [wallet, onFetchVotingpower])
   // useEffect(() => {
   //   if (proposal) {
 
@@ -60,7 +59,7 @@ const FakeProposalPage = (props: Props) => {
   // }, [proposal, onFetchVotes])
 
 
-  const handlePollonClick = useCallback(() => onNavigate(locations.pollPage()), [
+  const handlePollonClick = useCallback(() => onNavigate(locations.proposals()), [
     onNavigate
   ])
 
@@ -79,9 +78,11 @@ const FakeProposalPage = (props: Props) => {
   let userVp = 0
   if (votingpower && wallet?.address) {
     for (const vp of votingpower) {
-      console.log(vp)
-      console.log(wallet.address)
-      userVp += vp[wallet.address] || 0
+      
+      for (const vpPerContract of Object.values(vp)){
+        userVp+=vpPerContract || 0
+      }
+
     }
   }
   let voted = false
@@ -183,7 +184,7 @@ const FakeProposalPage = (props: Props) => {
                         :
                         <div>Vote with <span></span>{wallet ? userVp : "--"} VP</div>
                       } */}
-                      <div>Vote with <span></span>-- VP</div>
+                      <div>Vote with <span></span>{userVp} VP</div>
                     </div>
                   </div>
                   <div className='right-bottom mx-6 px-3 '>
@@ -191,7 +192,9 @@ const FakeProposalPage = (props: Props) => {
                     <div className='flex justify-between md:justify-between flex-row md:flex-row mt-29'>
                       <div>Created by</div>
                       {/* <a href=""><img src="" alt="" /> {proposal.author.substring(0, 2) + '...' + proposal.author.substring(38)}</a> */}
-                      <a href=""><img src="" alt="" /> 0x...3265</a>
+                      {/* <a href=""><img src="" alt="" /> 0x...3265</a> */}
+                      <a href=""><img src="" alt="" /> ---------</a>
+
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29'>
                       <div>Started</div>
@@ -206,7 +209,7 @@ const FakeProposalPage = (props: Props) => {
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29 mb-30'>
                       <div>Snapshot</div>
                       {/* <div>{proposal.snapshot}</div> */}
-                      <div>123456</div>
+                      <div>--------</div>
                     </div>
                   </div>
                 </div>
