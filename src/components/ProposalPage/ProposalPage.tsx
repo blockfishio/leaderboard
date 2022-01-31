@@ -45,10 +45,10 @@ useEffect(()=>{
 },[proposal,proposalId,onFetchProposal])
 
 useEffect(()=>{
-  if (proposal && wallet){
+  if (wallet){
     const options:VotingPowerFetchParams ={
       address:wallet.address,
-      blocknumber:proposal.snapshot
+      // blocknumber:proposal.snapshot
     }
     onFetchVotingpower(options)
   }

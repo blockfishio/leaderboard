@@ -10,9 +10,9 @@ export const locations = {
   community: () => '/community',
   createProposal: () => '/create',
   proposals: () => '/proposals',
-  voting: () => '/voting',
+  voting: () => '/votingpower',
   rankPage: () => '/rank',
-  fakePage: () => '/fake',
+  fakePage: () => '/upcoming',
 
 
 

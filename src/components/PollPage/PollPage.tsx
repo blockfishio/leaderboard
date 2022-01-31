@@ -72,14 +72,14 @@ const PollPage = (props: Props) => {
                 <div className={top ? 'mr-8 cursor-pointer font-size-color action' : 'mr-8 cursor-pointer font-size-color'} onClick={handleToponClick}>Proposals</div>
                 <div className={top ? 'cursor-pointer font-size-color ' : 'cursor-pointer font-size-color action'} onClick={handleToponClick}>Voting Power</div>
               </div>
-              <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer' onClick={handleCreateonClick}>
+              {/* <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer' onClick={handleCreateonClick}>
                 <div>START VOTING</div>
-              </div>
+              </div> */}
             </div>
           </div>
           {
             top ? <div>
-              <div className='gradientBackgroundFull my-5 container  md:max-w-1064 mx-auto br-33'>
+              {/* <div className='gradientBackgroundFull my-5 container  md:max-w-1064 mx-auto br-33'>
                 <div className='container mx-auto py-5 '>
                   <div className='flex  justify-center content-center items-center md:justify-between flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 '>
                     <div className='flex justify-center content-center items-center  flex-col md:flex-row   md:max-w-1064'>
@@ -91,7 +91,6 @@ const PollPage = (props: Props) => {
                     </div>
                     
                     <div className='gradientBackgroundFull my-5 w-60 flex br-33 '>
-                      {/*  onChange={handleSeasonClick} */}
                       <select className="bg-spacey-leaderboard-grey px-5 py-1  w-50 br-33" >
                         <option value="1" className='selectabs dis-li cursor-pointer'>ALL OUTCOMES</option>
                         <option value="2" className='cursor-pointer'>ACTIVE OUTCOMES</option>
@@ -99,12 +98,11 @@ const PollPage = (props: Props) => {
                         <option value="4" className='cursor-pointer'>PASSED OUTCOMES</option>
                         <option value="5" className='cursor-pointer'>REJECTED OUTCOMES</option>
                         <option value="6" className='cursor-pointer'>ENACTED OUTCOMES</option>
-                        {/* <option value="2">2</option> */}
                       </select>
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <div className='container  md:max-w-1064 mx-auto'>
                 {
                   Object.values(proposals).map((item: { title: string, body: string, state: string, id: string }, id: any) => (
