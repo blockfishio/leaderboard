@@ -23,7 +23,7 @@ export function* proposalSaga() {
 
 
 function* handleFetchProposalsRequest(action: FetchProposalsRequestAction) {
-  const { timestamp } = action.payload
+  const { timestamp,options } = action.payload
   try {
 
     const { proposalService } = VendorFactory.build(Vendors.DECENTRALAND)

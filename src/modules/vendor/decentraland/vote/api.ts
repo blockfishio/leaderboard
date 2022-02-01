@@ -66,7 +66,7 @@ class VoteAPI {
     addresses,
     parseInt( proposal.snapshot)
   ) 
-  console.log(remoteVotingpowers)
+  // console.log(remoteVotingpowers)
   for (const remoteVotingpower of remoteVotingpowers){
     for (const k of Object.keys(remoteVotingpower)){
       if (voters[k].votingpower){

@@ -65,27 +65,20 @@ const CommunityPage = (props: Props) => {
             <div className='container md:max-w-1064 mx-auto relative mt-33'>
               <div className='flex flex-row justify-center container md:justify-between'>
                 <div className='flex flex-col'>
-                  <div className='text-3xl'>What is the Decentraland DAO?</div>
-                  <div className='mt-31 font-size'>DAO stands for "Decentralized Autonomous Organization". The De-centraland DAO owns the most important smart contracts and assets
-                    that make up Decentraland – the LAND Contract, the Estates Contract,
-                    Wearables, Content Servers and the Marketplace. It also owns a sub-stantial purse of MANA which allows it to be truly autonomous as well
-                    as subsidize various operations and initiatives throughout Decen-traland.</div>
+                  <div className='text-3xl'>What is the SpaceY 2025 DAO?</div>
+                  <div className='mt-31 font-size'>DAO stands for "Decentralized Autonomous Organization". The SpaceY 2025 DAO governs the most important smart contracts and assets used in the SpaceY 2025 universe. 
+</div>
                 </div>
                 <div ><img src={building} alt="Build icon" /></div>
               </div>
               <div className='flex flex-row justify-center container md:justify-between'>
                 <div ><img src={select04} alt="select icon" /></div>
                 <div className='flex flex-col'>
-                  <div className='text-3xl'><div>Why has the DAO been created?</div><div>How is it relevant to me?</div></div>
-                  <div className='mt-31 font-size'>Decentraland is the first fully decentralized virtual world. It was always
-                    part of the original vision to hand over control to the people who
-                    create and play in this virtual space. In short – you, the users. Through
-                    the DAO, you are in control of the policies created to determine how
-                    the world behaves: for example, what kinds of wearable items are al-lowed (or disallowed) after the launch of the DAO, moderation of
-                    content, LAND policy and auctions, among others.</div>
+                  <div className='text-3xl'><div>What is the purpose of the DAO? </div><div>How Does it affect me?</div></div>
+                  <div className='mt-31 font-size'>By circumventing the need for human intervention or centralized coordination, DAOs are often referred to as “trustless” systems. A DAO’s trustless decision-making frameworks are generally intended to help make governance accessible to everyone, rather than a select few. Through the DAO the community can propose and vote on-chain governance proposals to determine SpaceY 2025 features now and for the future.</div>
                 </div>
               </div>
-              <div className='flex flex-row justify-center container md:justify-between mt-31'>
+              {/* <div className='flex flex-row justify-center container md:justify-between mt-31'>
                 <div className='flex flex-col'>
                   <div className='text-3xl'>How does the DAO work?</div>
                   <div className='mt-31 font-size'>The community will propose and vote on policy updates, future LAND
@@ -95,48 +88,32 @@ const CommunityPage = (props: Props) => {
                     powered by Aragon.</div>
                 </div>
                 <div><img src={select09} alt="select icon" /></div>
-              </div>
+              </div> */}
               <div className='flex flex-row justify-center container md:justify-between mt-31'>
                 <div className='flex flex-col'>
-                  <div className='text-3xl'>What kinds of things will you get to determine?</div>
+                  <div className='text-3xl'>What type of things will you get to help to determine?</div>
                   <div className='mt-31 font-size'>
                     <div className='flex items-center'>
                       <div className='background-e78f32 bor-rediuo '></div>
-                      <div>Over the coming year we’ll be scheduling votes to decide on a rangeof issues, including (but not limited to)</div>
+                      <div>Over the coming year we will be scheduling votes to decide on a range of issues including but not limited to: </div>
                     </div>
                     <div className='mt-30 flex items-center'>
                       <div className=' background-e78f32 bor-rediuo '></div>
-                      <div>Upgrading LAND and Estates to add more features and protocol up-grades</div>
+                      <div>Future Island features {"&"} protocol upgrades</div>
                     </div>
                     <div className='mt-30 flex items-center'>
                       <div className=' background-e78f32 bor-rediuo '></div>
-                      <div>Specifics and dates of future LAND auctions.</div>
+                      <div>Dates for future Island sales</div>
                     </div>
                     <div className='mt-30 flex items-center'>
                       <div className=' background-e78f32 bor-rediuo '></div>
-                      <div>Size of marketplace fees, which are always in MANA that gets burnt.</div>
+                      <div>Allocation of SPAY for community grants</div>
                     </div>
                     <div className='mt-30 flex items-center'>
                       <div className=' background-e78f32 bor-rediuo '></div>
-                      <div>Primary sale fees, which are always in MANA that gets burnt.</div>
+                      <div>Moderation of content among others</div>
                     </div>
-                    <div className='mt-30 flex items-center'>
-                      <div className=' background-e78f32 bor-rediuo '></div>
-                      <div>Addition and replacement of community-run content servers.</div>
-                    </div>
-                    <div className='mt-30 flex items-center'>
-                      <div className=' background-e78f32 bor-rediuo '></div>
-                      <div>Allocation of MANA grants to development efforts.</div>
-                    </div>
-                    <div className='mt-30 flex items-center'>
-                      <div className=' background-e78f32 bor-rediuo '></div>
-                      <div>Addition of new wearables to the Decentraland World, Builder and
-                        Marketplace.</div>
-                    </div>
-                    <div className='mt-30 flex items-center'>
-                      <div className=' background-e78f32 bor-rediuo '></div>
-                      <div>Replacing members of the Security Council.</div>
-                    </div>
+                   
                   </div>
                 </div>
                 <div className='flex flex-col'>
@@ -146,9 +123,11 @@ const CommunityPage = (props: Props) => {
               </div>
               <div className='flex flex-row justify-center container md:justify-between mt-31'>
                 <div className='flex flex-col justify-center container'>
-                  <div className='text-3xl'>What about MANA?</div>
-                  <div className='mt-31 font-size '>MANA has already been fully decentralized, in the sense that the private key that
-                    con-trolled its smart contract has been thrown away</div>
+                  {/* <div className='text-3xl'>What about MANA?</div> */}
+                  <div className='mt-31 font-size '>The DAO is your platform for greater authority and influence over the development of SpaceY 2025 and we urge you to exercise your right to vote & positively shape our virtual world!
+
+
+</div>
                 </div>
                 <div></div>
               </div>

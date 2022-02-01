@@ -8,17 +8,17 @@ import {Vote} from '../../../vote/types'
 class ProposalAPI {
   
 
-  getProposals = async (first = 5, skip = 0) => {
+  getProposals = async (first = 5, skip = 0,state='active') => {
     const response: { proposals:any } = await request(
       "https://hub.snapshot.org/graphql",
       gql`
-        query getProposals($first: Int!, $skip: Int!) {
+        query getProposals($first: Int!, $skip: Int!,$state:String!) {
           proposals(
             first: $first
             skip: $skip
             orderBy: "end"
             orderDirection: desc
-            where: { space_in: "space2025.eth", }
+            where: { space_in: "space2025.eth",state:$state }
           ) {
             id
             title
@@ -36,7 +36,7 @@ class ProposalAPI {
           }
         }
       `,
-      { first, skip, },
+      { first, skip, state},
     )
     return response.proposals
   }

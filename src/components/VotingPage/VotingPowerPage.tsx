@@ -122,7 +122,7 @@ const PollPage = (props: Props) => {
                 </div>
                 <div className='flex  flex-col md:flex-col items-center mt-30'>
                   <div className='text-2xl '>TOTAL VOTING POWER</div>
-                  <div className='hide text-2xl w-80 ml-3 mt-30'>{userVp}</div>
+                  <div className='hide text-2xl w-80 ml-3 mt-30'>{Math.floor( userVp)}</div>
                   <div className='px-3 br br-33 w-20 h-10 mt-29 flex items-center justify-center md:justify-center text-3xl'>VP</div>
                 </div>
               </div>
@@ -138,13 +138,14 @@ const PollPage = (props: Props) => {
                         <div className='text-3xl px-5'><span>SPAY: </span></div>
                       </div>
                       <div className='flex  mt-30 mb-30 justify-center md:justify-between  items-center'>
-                        <div className='text-3xl'>{spayvp}</div>
+                        <div className='text-3xl'>{Math.floor( spayvp)}</div>
                         <div className='px-3 br br-33 w-20 h-8 flex items-center justify-center md:justify-center text-3xl'>VP</div>
                       </div>
                     </div>
                   </div>
                   <div className=' mt-29 flex justify-end md:justify-end'>
-                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 mb-30 cursor-pointer'>Get SPAY</div>
+                    <a href='https://spacey2025.com/getspay' target='_blank'>
+                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 mb-30 cursor-pointer'>Get SPAY</div> </a>
                   </div>
 
                 </div>
@@ -152,8 +153,8 @@ const PollPage = (props: Props) => {
                   <div className='right-top px-10 text-3xl'>
                     <div className='mt-30 '>NFT:</div>
                     <div className='flex mt-30 mb-30 justify-center md:justify-between items-center'>
-                      <div>Total:</div>
-                      <div>{nftvp}</div>
+                      {/* <div>Total:</div> */}
+                      <div>{Math.floor( nftvp)}</div>
                       <div className='px-3 br br-33 w-20 h-8 flex items-center justify-center md:justify-center text-3xl'>VP</div>
                     </div>
                   </div>
@@ -196,7 +197,9 @@ const PollPage = (props: Props) => {
                     </div>
                   </div> */}
                   <div className=' mt-29 flex justify-end md:justify-end'>
-                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 cursor-pointer'>Get NFT</div>
+                  <a href='https://market.spacey2025.com' target='_blank'>
+
+                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 cursor-pointer'>Get NFT</div> </a>
                   </div>
                 </div>
               </div>

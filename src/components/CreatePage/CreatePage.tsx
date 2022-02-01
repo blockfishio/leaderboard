@@ -21,7 +21,6 @@ const CreatePage = (props: Props) => {
     }
   }, [proposal, proposalId, onFetchProposal])
 
-  console.log(props);
 
 
   const [data, setData] = useState('')

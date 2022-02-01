@@ -14,6 +14,7 @@ export const FETCH_PROPOSALS_FAILURE = '[Failure] Fetch Proposals '
 
 export const fetchProposalsRequest = (options:ProposalsFetchParams) =>
   action(FETCH_PROPOSALS_REQUEST, { 
+      options,
       timestamp: Date.now()
     })
 export const fetchProposalsSuccess = (

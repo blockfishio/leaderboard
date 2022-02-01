@@ -35,7 +35,7 @@ const PollPage = (props: Props) => {
     const option: ProposalsFetchParams = {
       first: 5,
       skip: 0,
-      state: ''
+      state: 'active'
     }
     setTop(true)
     onFetchProposals(option)
@@ -56,9 +56,24 @@ const PollPage = (props: Props) => {
     onNavigate
   ])
 
+  const handleFakeonClick = useCallback(() => onNavigate(locations.fakePage()), [
+    onNavigate
+  ])
+
   const handleCreateonClick = useCallback(() => onNavigate(locations.createProposal()), [
     onNavigate
   ])
+  const starttime=1644969600000
+  const endtime=1645488000000
+  
+  const day=Math.max(starttime-Date.now(),0)/(24*3600*1000)
+
+
+
+
+
+
+
   return (
     <div className='bg-spacey-heavy'>
       <Navbar isFullscreen />
@@ -103,7 +118,30 @@ const PollPage = (props: Props) => {
                   </div>
                 </div>
               </div> */}
+
+
+
+
+
+
+
               <div className='container  md:max-w-1064 mx-auto'>
+
+              <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30'  onClick={() => handleFakeonClick()}>
+                      <div className='px-9 py-2'>
+                        <div className='text-2xl'>Change on Token Release Date</div>
+                        <div className='mt-29 flex'>
+                          <span className='outactive px-3 flex justify-center content-center items-center'><div>upcoming</div></span>
+                          <span className='outpoll px-2 flex justify-center content-center items-center'>POLL</span>
+                          <span className='flex justify-center content-center items-center'>Start in {Math.floor(day)} days</span>
+                        </div>
+                      </div>
+                    </div>
+
+
+
+
+
                 {
                   Object.values(proposals).map((item: { title: string, body: string, state: string, id: string }, id: any) => (
                     <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30' key={id} onClick={() => handleDataonClick(item.id)}>
