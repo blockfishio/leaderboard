@@ -137,10 +137,10 @@ index 15b2200..0a5cd3d 100644
  export declare class NetworkConnector extends BaseNetworkConnector {
      constructor(chainId: ChainId);
 diff --git a/node_modules/decentraland-connect/dist/connectors/NetworkConnector.js b/node_modules/decentraland-connect/dist/connectors/NetworkConnector.js
-index ea4ea9d..2ac8b9e 100644
+index ea4ea9d..1f4a9d0 100644
 --- a/node_modules/decentraland-connect/dist/connectors/NetworkConnector.js
 +++ b/node_modules/decentraland-connect/dist/connectors/NetworkConnector.js
-@@ -10,10 +10,12 @@ exports.RPC_URLS = Object.freeze({
+@@ -10,7 +10,8 @@ exports.RPC_URLS = Object.freeze({
      [schemas_1.ChainId.ETHEREUM_GOERLI]: 'https://goerli.infura.io/v3/21ee2680fd58460ba96d2b3addd7c38c',
      [schemas_1.ChainId.ETHEREUM_KOVAN]: 'https://kovan.infura.io/v3/21ee2680fd58460ba96d2b3addd7c38c',
      [schemas_1.ChainId.MATIC_MAINNET]: 'https://rpc-mainnet.maticvigil.com/v1/aad675783e3f73a13efbf6e95338d6de7fd5c9b9',
@@ -150,10 +150,6 @@ index ea4ea9d..2ac8b9e 100644
  });
  class NetworkConnector extends network_connector_1.NetworkConnector {
      constructor(chainId) {
-+
-         super({ urls: exports.RPC_URLS, defaultChainId: chainId });
-     }
- }
 diff --git a/node_modules/decentraland-connect/dist/types.d.ts b/node_modules/decentraland-connect/dist/types.d.ts
 index 92d91e7..32d82d0 100644
 --- a/node_modules/decentraland-connect/dist/types.d.ts

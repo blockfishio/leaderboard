@@ -57,7 +57,7 @@ useEffect(()=>{
 const handleToggleInfoModal = () => {
   setInfoOpen(!isInfoOpen)
 };
-const totalReward=54331.20
+const totalReward=55908.80
 
 const getLeadBoradData = () => {
   let totalRecords = 300
@@ -129,13 +129,13 @@ const getRewardByRank=(totalReward:number,totalPlayer:number,rank:number)=>{
     res=totalReward*4
   }
   if (rank==9){
-    res=totalReward*3
+    res=totalReward*2.9
   }
   if (rank==10){
-    res=totalReward*2.1
+    res=totalReward*2
   }
   if (rank>=11 && rank<=15){
-    res=totalReward*1.6
+    res=totalReward*1.5
   }
   if (rank>=16 && rank<=20){
     res=totalReward*1.25
@@ -149,18 +149,12 @@ const getRewardByRank=(totalReward:number,totalPlayer:number,rank:number)=>{
   if (rank>=41 && rank<=45){
     res=totalReward*0.35
   }
-  if (rank>=46 && rank<=63){
+  if (rank>=46 && rank<=60){
     res=totalReward*0.3
   }
-  // if (rank>=41 && rank<=50){
-  //   res=totalReward*0.24
-  // }
-  // if (rank>=51 && rank<=60){
-  //   res=totalReward*0.2
-  // }
-  // if (rank>=61 && rank<=75){
-  //   res=totalReward*0.19
-  // }
+  if (rank>=61 && rank<=69){
+    res=totalReward*0.15
+  }
   // if (rank>=76 && rank<=100){
   //   res=totalReward*0.15
   // }
