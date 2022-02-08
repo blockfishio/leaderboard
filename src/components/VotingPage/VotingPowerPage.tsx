@@ -65,12 +65,16 @@ const PollPage = (props: Props) => {
       }
 
     }
+    if (votingpower[0]){
     for (const vpPerContract of Object.values(votingpower[0])){
       spayvp+=vpPerContract || 0
     }
+  }
+    if (votingpower[1]){
     for (const vpPerContract of Object.values(votingpower[1])){
       nftvp+=vpPerContract || 0
     }
+  }
 
 
 
