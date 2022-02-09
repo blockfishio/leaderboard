@@ -30,7 +30,7 @@ useEffect(()=>{
     const options:RankFetchOptions={
       params:{
         seasonID:1,
-        topN:62
+        topN:68
 
       }
     }
