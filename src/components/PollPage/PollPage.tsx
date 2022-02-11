@@ -57,7 +57,7 @@ const PollPage = (props: Props) => {
     onNavigate
   ])
 
-  const handleCreateonClick = useCallback(() => onNavigate(locations.createProposal()), [
+  const handleCreateonClick = useCallback(() => onNavigate(locations.fakepage()), [
     onNavigate
   ])
   return (
