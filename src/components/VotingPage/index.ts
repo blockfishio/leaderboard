@@ -1,2 +1,2 @@
-import VotingPage from './VotingPage.container'
-export { VotingPage }
+import VotingPowerPage from './VotingPowerPage.container'
+export { VotingPowerPage }

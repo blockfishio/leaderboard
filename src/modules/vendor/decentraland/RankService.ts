@@ -11,7 +11,6 @@ export class RankService implements RankServiceInterface {
   async topNRanking (params: RankFetchParams) {
       const remoteRankings=await rankAPI.topNRanking(params)
       const proposals=await rankAPI.getProposals()
-      console.log(proposals)
       const rankings:Ranking[] = []
       for (const remoteRanking of remoteRankings.Rankings) {
         // const ranking = this.toRanking(remoteRanking)

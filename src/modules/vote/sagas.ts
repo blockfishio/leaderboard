@@ -46,9 +46,9 @@ function* handleFetchVotingpowerRequest(action: FetchVotingpowerRequestAction) {
     const { voteService } = VendorFactory.build(Vendors.DECENTRALAND)
     if (voteService) {
      
-      const remoteVotingpower:AwaitFn<typeof voteService.getVotingpower > = yield call(()=>voteService.getVotingpower(
+      const remoteVotingpower:AwaitFn<typeof voteService.getUserVotingpower > = yield call(()=>voteService.getUserVotingpower(
         address,
-        blocknumber
+        blocknumber!
       ))
       yield put(fetchVotingpowerSuccess(options, remoteVotingpower))
 

@@ -18,7 +18,7 @@ export function* uiSaga() {
 function* handleConnectWalletSuccess(_action: ConnectWalletSuccessAction) {
   const location: ReturnType<typeof getLocation> = yield select(getLocation)
   if (location.pathname === locations.signIn()) {
-    yield put(push(locations.root()))
+    yield put(push(locations.voting()))
   }
 }
 function* handleClaimRewardSuccess(_action: ClaimRewardSuccessAction) {

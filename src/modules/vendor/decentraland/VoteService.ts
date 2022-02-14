@@ -8,10 +8,19 @@ import snapshot from '@snapshot-labs/snapshot.js';
 import { Proposal } from '../../proposal/types';
 
 
-
+type strategy=
+{
+  name:string,
+  params:{
+    address:string,
+    symbol:string,
+    decimals?:number
+  }
+}
 export class VoteService implements VoteServiceInterface {
- 
- async getVotingpower (address: string, blockNumber: string){
+
+  
+ async getUserVotingpower (address: string, blockNumber: string|undefined){
     const space='space2025.eth'
     const strategies = [
       {
@@ -23,10 +32,10 @@ export class VoteService implements VoteServiceInterface {
         }
       },
       {
-        "name": "spacey2025",
-        "params": {
-          "address": "0x230185C3B02b897B89cb1e62717AD7772b8319DA",
-          "symbol": "NFT"
+        name: "spacey2025",
+      params: {
+          address: "0x230185C3B02b897B89cb1e62717AD7772b8319DA",
+          symbol: "NFT"
         }
       }
     ];
@@ -37,13 +46,10 @@ export class VoteService implements VoteServiceInterface {
     strategies,
     network,
     voters,
-    parseInt(blockNumber)
+    blockNumber?parseInt(blockNumber):undefined
   )
-  let res:VotingPower[]=[]
-  for (const remoteVp of remoteVotingpower){
-    res.push(this.parseVotingPower(remoteVp))
-  }
- 
+
+ const res:VotingPower[]=this.parseVotingPower(strategies,remoteVotingpower,address)
 
 
 return res
@@ -55,11 +61,23 @@ async getAllVotes(proposal:Proposal){
   return remoteVotes
 }
 
-parseVotingPower(remoteVotingPower: VotingPower){
-  const res:VotingPower={}
-  Object.keys(remoteVotingPower).map(
-    (key)=>{
-      res[key.toLowerCase()]=remoteVotingPower[key]
+parseVotingPower(strategies:strategy[],remoteVotingPower: VotingPower[],voteraddress:string){
+  const res:VotingPower[]=[]
+  
+
+  strategies.map(
+    (strategy,index)=>{
+      
+      const singleRemoteVotingPower=remoteVotingPower[index]
+      for (const key of Object.keys(singleRemoteVotingPower)){
+        if (key.toLowerCase()==voteraddress){
+          res.push({
+            [strategy.name]:singleRemoteVotingPower[key]
+          })
+          return
+        }
+      }
+      
     }
   )
   return res

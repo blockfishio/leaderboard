@@ -2,9 +2,7 @@ import { all } from 'redux-saga/effects'
 import { createAnalyticsSaga } from 'decentraland-dapps/dist/modules/analytics/sagas'
 import { transactionSaga } from 'decentraland-dapps/dist/modules/transaction/sagas'
 import { translationSaga } from './translation/sagas'
-import { rewardSaga } from './reward/sagas'
 import { walletSaga } from './wallet/sagas'
-import {rankingSaga} from './rank/sagas'
 import {proposalSaga} from './proposal/sagas'
 import {voteSaga} from './vote/sagas'
 import {uiSaga} from './ui/sagas'
@@ -22,9 +20,7 @@ export function* rootSaga() {
     transactionSaga(),
     translationSaga(),
     walletSaga(),
-    rankingSaga(),
     proposalSaga(),
-    rewardSaga(),
     voteSaga(),
     uiSaga()    
   ])

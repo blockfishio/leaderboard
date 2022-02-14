@@ -3,13 +3,14 @@ import { Loader, Page } from 'decentraland-ui'
 import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
-import { Props } from './VotingPage.type'
+import { Props } from './VotingPowerPage.type'
 import { UserRankFetchParams } from '../../modules/rank/types'
 import canvas from '../../images/canvas.png'
 import round from '../../images/token_rounded.png'
 import './VotingPage.css'
 import { ProposalsFetchParams } from '../../modules/proposal/types'
 import { locations } from '../../modules/routing/locations'
+import { VotingPowerFetchParams } from '../../modules/vote/types'
 
 const Loading = () => (
   <div className="nft-center">
@@ -25,34 +26,68 @@ const NotFound = () => (
 
 const PollPage = (props: Props) => {
   const {
-    proposals,
     wallet,
     isLoading,
-    onFetchProposals,
+    isConnecting,
+    votingpower,
+    onRedirect,
     onNavigate,
+    onFetchUserVotingpower,
   } = props
+
   useEffect(() => {
-    const option: ProposalsFetchParams = {
-      first: 5,
-      skip: 0,
-      state: ''
+    if (!isConnecting && !wallet) {
+      onRedirect(locations.signIn())
+    }
+  }, [isConnecting, wallet, onRedirect])
+
+
+
+  useEffect(() => {
+    if (wallet){
+    const option: VotingPowerFetchParams = {
+      address:wallet.address
     }
     setTop(false)
-    onFetchProposals(option)
-  }, [onFetchProposals])
+    onFetchUserVotingpower(option)
+  }
+  }, [wallet,onFetchUserVotingpower])
 
-  console.log(proposals);
+  let userVp = 0
+  let spayvp=0
+  let nftvp=0
+
+  if (votingpower && votingpower.length>0 && wallet?.address) {
+    for (const vp of votingpower) {
+      
+      for (const vpPerContract of Object.values(vp)){
+        userVp+=vpPerContract || 0
+      }
+
+    }
+    if (votingpower[0]){
+    for (const vpPerContract of Object.values(votingpower[0])){
+      spayvp+=vpPerContract || 0
+    }
+  }
+    if (votingpower[1]){
+    for (const vpPerContract of Object.values(votingpower[1])){
+      nftvp+=vpPerContract || 0
+    }
+  }
 
 
-  const [data, setData]: any = useState(proposals)
+
+  }
+
+
   const [top, setTop] = useState(true)
-  console.log(data);
 
 
   // const handleToponClick = () => {
   //   setTop(!top)
   // }
-  const handleToponClick = useCallback(() => onNavigate(locations.pollPage()), [
+  const handleToponClick = useCallback(() => onNavigate(locations.proposals()), [
     onNavigate
   ])
   const handleDataonClick = useCallback((id: string) => onNavigate(locations.proposal(id)), [
@@ -75,9 +110,9 @@ const PollPage = (props: Props) => {
                   <div className={top ? 'mr-8 cursor-pointer font-size-color action' : 'mr-8 cursor-pointer font-size-color'} onClick={handleToponClick}>Proposals</div>
                   <div className={top ? 'cursor-pointer font-size-color ' : 'cursor-pointer font-size-color action'} onClick={handleToponClick}>Voting Power</div>
                 </div>
-                <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer' onClick={handleCreateonClick}>
+                {/* <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer' onClick={handleCreateonClick}>
                   <div>START VOTING</div>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className='container md:max-w-1064 mx-auto my-5'>
@@ -86,17 +121,17 @@ const PollPage = (props: Props) => {
                   <div className='text-2xl'>ADDRESS</div>
                   <div className='flex mt-30 items-center'>
                     <div><img src={canvas} alt="" className='br-33' /></div>
-                    <div className='hide text-2xl w-80 ml-3 '>0xBAB298D0Dcb2589a1c24B6c88fb10BD08eFe3265</div>
+                    <div className='hide text-2xl w-80 ml-3 '>{wallet?.address}</div>
                   </div>
                 </div>
                 <div className='flex  flex-col md:flex-col items-center mt-30'>
                   <div className='text-2xl '>TOTAL VOTING POWER</div>
-                  <div className='hide text-2xl w-80 ml-3 mt-30'>0xBAB298D0Dcb2589a1c24B6c88fb10BD08eFe3265</div>
+                  <div className='hide text-2xl w-80 ml-3 mt-30'>{Math.floor( userVp)}</div>
                   <div className='px-3 br br-33 w-20 h-10 mt-29 flex items-center justify-center md:justify-center text-3xl'>VP</div>
                 </div>
               </div>
             </div>
-            <div className='container md:max-w-1064 mx-auto my-5 text-3xl'>DETAILS</div>
+            <div className='container md:max-w-1064 mx-auto my-5 text-2xl'>DETAILS</div>
             <div className='container md:max-w-1064 mx-auto flex ui grid '>
               <div className='rows flex  container   md:flex-rows  justify-center md:justify-center  my-5'>
                 <div className='power-left  mx-6 '>
@@ -104,16 +139,17 @@ const PollPage = (props: Props) => {
                     <div className='px-10 mt-30'>
                       <div className='flex items-center '>
                         <div className='w-10'><img src={round} alt="" /></div>
-                        <div className='text-3xl px-5'><span>SPAY: </span><span className='px-5'>113456</span></div>
+                        <div className='text-3xl px-5'><span>SPAY: </span></div>
                       </div>
                       <div className='flex  mt-30 mb-30 justify-center md:justify-between  items-center'>
-                        <div className='text-3xl'>113456</div>
+                        <div className='text-3xl'>{Math.floor( spayvp)}</div>
                         <div className='px-3 br br-33 w-20 h-8 flex items-center justify-center md:justify-center text-3xl'>VP</div>
                       </div>
                     </div>
                   </div>
                   <div className=' mt-29 flex justify-end md:justify-end'>
-                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 mb-30 cursor-pointer'>Get SPAY</div>
+                    <a href='https://spacey2025.com/getspay' target='_blank' rel="noreferrer">
+                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 mb-30 cursor-pointer'>Get SPAY</div> </a>
                   </div>
 
                 </div>
@@ -121,12 +157,12 @@ const PollPage = (props: Props) => {
                   <div className='right-top px-10 text-3xl'>
                     <div className='mt-30 '>NFT:</div>
                     <div className='flex mt-30 mb-30 justify-center md:justify-between items-center'>
-                      <div>Total:</div>
-                      <div>123468</div>
+                      {/* <div>Total:</div> */}
+                      <div>{Math.floor( nftvp)}</div>
                       <div className='px-3 br br-33 w-20 h-8 flex items-center justify-center md:justify-center text-3xl'>VP</div>
                     </div>
                   </div>
-                  <div className='right-main px-10 text-3xl '>
+                  {/* <div className='right-main px-10 text-3xl '>
                     <div className='pt-30'>
                       <div >Land:</div>
                       <div className='flex mt-29 justify-center md:justify-between items-center'>
@@ -163,9 +199,11 @@ const PollPage = (props: Props) => {
                         <div></div>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                   <div className=' mt-29 flex justify-end md:justify-end'>
-                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 cursor-pointer'>Get NFT</div>
+                  <a href='https://market.spacey2025.com' target='_blank' rel="noreferrer">
+
+                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 cursor-pointer'>Get NFT</div> </a>
                   </div>
                 </div>
               </div>

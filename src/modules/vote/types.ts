@@ -1,7 +1,7 @@
 
 export type VotingPowerFetchParams={
   address:string,
-  blocknumber:string
+  blocknumber?:string
 }
 
   export type Proposal = {
@@ -78,4 +78,9 @@ export type VoteMsg={
 export type VotePayload={
   proposal:string
   choice:number
+}
+
+export type VoteSum={
+  vp:number,
+  count:number
 }

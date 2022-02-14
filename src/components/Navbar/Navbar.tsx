@@ -29,7 +29,7 @@ const Navbar = (props: Props) => {
   return (
     <BaseNavbar
       {...props}
-      activePage=""
+      activePage="dao"
       isFullscreen={props.isFullscreen}
       isSignIn={pathname === locations.signIn()}
       onSignIn={handleOnSignIn}

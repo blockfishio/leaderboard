@@ -8,7 +8,7 @@ import { Footer } from '../Footer'
 import { Props } from './ProposalPage.types'
 import './ProposalPage.css'
 
-import { VotingPowerFetchParams } from '../../modules/vote/types'
+import { VoteSum, VotingPowerFetchParams } from '../../modules/vote/types'
 import { getVPSum,generatePayloadData,sendSnapshotData } from '../../modules/vote/utils'
 import {Message,SnapshotCommand } from '../../modules/vote/types'
 
@@ -45,10 +45,10 @@ useEffect(()=>{
 },[proposal,proposalId,onFetchProposal])
 
 useEffect(()=>{
-  if (proposal && wallet){
+  if (wallet){
     const options:VotingPowerFetchParams ={
       address:wallet.address,
-      blocknumber:proposal.snapshot
+      // blocknumber:proposal.snapshot
     }
     onFetchVotingpower(options)
   }
@@ -59,7 +59,7 @@ useEffect(()=>{
     onFetchVotes(proposal)
   }
 },[proposal,onFetchVotes])
-let vpSum:Record<number,number>={}
+let vpSum:Record<number,VoteSum>={}
 if(votes){
 vpSum= getVPSum(votes)
 }

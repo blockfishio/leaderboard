@@ -37,7 +37,7 @@ function* handleWallet(
 ) {
 
   const { address, providerType } = action.payload.wallet
-  yield put(fetchRewardRequest(1))
+  // yield put(fetchRewardRequest(1))
 
   
 }

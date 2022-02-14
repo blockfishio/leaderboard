@@ -2,15 +2,15 @@ import { connect } from 'react-redux'
 import { isLoadingType } from 'decentraland-dapps/dist/modules/loading/selectors'
 import { push } from 'connected-react-router'
 import { RootState } from '../../modules/reducer'
-import { FETCH_PROPOSAL_REQUEST,
+import { FETCH_PROPOSALS_REQUEST,
   fetchProposalsRequest, 
   } from '../../modules/proposal/actions'
 
-import { MapStateProps, MapDispatch, MapDispatchProps } from './VotingPage.type'
+import { MapStateProps, MapDispatch, MapDispatchProps } from './UpcomingPage.type'
 import { getData as getProposals,getLoading as getProposalLoading,} from '../../modules/proposal/selectors'
 import { getWallet, isConnecting } from '../../modules/wallet/selectors'
 
-import VotingPage from './VotingPage'
+import PollPage from './UpcomingPage'
 import { ProposalsFetchParams } from '../../modules/proposal/types'
 
 const mapState = (state: RootState): MapStateProps =>{ 
@@ -19,7 +19,7 @@ const mapState = (state: RootState): MapStateProps =>{
   wallet:getWallet(state),
   proposals: proposals,
   isConnecting: isConnecting(state),
-  isLoading: isLoadingType(getProposalLoading(state), FETCH_PROPOSAL_REQUEST) 
+  isLoading: isLoadingType(getProposalLoading(state), FETCH_PROPOSALS_REQUEST) 
 }}
 
 const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({
@@ -28,4 +28,4 @@ const mapDispatch = (dispatch: MapDispatch): MapDispatchProps => ({
 
 })
 
-export default connect(mapState, mapDispatch)(VotingPage)
+export default connect(mapState, mapDispatch)(PollPage)

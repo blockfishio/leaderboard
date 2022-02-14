@@ -1,15 +1,14 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Loader, Page } from 'decentraland-ui'
 import { t } from 'decentraland-dapps/dist/modules/translation/utils'
-import Returns from '../../images/DAO_04_04.jpg'
 import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
 
 import { Props } from './ProposalPageUI.types'
 import './ProposalPageUI.css'
 import { locations } from '../../modules/routing/locations'
-import { SnapshotCommand, VotingPowerFetchParams } from '../../modules/vote/types'
-import { generatePayloadData,UserVoted } from '../../modules/vote/utils'
+import { SnapshotCommand, VoteSum, VotingPowerFetchParams } from '../../modules/vote/types'
+import { generatePayloadData,getVPSum,UserVoted } from '../../modules/vote/utils'
 
 const Loading = () => (
   <div className="nft-center">
@@ -60,7 +59,7 @@ const ProposalPage = (props: Props) => {
   },[proposal,onFetchVotes])
 
 
-  const handlePollonClick = useCallback(() => onNavigate(locations.pollPage()), [
+  const handlePollonClick = useCallback(() => onNavigate(locations.proposals()), [
     onNavigate
   ])
 
@@ -79,8 +78,6 @@ const ProposalPage = (props: Props) => {
   let userVp=0
   if (votingpower && wallet?.address){
   for (const vp of votingpower){
-    console.log(vp)
-    console.log(wallet.address)
     userVp+=vp[wallet.address] || 0
   }
   }
@@ -88,6 +85,14 @@ const ProposalPage = (props: Props) => {
   if (votes && wallet?.address){
     voted=UserVoted(votes,wallet.address)
   }
+  let vpSum:Record<number,VoteSum>={}
+if(votes){
+vpSum= getVPSum(votes)
+}
+// console.log(votes)
+// console.log(vpSum)
+
+
   return (
     <>
       <Navbar isFullscreen />
@@ -122,7 +127,11 @@ const ProposalPage = (props: Props) => {
                         <div>
                           <div className='message'>0%</div>
                           <div className='progress progress--status-0'><div className='progress--bar' style={{ width: "23%" }}></div></div>
-                          <div>0 VP (0 votes)</div>
+                          <div>{
+                            (vpSum[index+1]?.vp || 0).toString()
+                            } VP ({
+                              (vpSum[index+1]?.count || 0).toString()
+                            } votes)</div>
                         </div>
                       </div>
                       }

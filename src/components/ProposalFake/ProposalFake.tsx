@@ -60,7 +60,7 @@ const ProposalFake = (props: Props) => {
   // }, [proposal, onFetchVotes])
 
 
-  const handlePollonClick = useCallback(() => onNavigate(locations.pollPage()), [
+  const handlePollonClick = useCallback(() => onNavigate(locations.proposals()), [
     onNavigate
   ])
 
