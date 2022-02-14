@@ -44,37 +44,37 @@ const PollPage = (props: Props) => {
 
 
   useEffect(() => {
-    if (wallet){
-    const option: VotingPowerFetchParams = {
-      address:wallet.address
+    if (wallet) {
+      const option: VotingPowerFetchParams = {
+        address: wallet.address
+      }
+      setTop(false)
+      onFetchUserVotingpower(option)
     }
-    setTop(false)
-    onFetchUserVotingpower(option)
-  }
-  }, [wallet,onFetchUserVotingpower])
+  }, [wallet, onFetchUserVotingpower])
 
   let userVp = 0
-  let spayvp=0
-  let nftvp=0
+  let spayvp = 0
+  let nftvp = 0
 
-  if (votingpower && votingpower.length>0 && wallet?.address) {
+  if (votingpower && votingpower.length > 0 && wallet?.address) {
     for (const vp of votingpower) {
-      
-      for (const vpPerContract of Object.values(vp)){
-        userVp+=vpPerContract || 0
+
+      for (const vpPerContract of Object.values(vp)) {
+        userVp += vpPerContract || 0
       }
 
     }
-    if (votingpower[0]){
-    for (const vpPerContract of Object.values(votingpower[0])){
-      spayvp+=vpPerContract || 0
+    if (votingpower[0]) {
+      for (const vpPerContract of Object.values(votingpower[0])) {
+        spayvp += vpPerContract || 0
+      }
     }
-  }
-    if (votingpower[1]){
-    for (const vpPerContract of Object.values(votingpower[1])){
-      nftvp+=vpPerContract || 0
+    if (votingpower[1]) {
+      for (const vpPerContract of Object.values(votingpower[1])) {
+        nftvp += vpPerContract || 0
+      }
     }
-  }
 
 
 
@@ -116,18 +116,17 @@ const PollPage = (props: Props) => {
               </div>
             </div>
             <div className='container md:max-w-1064 mx-auto my-5'>
-              <div className='flex justify-center md:justify-between flex-col md:flex-row'>
-                <div className='flex  flex-col md:flex-col mt-30'>
+              <div className='flex justify-center md:justify-between flex-col md:flex-row '>
+                <div className='flex flex-row mt-30 items-center' >
                   <div className='text-2xl'>ADDRESS</div>
-                  <div className='flex mt-30 items-center'>
+                  <div className='pl-10'>
                     <div><img src={canvas} alt="" className='br-33' /></div>
                     <div className='hide text-2xl w-80 ml-3 '>{wallet?.address}</div>
                   </div>
                 </div>
-                <div className='flex  flex-col md:flex-col items-center mt-30'>
+                <div className='flex  flex-row md:flex-row items-center mt-30'>
                   <div className='text-2xl '>TOTAL VOTING POWER</div>
-                  <div className='hide text-2xl w-80 ml-3 mt-30'>{Math.floor( userVp)}</div>
-                  <div className='px-3 br br-33 w-20 h-10 mt-29 flex items-center justify-center md:justify-center text-3xl'>VP</div>
+                  <div className='hide text-2xl w-80 pl-10'>{Math.floor(userVp)}</div>
                 </div>
               </div>
             </div>
@@ -139,27 +138,29 @@ const PollPage = (props: Props) => {
                     <div className='px-10 mt-30'>
                       <div className='flex items-center '>
                         <div className='w-10'><img src={round} alt="" /></div>
-                        <div className='text-3xl px-5'><span>SPAY: </span></div>
+                        <div className='text-2xl px-5'><span>SPAY: </span></div>
                       </div>
                       <div className='flex  mt-30 mb-30 justify-center md:justify-between  items-center'>
-                        <div className='text-3xl'>{Math.floor( spayvp)}</div>
+                        <div className='text-2xl'>{Math.floor(spayvp)}</div>
                         <div className='px-3 br br-33 w-20 h-8 flex items-center justify-center md:justify-center text-3xl'>VP</div>
                       </div>
                     </div>
                   </div>
                   <div className=' mt-29 flex justify-end md:justify-end'>
                     <a href='https://spacey2025.com/getspay' target='_blank' rel="noreferrer">
-                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 mb-30 cursor-pointer'>Get SPAY</div> </a>
+                      <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 mb-30 cursor-pointer'>Get SPAY</div> </a>
                   </div>
 
                 </div>
                 <div className='power-right mx-6'>
-                  <div className='right-top px-10 text-3xl'>
-                    <div className='mt-30 '>NFT:</div>
-                    <div className='flex mt-30 mb-30 justify-center md:justify-between items-center'>
-                      {/* <div>Total:</div> */}
-                      <div>{Math.floor( nftvp)}</div>
-                      <div className='px-3 br br-33 w-20 h-8 flex items-center justify-center md:justify-center text-3xl'>VP</div>
+                  <div className='br br-34 flex flex-col  text-2xl'>
+                    <div className='px-10 mt-30'>
+                      <div className='w-10 h-10 '>NFT:</div>
+                      <div className='flex mt-30 mb-30 justify-center md:justify-between items-center'>
+                        {/* <div>Total:</div> */}
+                        <div>{Math.floor(nftvp)}</div>
+                        <div className='px-3 br br-33 w-20 h-8 flex items-center justify-center md:justify-center text-3xl'>VP</div>
+                      </div>
                     </div>
                   </div>
                   {/* <div className='right-main px-10 text-3xl '>
@@ -201,9 +202,9 @@ const PollPage = (props: Props) => {
                     </div>
                   </div> */}
                   <div className=' mt-29 flex justify-end md:justify-end'>
-                  <a href='https://market.spacey2025.com' target='_blank' rel="noreferrer">
+                    <a href='https://market.spacey2025.com' target='_blank' rel="noreferrer">
 
-                    <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 cursor-pointer'>Get NFT</div> </a>
+                      <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 cursor-pointer'>Get NFT</div> </a>
                   </div>
                 </div>
               </div>

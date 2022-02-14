@@ -93,7 +93,7 @@ const ProposalFake = (props: Props) => {
       <Navbar isFullscreen />
       {
         <div>
-          <div className='ProposalDetailPage  mb-30'>
+          <div className='ProposalFakePage  mb-30'>
             <div className='mt-34 container  md:max-w-1064 mx-auto'></div>
             <div className='gradientBackgroundFull my-5 '>
               <div className='container py-2 md:max-w-1064 mx-auto flex items-center'>
