@@ -8,10 +8,7 @@ import { transactionReducer as transaction } from 'decentraland-dapps/dist/modul
 import { profileReducer as profile } from 'decentraland-dapps/dist/modules/profile/reducer'
 
 import { routingReducer as routing } from './routing/reducer'
-import {rankingReducer as ranking} from './rank/reducer'
-import { rewardReducer as reward } from './reward/reducer'
-import { proposalReducer as proposal } from './proposal/reducer'
-import { voteReducer as vote } from './vote/reducer'
+
 
 
 
@@ -26,10 +23,7 @@ export const createRootReducer = (history: History) =>
     transaction,
     translation,
     wallet,
-    ranking,
-    proposal,
-    vote,
-    reward
+
   })
 
 export type RootState = ReturnType<ReturnType<typeof createRootReducer>>

@@ -2,44 +2,14 @@
 
 
 import { ChainId } from '../contract/types';
-import { Proposal } from '../proposal/types';
-import {Vote} from '../vote/types'
-import { RankFetchParams, Ranking, UserRankFetchParams ,RankingResponse} from '../rank/types';
-import { VotingPower } from '../vote/reducer';
+
 
 import { TransferType } from './types'
 
 
 
 
-export interface RankService{
-  topNRanking:(
-    params:RankFetchParams
-  )=>Promise<RankingResponse>
-  userRanking:(
-    params:UserRankFetchParams
-  )=>Promise< Ranking>
-  
-}
 
-export interface ProposalService{
-  getProposals:(
-    )=>Promise< Proposal[]>
-  getProposal:(
-    proposalId:string
-  ) =>Promise<Proposal>
- 
-}
-
-export interface VoteService{
-  getUserVotingpower:(
-    address:string,
-    blockNumber?:string
-  )=>Promise<VotingPower[]>
-  getAllVotes:(
-    proposal:Proposal
-  )=>Promise<Record<string,Vote>>
-}
 
 
 export interface ContractService {

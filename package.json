@@ -63,12 +63,10 @@
         "web3x-es": "4.0.6"
     },
     "scripts": {
-        "build:css": "postcss src/index.css -o src/styles/output.css",
-        "watch:css": "postcss src/index.css -o src/styles/output.css -w",
-        "start": "craco start",
+        "start": "react-scripts start",
         "start-js": "react-scripts start",
-        "build": "craco build",
-        "test": "craco test",
+        "build": "react-scripts build",
+        "test": " test",
         "eject": "react-scripts eject",
         "postinstall": "patch-package"
     },
@@ -96,7 +94,6 @@
         "@typescript-eslint/parser": "^4.13.0",
         "autoprefixer": "^9.8.8",
         "npm-run-all": "^4.1.5",
-        "postcss": "^7.0.39",
         "postcss-cli": "^9.1.0",
         "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17"
     }
