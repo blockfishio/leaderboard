@@ -23,6 +23,23 @@ const NotFound = () => (
   </div>
 )
 
+
+function RenderTabs(tabs: Array<any>, tab: number, changeTabs: Function) {
+  return tabs.map((item, idx) => {
+    if (!item.isshow) {
+      return null;
+    }
+    return (
+      <div
+        key={item.index}
+        className={tab === idx ? 'cursor-pointer font-size-color mr-8 action' : 'cursor-pointer font-size-color mr-8'}
+        onClick={() => { changeTabs(idx) }}>
+        {item.name}
+      </div>
+    )
+  })
+}
+
 const PollPage = (props: Props) => {
   const {
     proposals,
@@ -37,15 +54,38 @@ const PollPage = (props: Props) => {
       skip: 0,
       state: 'active'
     }
-    setTop(true)
+
     onFetchProposals(option)
   }, [onFetchProposals])
 
 
+  const tabs = [
+    { name: 'Proposals', index: 0, isshow: true },
+    { name: 'Voting Power', index: 1, isshow: true },
+    { name: 'Guidance', index: 2, isshow: true }
+  ]
 
-  const [top, setTop] = useState(false)
+  const [tab, setTab] = useState(0)
+  const [pollTab, setPollTab] = useState(tabs)
 
+  const changeTabe = (idx: number) => {
+    console.log(idx);
+    setTab(idx);
 
+    switch (idx) {
+      case 0:
+        handleToponClick()
+        break;
+      case 1:
+        handleToponClick()
+        break;
+      case 2:
+
+        break;
+      default:
+        break;
+    }
+  }
   // const handleToponClick = () => {
   //   setTop(!top)
   // }
@@ -63,10 +103,10 @@ const PollPage = (props: Props) => {
   const handleCreateonClick = useCallback(() => onNavigate(locations.createProposal()), [
     onNavigate
   ])
-  const starttime=1644969600000
-  const endtime=1645488000000
-  
-  const day=Math.max(starttime-Date.now(),0)/(24*3600*1000)
+  const starttime = 1644969600000
+  const endtime = 1645488000000
+
+  const day = Math.max(starttime - Date.now(), 0) / (24 * 3600 * 1000)
 
 
 
@@ -84,8 +124,10 @@ const PollPage = (props: Props) => {
           <div className='gradientBackgroundFull my-5 '>
             <div className='container mx-auto py-5 flex justify-center md:justify-between flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 '>
               <div className='text-1xl flex  justify-center content-center items-center'>
-                <div className={top ? 'mr-8 cursor-pointer font-size-color action' : 'mr-8 cursor-pointer font-size-color'} onClick={handleToponClick}>Proposals</div>
+                {RenderTabs(tabs, tab, changeTabe)}
+                {/* <div className={top ? 'mr-8 cursor-pointer font-size-color action' : 'mr-8 cursor-pointer font-size-color'} onClick={handleToponClick}>Proposals</div>
                 <div className={top ? 'cursor-pointer font-size-color ' : 'cursor-pointer font-size-color action'} onClick={handleToponClick}>Voting Power</div>
+                <div className={top ? 'cursor-pointer font-size-color ' : 'cursor-pointer font-size-color action'} onClick={handleToponClick}>Guidance</div> */}
               </div>
               {/* <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer' onClick={handleCreateonClick}>
                 <div>START VOTING</div>
@@ -93,7 +135,7 @@ const PollPage = (props: Props) => {
             </div>
           </div>
           {
-            top ? <div>
+            <div>
               {/* <div className='gradientBackgroundFull my-5 container  md:max-w-1064 mx-auto br-33'>
                 <div className='container mx-auto py-5 '>
                   <div className='flex  justify-center content-center items-center md:justify-between flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 '>
@@ -127,16 +169,16 @@ const PollPage = (props: Props) => {
 
               <div className='container  md:max-w-1064 mx-auto'>
 
-              <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30'  onClick={() => handleFakeonClick()}>
-                      <div className='px-9 py-2'>
-                        <div className='text-2xl'>Change on Token Release Date</div>
-                        <div className='mt-29 flex'>
-                          <span className='outactive px-3 flex justify-center content-center items-center'><div>upcoming</div></span>
-                          <span className='outpoll px-2 flex justify-center content-center items-center'>POLL</span>
-                          <span className='flex justify-center content-center items-center'>Start in {Math.floor(day)} days</span>
-                        </div>
-                      </div>
+                <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30' onClick={() => handleFakeonClick()}>
+                  <div className='px-9 py-2'>
+                    <div className='text-2xl'>Change on Token Release Date</div>
+                    <div className='mt-29 flex'>
+                      <span className='outactive px-3 flex justify-center content-center items-center'><div>upcoming</div></span>
+                      <span className='outpoll px-2 flex justify-center content-center items-center'>POLL</span>
+                      <span className='flex justify-center content-center items-center'>Start in {Math.floor(day)} days</span>
                     </div>
+                  </div>
+                </div>
 
 
 
@@ -158,7 +200,7 @@ const PollPage = (props: Props) => {
                   ))
                 }
               </div>
-            </div> : null
+            </div>
           }
         </div>
       }

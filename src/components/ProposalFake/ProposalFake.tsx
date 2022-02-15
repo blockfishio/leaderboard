@@ -175,8 +175,8 @@ const ProposalFake = (props: Props) => {
                         }
                       )
                     } */}
-                    <div className='mt-29'><button disabled className='ui button ChoiceButton ChoiceButton--status-0'>Vote c1</button></div>
-                    <div className='mt-29'><button disabled className='ui button ChoiceButton ChoiceButton--status-0'>Vote c2</button></div>
+                    <div className='mt-29'><button disabled className='fakebtn'>Vote c1</button></div>
+                    <div className='mt-29'><button disabled className='fakebtn'>Vote c2</button></div>
 
                     <div className='mt-29 mb-30'>
                       {/* {voted ? <div>Voted with <span></span>{wallet ? userVp : "--"} VP</div>

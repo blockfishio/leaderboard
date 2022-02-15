@@ -24,6 +24,22 @@ const NotFound = () => (
   </div>
 )
 
+function RenderTabs(tabs: Array<any>, tab: number, changeTabs: Function) {
+  return tabs.map((item, idx) => {
+    if (!item.isshow) {
+      return null;
+    }
+    return (
+      <div
+        key={item.index}
+        className={tab === idx ? 'cursor-pointer font-size-color mr-8 action' : 'cursor-pointer font-size-color mr-8'}
+        onClick={() => { changeTabs(idx) }}>
+        {item.name}
+      </div>
+    )
+  })
+}
+
 const PollPage = (props: Props) => {
   const {
     wallet,
@@ -48,7 +64,6 @@ const PollPage = (props: Props) => {
       const option: VotingPowerFetchParams = {
         address: wallet.address
       }
-      setTop(false)
       onFetchUserVotingpower(option)
     }
   }, [wallet, onFetchUserVotingpower])
@@ -81,8 +96,33 @@ const PollPage = (props: Props) => {
   }
 
 
-  const [top, setTop] = useState(true)
+  const tabs = [
+    { name: 'Proposals', index: 0, isshow: true },
+    { name: 'Voting Power', index: 1, isshow: true },
+    { name: 'Guidance', index: 2, isshow: true }
+  ]
 
+  const [tab, setTab] = useState(1)
+  const [pollTab, setPollTab] = useState(tabs)
+
+  const changeTabe = (idx: number) => {
+    console.log(idx);
+    setTab(idx);
+
+    switch (idx) {
+      case 0:
+        handleToponClick()
+        break;
+      case 1:
+        handleToponClick()
+        break;
+      case 2:
+
+        break;
+      default:
+        break;
+    }
+  }
 
   // const handleToponClick = () => {
   //   setTop(!top)
@@ -107,8 +147,9 @@ const PollPage = (props: Props) => {
             <div className='gradientBackgroundFull my-5 '>
               <div className='container mx-auto py-5 flex justify-center md:justify-between flex-col md:flex-row gap-x-2  w-11/12 md:w-full md:max-w-1064 '>
                 <div className='text-1xl flex  justify-center content-center items-center'>
-                  <div className={top ? 'mr-8 cursor-pointer font-size-color action' : 'mr-8 cursor-pointer font-size-color'} onClick={handleToponClick}>Proposals</div>
-                  <div className={top ? 'cursor-pointer font-size-color ' : 'cursor-pointer font-size-color action'} onClick={handleToponClick}>Voting Power</div>
+                  {RenderTabs(tabs, tab, changeTabe)}
+                  {/* <div className={top ? 'mr-8 cursor-pointer font-size-color action' : 'mr-8 cursor-pointer font-size-color'} onClick={handleToponClick}>Proposals</div>
+                  <div className={top ? 'cursor-pointer font-size-color ' : 'cursor-pointer font-size-color action'} onClick={handleToponClick}>Voting Power</div> */}
                 </div>
                 {/* <div className='text-center text-2xl gap-2  px-11 py-1 rounded-xl bg-spacey-leaderboard-button hover:bg-spacey-leaderboard-button-highlight cursor-pointer' onClick={handleCreateonClick}>
                   <div>START VOTING</div>
@@ -150,7 +191,6 @@ const PollPage = (props: Props) => {
                     <a href='https://spacey2025.com/getspay' target='_blank' rel="noreferrer">
                       <div className='flex background-e78f32 w-40 justify-center md:justify-center h-8 text-2xl br-33 mb-30 cursor-pointer'>Get SPAY</div> </a>
                   </div>
-
                 </div>
                 <div className='power-right mx-6'>
                   <div className='br br-34 flex flex-col  text-2xl'>
