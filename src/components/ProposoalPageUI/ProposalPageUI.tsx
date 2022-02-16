@@ -129,11 +129,12 @@ function formatHTMLBr(source: string) {
             <div className='container md:max-w-1064 mx-auto flex ui grid '>
               <div className='rows flex container mt-31'>
                 <div className='body-left mx-6'>
-                <div dangerouslySetInnerHTML={formatHTMLBr(proposal.body)}></div>
+                {/* <div dangerouslySetInnerHTML={formatHTMLBr(proposal.body)}></div> */}
+                {/* <div dangerouslySetInnerHTML={{_html:formatHTMLBr(proposal.body)}}></div>  */}
 
-                  {
+                  {/* {
                     console.log(proposal.body, '换行')
-                  }
+                  } */}
                 </div>
                 <div className='body-right'>
                   <div className='right-top mx-6 px-3'>
