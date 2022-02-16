@@ -107,7 +107,7 @@ function formatHTMLBr(source: string) {
   return source.replace(new RegExp('\n','g'),'<br />')
 } 
 
-console.log(formatHTMLBr(sourceStr));
+// console.log(formatHTMLBr(sourceStr));
 
   return (
     <>
