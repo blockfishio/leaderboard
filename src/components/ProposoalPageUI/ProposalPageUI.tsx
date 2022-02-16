@@ -76,11 +76,16 @@ const ProposalPage = (props: Props) => {
 }
 
   let userVp=0
+  
   if (votingpower && wallet?.address){
   for (const vp of votingpower){
-    userVp+=vp[wallet.address] || 0
+    for (const v of Object.values(vp)){
+      userVp+=v
+    }
+    // userVp+=vp[wallet.address] || 0
   }
   }
+  
   let voted=false
   if (votes && wallet?.address){
     voted=UserVoted(votes,wallet.address)
@@ -89,8 +94,11 @@ const ProposalPage = (props: Props) => {
 if(votes){
 vpSum= getVPSum(votes)
 }
-// console.log(votes)
-// console.log(vpSum)
+let totalVp=0
+for (const vp of Object.values(vpSum)){
+  totalVp+=vp.vp
+}
+
 
 
   return (
@@ -122,11 +130,14 @@ vpSum= getVPSum(votes)
                   {
                     proposal.choices.map(
                       (choice,index)=>{
+                        const percent=(totalVp>0?(vpSum[index+1]?.vp || 0)/totalVp:0).toFixed(2)+"%"
+
+
                         return <div className='mt-30' key={index}>
                         <div className='text-1xl'>{choice}</div>
                         <div>
-                          <div className='message'>0%</div>
-                          <div className='progress progress--status-0'><div className='progress--bar' style={{ width: "23%" }}></div></div>
+                          <div className='message'>{percent}</div>
+                          <div className='progress progress--status-0'><div className='progress--bar' style={{ width: percent }}></div></div>
                           <div>{
                             (vpSum[index+1]?.vp || 0).toString()
                             } VP ({
@@ -162,7 +173,7 @@ vpSum= getVPSum(votes)
                     <div className='mt-29'>DETAILS</div>
                     <div className='flex justify-between md:justify-between flex-row md:flex-row mt-29'>
                       <div>Created by</div>
-                      <a href=""><img src="" alt="" /> {proposal.author.substring(0,2) + '...' + proposal.author.substring(38)}</a>
+                      <a href={"https://bscscan.com/address/"+proposal.author} target="_blank"><img src="" alt="" /> {proposal.author.substring(0,2) + '...' + proposal.author.substring(38)}</a>
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29'>
                       <div>Started</div>
@@ -174,7 +185,11 @@ vpSum= getVPSum(votes)
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29 mb-30'>
                       <div>Snapshot</div>
-                      <div>{proposal.snapshot}</div>
+                      <a href={"https://snapshot.org/#/space2025.eth/proposal/"+proposalId} target="_blank">
+                        <div>
+                        {proposal.snapshot}
+                        </div>
+                        </a>
                     </div>
                   </div>
                 </div>

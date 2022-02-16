@@ -93,7 +93,7 @@
   width: 100%;
   margin-top: 8px;
 }
-.ui.button,
+/* .ui.button,
 .ui.button.secondary {
   background-color: var(--secondary);
   color: var(--text-on-secondary);
@@ -152,7 +152,7 @@
     box-shadow 0.1s ease, background 0.1s ease;
   will-change: "";
   -webkit-tap-highlight-color: transparent;
-}
+} */
 
 @media screen and (min-width: 320px) and (max-width: 767px) {
   .ProposalDetailPage .ui.grid > .rows > .body-left,

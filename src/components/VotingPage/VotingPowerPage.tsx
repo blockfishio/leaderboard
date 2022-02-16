@@ -106,7 +106,6 @@ const PollPage = (props: Props) => {
   const [pollTab, setPollTab] = useState(tabs)
 
   const changeTabe = (idx: number) => {
-    console.log(idx);
     setTab(idx);
 
     switch (idx) {
@@ -117,7 +116,7 @@ const PollPage = (props: Props) => {
         handleToponClick()
         break;
       case 2:
-
+        window.open("https://spacey.gitbook.io/dao-voting-user-guide/","_blank")
         break;
       default:
         break;

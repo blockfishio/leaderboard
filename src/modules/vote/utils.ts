@@ -1,6 +1,7 @@
 import { Vote,Message, VoteSum} from "./types"
 
 
+const SNAPSHOT_API_URL=process.env.REACT_APP_SNAPSHOT_API_URL || ''
 
 export function getVPSum(
   votes:Record<string,Vote>
@@ -47,7 +48,7 @@ export function getVPSum(
  * General function to send commands to the snapshot api
  */
  export const sendSnapshotData = async (message: Message) => {
-  const response = await fetch("https://hub.snapshot.org/api/message", {
+  const response = await fetch(SNAPSHOT_API_URL, {
     method: 'post',
     headers: {
       Accept: 'application/json',

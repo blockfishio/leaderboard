@@ -52,7 +52,7 @@ const PollPage = (props: Props) => {
     const option: ProposalsFetchParams = {
       first: 5,
       skip: 0,
-      state: 'active'
+      state:'pending'
     }
 
     onFetchProposals(option)
@@ -69,7 +69,6 @@ const PollPage = (props: Props) => {
   const [pollTab, setPollTab] = useState(tabs)
 
   const changeTabe = (idx: number) => {
-    console.log(idx);
     setTab(idx);
 
     switch (idx) {
@@ -80,7 +79,7 @@ const PollPage = (props: Props) => {
         handleToponClick()
         break;
       case 2:
-
+        window.open("https://spacey.gitbook.io/dao-voting-user-guide/","_blank")
         break;
       default:
         break;
@@ -169,7 +168,7 @@ const PollPage = (props: Props) => {
 
               <div className='container  md:max-w-1064 mx-auto'>
 
-                <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30' onClick={() => handleFakeonClick()}>
+                {/* <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30' onClick={() => handleFakeonClick()}>
                   <div className='px-9 py-2'>
                     <div className='text-2xl'>Change on Token Release Date</div>
                     <div className='mt-29 flex'>
@@ -178,7 +177,7 @@ const PollPage = (props: Props) => {
                       <span className='flex justify-center content-center items-center'>Start in {Math.floor(day)} days</span>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
 
 
@@ -189,7 +188,7 @@ const PollPage = (props: Props) => {
                     <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30' key={id} onClick={() => handleDataonClick(item.id)}>
                       <div className='px-9 py-2'>
                         <div className='text-2xl'>{item.title}</div>
-                        <div className='mt-29'>{item.body}</div>
+                        {/* <div className='mt-29'>{item.body}</div> */}
                         <div className='mt-29 flex'>
                           <span className='outactive px-3 flex justify-center content-center items-center'><div>{item.state}</div></span>
                           <span className='outpoll px-2 flex justify-center content-center items-center'>POLL</span>

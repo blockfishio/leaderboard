@@ -5,12 +5,16 @@ import { RankFetchParams, UserRankFetchParams } from '../../../rank/types'
 import { Proposal,VoteWhere } from '../../../proposal/types'
 import {Vote} from '../../../vote/types'
 
+const SNAPSHOT_GRAPHQL_URL=process.env.REACT_APP_SNAPSHOT_GRAPHQL_URL || ''
+
 class ProposalAPI {
   
 
-  getProposals = async (first = 5, skip = 0,state='active') => {
+  getProposals = async (first = 5, skip = 0,state='pending') => {
+    // console.log(SNAPSHOT_GRAPHQL_URL)
+    // console.log(process.env)
     const response: { proposals:any } = await request(
-      "https://hub.snapshot.org/graphql",
+      SNAPSHOT_GRAPHQL_URL,
       gql`
         query getProposals($first: Int!, $skip: Int!,$state:String!) {
           proposals(
@@ -44,7 +48,7 @@ class ProposalAPI {
   
   getProposal = async (id: string): Promise<Proposal> => {
     const response: { proposal: Proposal } = await request(
-      "https://hub.snapshot.org/graphql",
+      SNAPSHOT_GRAPHQL_URL,
       gql`
         query getProposal($id: String) {
           proposal(id: $id) {
