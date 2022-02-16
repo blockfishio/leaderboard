@@ -81,6 +81,7 @@ const ProposalPage = (props: Props) => {
     for (const vp of votingpower) {
       for (const v of Object.values(vp)) {
         userVp += v
+
       }
       // userVp+=vp[wallet.address] || 0
     }
