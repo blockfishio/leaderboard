@@ -10,7 +10,7 @@ const SNAPSHOT_GRAPHQL_URL=process.env.REACT_APP_SNAPSHOT_GRAPHQL_URL || ''
 class ProposalAPI {
   
 
-  getProposals = async (first = 5, skip = 0,state='pending') => {
+  getProposals = async (first = 5, skip = 0,state='active') => {
     // console.log(SNAPSHOT_GRAPHQL_URL)
     // console.log(process.env)
     const response: { proposals:any } = await request(

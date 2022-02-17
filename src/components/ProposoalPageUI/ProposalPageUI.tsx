@@ -144,7 +144,7 @@ const ProposalPage = (props: Props) => {
                     {
                       proposal.choices.map(
                         (choice, index) => {
-                          const percent = (totalVp > 0 ? (vpSum[index + 1]?.vp || 0) / totalVp : 0).toFixed(2) + "%"
+                          const percent = ((totalVp > 0 ? (vpSum[index + 1]?.vp || 0) / totalVp : 0)*100.0).toFixed(2) + "%"
 
 
                           return <div className='mt-30' key={index}>
@@ -153,9 +153,9 @@ const ProposalPage = (props: Props) => {
                               <div className='message'>{percent}</div>
                               <div className='progress progress--status-0'><div className='progress--bar' style={{ width: percent }}></div></div>
                               <div>{
-                                (vpSum[index + 1]?.vp || 0).toString()
+                                (vpSum[index + 1]?.vp || 0).toFixed().toString()
                               } VP ({
-                                  (vpSum[index + 1]?.count || 0).toString()
+                                  (vpSum[index + 1]?.count || 0).toFixed().toString()
                                 } votes)</div>
                             </div>
                           </div>
