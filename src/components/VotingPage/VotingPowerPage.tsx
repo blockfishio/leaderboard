@@ -159,9 +159,9 @@ const PollPage = (props: Props) => {
               <div className='flex justify-center md:justify-between flex-col md:flex-row '>
                 <div className='flex flex-row mt-30 items-center' >
                   <div className='text-2xl'>ADDRESS</div>
-                  <div className='pl-10'>
+                  <div className='pl-10 flex items-center'>
                     <div><img src={canvas} alt="" className='br-33' /></div>
-                    <div className='hide text-2xl w-80 ml-3 '>{wallet?.address}</div>
+                    <div className='hide text-2xl w-80 ml-3 '>{wallet?.address.substring(0, 2) + '...' + wallet?.address.substring(38)}</div>
                   </div>
                 </div>
                 <div className='flex  flex-row md:flex-row items-center mt-30'>
