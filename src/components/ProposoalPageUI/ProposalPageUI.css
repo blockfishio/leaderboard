@@ -89,6 +89,15 @@
   border: 2px solid #f38e00;
 }
 
+.ui.button.ChoiceButtonVoted {
+  width: 100%;
+  background: var(--background);
+  border: 2px solid yellowgreen;
+}
+.voted{
+  border: #0f0 !important;
+}
+
 .DetailsSection .ui.button {
   width: 100%;
   margin-top: 8px;

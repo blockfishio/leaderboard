@@ -87,7 +87,7 @@ const ProposalPage = (props: Props) => {
     }
   }
 
-  let voted = false
+  let voted = true
   if (votes && wallet?.address) {
     voted = UserVoted(votes, wallet.address)
   }
@@ -99,6 +99,8 @@ const ProposalPage = (props: Props) => {
   for (const vp of Object.values(vpSum)) {
     totalVp += vp.vp
   }
+
+  console.log(voted);
 
 
   // const sourceStr = `\nVoting Target\n    + Spay release date\n\nVoting Options\n    + Yes: Unlock SPAY earlier (from 3/01/2022，36% of Total SPAY about 9M SPAY within one year).\n    + No: Lock SPAY as planned (locked till one of exchanges get listed: Binance, Houbi, Coinbase, FTX）\n\nVoting Weights (VP=Voting Power)\n    + 1 SPAY = 1 VP\n    + 1 Land = 600 VP\n    + 1 Boarding Pass = 1500 VP\n    + 1 NFT 6 VP\n\nSnapshot time (keep SPAY & NFT in your wallet)\n    + FEB 16/22 00:00 UTC\n\nVoting time\n    + 2/16/22 0:00 (UTC)- 2/22/22 0:00 (UTC)`;
@@ -130,7 +132,7 @@ const ProposalPage = (props: Props) => {
             <div className='container md:max-w-1064 mx-auto flex ui grid '>
               <div className='rows flex container mt-31'>
                 <div className='body-left mx-6'>
-                {/* <div>{proposal.body}</div> */}
+                  {/* <div>{proposal.body}</div> */}
                   {/* <div dangerouslySetInnerHTML={formatHTMLBr(proposal.body)}></div> */}
                   <div dangerouslySetInnerHTML={{ __html: formatHTMLBr(proposal.body) }}></div>
 
@@ -165,18 +167,21 @@ const ProposalPage = (props: Props) => {
                     }
                   </div>
                   <div className='right-main flex flex-col mx-6 px-3 mb-30'>
-                    {
-                      proposal.choices.map(
-                        (choice, index) => {
-                          return <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 ' onClick={() => {
-                            handleOnvote(index + 1)
-                          }}>Vote {choice}</button></div>
+                    <div>
+                      {
+                        voted ? <div className='mt-29'><button className='ui button ChoiceButtonVoted ChoiceButton--status-0 '> Vote with <span></span>{wallet ? userVp : "--"} VP</button></div> :
+                          proposal.choices.map(
+                            (choice, index) => {
+                              return <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 ' onClick={() => {
+                                handleOnvote(index + 1)
+                              }}> Vote {choice}</button></div>
 
-                        }
-                      )
-                    }
+                            }
+                          )
+                      }
+                    </div>
                     <div className='mt-29 mb-30'>
-                      {voted ? <div>Voted with <span></span>{wallet ? userVp : "--"} VP</div>
+                      {voted ? null
                         :
                         <div>Vote with <span></span>{wallet ? userVp : "--"} VP</div>
                       }
