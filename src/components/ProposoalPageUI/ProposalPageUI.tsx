@@ -169,7 +169,7 @@ const ProposalPage = (props: Props) => {
                   <div className='right-main flex flex-col mx-6 px-3 mb-30'>
                     <div>
                       {
-                        voted ? <div className='mt-29'><button className='ui button ChoiceButtonVoted ChoiceButton--status-0 voted'> Vote with <span></span>{wallet ? userVp : "--"} VP</button></div> :
+                        voted ? <div className='mt-29'><button className='ui button ChoiceButtonVoted ChoiceButton--status-0 '> Vote with <span></span>{wallet ? userVp : "--"} VP</button></div> :
                           proposal.choices.map(
                             (choice, index) => {
                               return <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 ' onClick={() => {
