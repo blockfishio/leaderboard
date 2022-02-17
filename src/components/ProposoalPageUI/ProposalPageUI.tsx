@@ -87,7 +87,7 @@ const ProposalPage = (props: Props) => {
     }
   }
 
-  let voted = true
+  let voted = false
   if (votes && wallet?.address) {
     voted = UserVoted(votes, wallet.address)
   }
@@ -100,7 +100,7 @@ const ProposalPage = (props: Props) => {
     totalVp += vp.vp
   }
 
-  console.log(voted);
+  // console.log(voted);
 
 
   // const sourceStr = `\nVoting Target\n    + Spay release date\n\nVoting Options\n    + Yes: Unlock SPAY earlier (from 3/01/2022，36% of Total SPAY about 9M SPAY within one year).\n    + No: Lock SPAY as planned (locked till one of exchanges get listed: Binance, Houbi, Coinbase, FTX）\n\nVoting Weights (VP=Voting Power)\n    + 1 SPAY = 1 VP\n    + 1 Land = 600 VP\n    + 1 Boarding Pass = 1500 VP\n    + 1 NFT 6 VP\n\nSnapshot time (keep SPAY & NFT in your wallet)\n    + FEB 16/22 00:00 UTC\n\nVoting time\n    + 2/16/22 0:00 (UTC)- 2/22/22 0:00 (UTC)`;
@@ -169,7 +169,7 @@ const ProposalPage = (props: Props) => {
                   <div className='right-main flex flex-col mx-6 px-3 mb-30'>
                     <div>
                       {
-                        voted ? <div className='mt-29'><button className='ui button ChoiceButtonVoted ChoiceButton--status-0 '> Vote with <span></span>{wallet ? userVp : "--"} VP</button></div> :
+                        voted ? <div className='mt-29'><button className='ui button ChoiceButtonVoted ChoiceButton--status-0 '> Voted with <span></span>{wallet ? userVp : "--"} VP</button></div> :
                           proposal.choices.map(
                             (choice, index) => {
                               return <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 ' onClick={() => {

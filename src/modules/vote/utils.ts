@@ -68,7 +68,6 @@ export function getVPSum(
 
 export const UserVoted = (votes:Record<string,Vote>,address:string)=>{
   for (const vote of Object.values(votes)){
-  
     if (vote.voter.toLowerCase() == address.toLowerCase()){
       return true
     }
