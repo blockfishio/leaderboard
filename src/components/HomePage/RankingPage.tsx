@@ -30,7 +30,7 @@ useEffect(()=>{
     const options:RankFetchOptions={
       params:{
         seasonID:1,
-        topN:68
+        topN:76
 
       }
     }
@@ -57,7 +57,7 @@ useEffect(()=>{
 const handleToggleInfoModal = () => {
   setInfoOpen(!isInfoOpen)
 };
-const totalReward=55908.80
+const totalReward=59249.60
 
 const getLeadBoradData = () => {
   let totalRecords = 300
@@ -105,59 +105,59 @@ const getRewardByRank=(totalReward:number,totalPlayer:number,rank:number)=>{
     res= 0
   }
   if (rank==1){
-    res= totalReward*12
+    res= totalReward*11.10
   }
   if (rank==2){
-    res=totalReward*10
-  }
-  if (rank==3){
     res=totalReward*9
   }
-  if (rank==4){
+  if (rank==3){
     res=totalReward*8
   }
-  if (rank==5){
+  if (rank==4){
     res=totalReward*7
   }
-  if (rank==6){
+  if (rank==5){
     res=totalReward*6
   }
-  if (rank==7){
-    res=totalReward*5
+  if (rank==6){
+    res=totalReward*4.5
   }
-  if (rank==8){
+  if (rank==7){
     res=totalReward*4
   }
+  if (rank==8){
+    res=totalReward*3.5
+  }
   if (rank==9){
-    res=totalReward*2.9
+    res=totalReward*2.95
   }
   if (rank==10){
-    res=totalReward*2
+    res=totalReward*2.4
   }
   if (rank>=11 && rank<=15){
-    res=totalReward*1.5
+    res=totalReward*1.75
   }
   if (rank>=16 && rank<=20){
-    res=totalReward*1.25
+    res=totalReward*1.55
   }
   if (rank>=21 && rank<=30){
-    res=totalReward*0.75
+    res=totalReward*1.2
   }
   if (rank>=31 && rank<=40){
     res=totalReward*0.55
   }
-  if (rank>=41 && rank<=45){
-    res=totalReward*0.35
+  if (rank>=41 && rank<=50){
+    res=totalReward*0.4
   }
-  if (rank>=46 && rank<=60){
+  if (rank>=51 && rank<=60){
     res=totalReward*0.3
   }
-  if (rank>=61 && rank<=69){
+  if (rank>=61 && rank<=70){
+    res=totalReward*0.2
+  }
+  if (rank>=71 && rank<=77){
     res=totalReward*0.15
   }
-  // if (rank>=76 && rank<=100){
-  //   res=totalReward*0.15
-  // }
   // if (rank>=101 && rank<=125){
   //   res=totalReward*0.13
   // }
