@@ -3,7 +3,7 @@ import { Loader, Page } from 'decentraland-ui'
 import { t } from 'decentraland-dapps/dist/modules/translation/utils'
 import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
-
+import moment from 'moment'
 import { Props } from './ProposalPageUI.types'
 import './ProposalPageUI.css'
 import { locations } from '../../modules/routing/locations'
@@ -102,7 +102,10 @@ const ProposalPage = (props: Props) => {
 
   console.log(voted);
 
-
+  let data = new Date()
+  console.log('====================================');
+  console.log(data);
+  console.log('====================================');
   // const sourceStr = `\nVoting Target\n    + Spay release date\n\nVoting Options\n    + Yes: Unlock SPAY earlier (from 3/01/2022，36% of Total SPAY about 9M SPAY within one year).\n    + No: Lock SPAY as planned (locked till one of exchanges get listed: Binance, Houbi, Coinbase, FTX）\n\nVoting Weights (VP=Voting Power)\n    + 1 SPAY = 1 VP\n    + 1 Land = 600 VP\n    + 1 Boarding Pass = 1500 VP\n    + 1 NFT 6 VP\n\nSnapshot time (keep SPAY & NFT in your wallet)\n    + FEB 16/22 00:00 UTC\n\nVoting time\n    + 2/16/22 0:00 (UTC)- 2/22/22 0:00 (UTC)`;
   // // console.log(sourceStr);
 
@@ -196,11 +199,12 @@ const ProposalPage = (props: Props) => {
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29'>
                       <div>Started</div>
-                      <div>{proposal.start}</div>
+                      <div>{moment.unix(proposal.start).format("YYYY-MM-DD HH:mm:ss") }</div>
+                      {/* <div>{new Date(proposal.).toLocaleString()}</div> */}
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29'>
                       <div>Ends</div>
-                      <div>{proposal.end}</div>
+                      <div>{moment.unix(proposal.end).format("YYYY-MM-DD HH:mm:ss")}</div>
                     </div>
                     <div className='flex justify-center md:justify-between flex-col md:flex-row mt-29 mb-30'>
                       <div>Snapshot</div>
