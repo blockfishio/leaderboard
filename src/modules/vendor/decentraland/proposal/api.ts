@@ -10,7 +10,7 @@ const SNAPSHOT_GRAPHQL_URL=process.env.REACT_APP_SNAPSHOT_GRAPHQL_URL || ''
 class ProposalAPI {
   
 
-  getProposals = async (first = 5, skip = 0,state='active') => {
+  getProposals = async (first = 5, skip = 0,state='') => {
     // console.log(SNAPSHOT_GRAPHQL_URL)
     // console.log(process.env)
     const response: { proposals:any } = await request(
@@ -22,7 +22,8 @@ class ProposalAPI {
             skip: $skip
             orderBy: "end"
             orderDirection: desc
-            where: { space_in: "space2025.eth",state:$state }
+            where: { space_in: "space2025.eth",state:$state,created_gte:1644968278
+ }
           ) {
             id
             title

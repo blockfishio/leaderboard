@@ -53,7 +53,7 @@ const PollPage = (props: Props) => {
     const option: ProposalsFetchParams = {
       first: 5,
       skip: 0,
-      state:'active'
+      state:''
     }
 
     onFetchProposals(option)
