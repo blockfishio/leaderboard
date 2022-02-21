@@ -5,6 +5,7 @@ import { Navbar } from '../Navbar'
 import { Footer } from '../Footer'
 import { Props } from './PollPage.type'
 import { UserRankFetchParams } from '../../modules/rank/types'
+import { getDayFromNow } from '../../modules/proposal/utils'
 
 
 import './PollPage.css'
@@ -52,7 +53,7 @@ const PollPage = (props: Props) => {
     const option: ProposalsFetchParams = {
       first: 5,
       skip: 0,
-      state:'pending'
+      state:'active'
     }
 
     onFetchProposals(option)
@@ -106,6 +107,8 @@ const PollPage = (props: Props) => {
   const endtime = 1645488000000
 
   const day = Math.max(starttime - Date.now(), 0) / (24 * 3600 * 1000)
+
+  
 
 
 
@@ -184,7 +187,7 @@ const PollPage = (props: Props) => {
 
 
                 {
-                  Object.values(proposals).map((item: { title: string, body: string, state: string, id: string }, id: any) => (
+                  Object.values(proposals).map((item: { title: string, body: string, state: string, id: string,end:number }, id: any) => (
                     <div className='outcomes br-33  hover:bg-spacey-leaderboard-button-highlight cursor-pointer mt-30' key={id} onClick={() => handleDataonClick(item.id)}>
                       <div className='px-9 py-2'>
                         <div className='text-2xl'>{item.title}</div>
@@ -192,7 +195,7 @@ const PollPage = (props: Props) => {
                         <div className='mt-29 flex'>
                           <span className='outactive px-3 flex justify-center content-center items-center'><div>{item.state}</div></span>
                           <span className='outpoll px-2 flex justify-center content-center items-center'>POLL</span>
-                          <span className='flex justify-center content-center items-center'>Ends in 7 days</span>
+                          <span className='flex justify-center content-center items-center'>Ends in {getDayFromNow(item.end)} days</span>
                         </div>
                       </div>
                     </div>

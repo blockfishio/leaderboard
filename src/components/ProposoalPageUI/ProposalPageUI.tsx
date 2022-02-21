@@ -87,7 +87,7 @@ const ProposalPage = (props: Props) => {
     }
   }
 
-  let voted = true
+  let voted = false
   if (votes && wallet?.address) {
     voted = UserVoted(votes, wallet.address)
   }
@@ -100,7 +100,7 @@ const ProposalPage = (props: Props) => {
     totalVp += vp.vp
   }
 
-  console.log(voted);
+  // console.log(voted);
 
   let data = new Date()
   console.log('====================================');
@@ -149,7 +149,7 @@ const ProposalPage = (props: Props) => {
                     {
                       proposal.choices.map(
                         (choice, index) => {
-                          const percent = (totalVp > 0 ? (vpSum[index + 1]?.vp || 0) / totalVp : 0).toFixed(2) + "%"
+                          const percent = ((totalVp > 0 ? (vpSum[index + 1]?.vp || 0) / totalVp : 0)*100.0).toFixed(2) + "%"
 
 
                           return <div className='mt-30' key={index}>
@@ -158,9 +158,9 @@ const ProposalPage = (props: Props) => {
                               <div className='message'>{percent}</div>
                               <div className='progress progress--status-0'><div className='progress--bar' style={{ width: percent }}></div></div>
                               <div>{
-                                (vpSum[index + 1]?.vp || 0).toString()
+                                (vpSum[index + 1]?.vp || 0).toFixed().toString()
                               } VP ({
-                                  (vpSum[index + 1]?.count || 0).toString()
+                                  (vpSum[index + 1]?.count || 0).toFixed().toString()
                                 } votes)</div>
                             </div>
                           </div>
@@ -172,7 +172,7 @@ const ProposalPage = (props: Props) => {
                   <div className='right-main flex flex-col mx-6 px-3 mb-30'>
                     <div>
                       {
-                        voted ? <div className='mt-29'><button className='ui button ChoiceButtonVoted ChoiceButton--status-0 '> Vote with <span></span>{wallet ? userVp : "--"} VP</button></div> :
+                        voted ? <div className='mt-29'><button className='ui button ChoiceButtonVoted ChoiceButton--status-0 '> Voted with <span></span>{wallet ? userVp : "--"} VP</button></div> :
                           proposal.choices.map(
                             (choice, index) => {
                               return <div className='mt-29'><button className='ui button ChoiceButton ChoiceButton--status-0 ' onClick={() => {
