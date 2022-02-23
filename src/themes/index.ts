@@ -1,8 +1,8 @@
 // Base
-import 'decentraland-ui/lib/styles.css'
+import 'spacey-ui/lib/styles.css'
 
 // Theme
-import 'decentraland-ui/lib/spacey-theme.css'
+import 'spacey-ui/lib/spacey-theme.css'
 
 // Overrides
 import './components/Button.css'

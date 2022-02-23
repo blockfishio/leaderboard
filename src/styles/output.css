@@ -454,7 +454,7 @@ code {
   }
 }
 
-/* TODO: this removes the AVATAR button from the Navbar. Remove this once we update to decentraland-ui@3.0.1 or higher. */
+/* TODO: this removes the AVATAR button from the Navbar. Remove this once we update to spacey-ui@3.0.1 or higher. */
 /* .dcl.navbar .dcl.mana + .dcl.mana {
   display: none;
 } */

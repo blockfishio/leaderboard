@@ -9,10 +9,10 @@ import spacey20251 from '../../images/spacey20251.jpg'
 import Frame_LAND from '../../images/Frame_LAND.png'
 import Frame_LOOT from '../../images/Frame_LOOT.png'
 import SpaceYLogo_blue from '../../images/SpaceYLogo_blue.png'
-// import { t } from 'decentraland-dapps/dist/modules/translation/utils'
+// import { t } from 'spacey-dapps/dist/modules/translation/utils'
 import './HomePage.css'
 import { locations } from '../../modules/routing/locations'
-// import { Loader, Page } from 'decentraland-ui'
+// import { Loader, Page } from 'spacey-ui'
 
 
 // const Loading = () => (

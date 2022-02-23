@@ -1,5 +1,5 @@
 import { takeEvery, all, put } from 'redux-saga/effects'
-import { createWalletSaga } from 'decentraland-dapps/dist/modules/wallet/sagas'
+import { createWalletSaga } from 'spacey-dapps/dist/modules/wallet/sagas'
 import {
     CONNECT_WALLET_SUCCESS,
     CHANGE_ACCOUNT,
@@ -7,13 +7,13 @@ import {
     ChangeAccountAction,
     ChangeNetworkAction,
     ConnectWalletSuccessAction,
-} from 'decentraland-dapps/dist/modules/wallet/actions'
+} from 'spacey-dapps/dist/modules/wallet/actions'
 
 const baseWalletSaga = createWalletSaga({
     CHAIN_ID: +(process.env.REACT_APP_CHAIN_ID || 1),
     ALLOWED_IDS: process.env.REACT_APP_ALLOWED_CHAIN_IDS?.split(
         ', '
-    ).map((id) => parseInt(id)),
+    ),
 })
 
 export function* walletSaga() {

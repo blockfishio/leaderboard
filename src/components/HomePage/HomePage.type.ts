@@ -5,7 +5,7 @@ import { Dispatch } from 'redux'
 //     fetchProposalsRequest,
 //     FetchProposalsRequestAction,
 // } from '../../modules/proposal/actions'
-import { Wallet } from 'decentraland-dapps/dist/modules/wallet/types'
+import { Wallet } from 'spacey-dapps/dist/modules/wallet/types'
 import { CallHistoryMethodAction } from 'connected-react-router'
 export type Props = {
     wallet: Wallet | null

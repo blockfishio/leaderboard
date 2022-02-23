@@ -3,7 +3,7 @@ import { getLocation, push } from 'connected-react-router'
 import {
   isConnected,
   isConnecting
-} from 'decentraland-dapps/dist/modules/wallet/selectors'
+} from 'spacey-dapps/dist/modules/wallet/selectors'
 import { locations } from '../../modules/routing/locations'
 import { RootState } from '../../modules/reducer'
 import { MapStateProps, MapDispatch, MapDispatchProps } from './UserMenu.types'
