@@ -1,43 +1,37 @@
-import { takeEvery, all, put, } from 'redux-saga/effects'
-import { createWalletSaga } from 'decentraland-dapps/dist/modules/wallet/sagas'
+import { takeEvery, all, put } from 'redux-saga/effects'
+import { createWalletSaga } from 'spacey-dapps/dist/modules/wallet/sagas'
 import {
-  CONNECT_WALLET_SUCCESS,
-
-  CHANGE_ACCOUNT,
-  CHANGE_NETWORK,
-  ChangeAccountAction,
-  ChangeNetworkAction,
-  ConnectWalletSuccessAction
-} from 'decentraland-dapps/dist/modules/wallet/actions'
-import { fetchRewardRequest } from '../reward/actions'
-
-
-
-
-
-
+    CONNECT_WALLET_SUCCESS,
+    CHANGE_ACCOUNT,
+    CHANGE_NETWORK,
+    ChangeAccountAction,
+    ChangeNetworkAction,
+    ConnectWalletSuccessAction,
+} from 'spacey-dapps/dist/modules/wallet/actions'
 
 const baseWalletSaga = createWalletSaga({
-  CHAIN_ID: +(process.env.REACT_APP_CHAIN_ID || 1),
-  ALLOWED_IDS: process.env.REACT_APP_ALLOWED_CHAIN_IDS?.split(", ").map(id => parseInt(id))
+    CHAIN_ID: +(process.env.REACT_APP_CHAIN_ID || 1),
+    ALLOWED_IDS: process.env.REACT_APP_ALLOWED_CHAIN_IDS?.split(
+        ', '
+    ),
 })
 
 export function* walletSaga() {
-  yield all([baseWalletSaga(), fullWalletSaga()])
+    yield all([baseWalletSaga(), fullWalletSaga()])
 }
 
 function* fullWalletSaga() {
-  yield takeEvery(CONNECT_WALLET_SUCCESS, handleWallet)
-  yield takeEvery(CHANGE_ACCOUNT, handleWallet)
-  yield takeEvery(CHANGE_NETWORK, handleWallet)
+    yield takeEvery(CONNECT_WALLET_SUCCESS, handleWallet)
+    yield takeEvery(CHANGE_ACCOUNT, handleWallet)
+    yield takeEvery(CHANGE_NETWORK, handleWallet)
 }
 
 function* handleWallet(
-  action:ConnectWalletSuccessAction | ChangeAccountAction | ChangeNetworkAction
+    action:
+        | ConnectWalletSuccessAction
+        | ChangeAccountAction
+        | ChangeNetworkAction
 ) {
-
-  const { address, providerType } = action.payload.wallet
-  // yield put(fetchRewardRequest(1))
-
-  
+    const { address, providerType } = action.payload.wallet
+    // yield put(fetchRewardRequest(1))
 }

@@ -1,2 +1,2 @@
-import RankingPage from './RankingPage.container'
-export { RankingPage }
+import HomePage from './HomePage.container'
+export { HomePage }
