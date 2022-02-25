@@ -4,8 +4,8 @@ import {
   isConnected,
   isConnecting
 } from 'spacey-dapps/dist/modules/wallet/selectors'
-import { locations } from '../../modules/routing/locations'
 import { RootState } from '../../modules/reducer'
+import { locations } from '../../modules/routing/locations'
 import { MapStateProps, MapDispatch, MapDispatchProps } from './UserMenu.types'
 import UserMenu from './UserMenu'
 

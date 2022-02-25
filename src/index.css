@@ -615,36 +615,32 @@ body {
   left: 1106px;
   top: 1435px;
 }
-.font {
-  font-family: Tomorrow;
-  font-style: normal;
-  font-weight: normal;
+
+
+.bg-spacey-image-lg{
+  background-image: url(./images/image.png);
 }
-.frame {
-  /* Frame */
-
-  position: absolute;
-  width: 286px;
-  height: 105px;
-  left: 1585px;
-  top: 1484px;
+.bg-centers{
+  background-position: 50% ; 
 }
-
-.group1072 {
-  /* Group 1072 */
-
-  position: absolute;
-  width: 1901px;
-  height: 603px;
-  left: 9px;
-  top: 2265px;
+.bg-group-image-lg{
+  background-image: url(./images/Group925.png);
 }
-
-/* .group1096 {
-
-  position: absolute;
-  width: 173px;
-  height: 269px;
-  left: 59px;
-  top: 1747px;
-} */
+.bg-group1071-image-lg{
+  background-image: url(./images/Group1071.png);
+}
+.bg-group1091-image{
+  background-image: url(./images/Group1091.png);
+}
+.bg-group1059-image{
+  background-image: url(./images/Group1059.png);
+}
+.bg-group1060-image{
+  background-image: url(./images/Group1060.png);
+}
+.bg-blue-image{
+  background-image: url(./images/blue_006.png);
+}
+.w-1010{
+  width: 1010px;
+}

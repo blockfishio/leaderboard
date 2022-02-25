@@ -7,8 +7,8 @@ import WalletProvider from 'spacey-dapps/dist/providers/WalletProvider'
 import TranslationProvider from 'spacey-dapps/dist/providers/TranslationProvider'
 
 import './setup'
-
 import * as locales from './modules/translation/locales'
+
 import {
   store,
   history

@@ -1,0 +1,25 @@
+export {default as blue_006} from '../blue_006.png'
+export {default as blue_007} from '../blue_007.png'
+export {default as blue_008} from '../blue_008.png'
+export {default as blue_009} from '../blue_009.png'
+export {default as blue_010} from '../blue_010.png'
+
+export {default as Logo} from '../../images/SpaceYLogo_blue.png'
+export {default as SpaceYLogo_floor} from '../../images/SpaceYLogo_floor.png'
+export {default as Group1090} from '../../images/Group 1090.png'
+export {default as image8} from '../../images/image8.png'
+export {default as blue_011} from '../../images/blue_0011.png'
+export {default as Frame_LAND} from '../../images/Frame_LAND.png'
+export {default as Frame_LOOT} from '../../images/Frame_LOOT.png'
+export {default as Chest1} from '../../images/Chest1.png'
+export {default as Group1059} from '../../images/Group1059.png'
+export {default as spacey20251} from '../../images/spacey20251.jpg'
+export {default as Group978} from '../../images/Group978.png'
+
+// Select
+export {default as Select_01} from '../../images/Select (1).png'
+export {default as Select_02} from '../../images/Select (2).png'
+export {default as Select_03} from '../../images/Select (3).png'
+export {default as Select_04} from '../../images/Select (4).png'
+export {default as Select_05} from '../../images/Select (5).png'
+
