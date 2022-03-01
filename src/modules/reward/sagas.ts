@@ -70,8 +70,8 @@ function* handleFetchRewardRequest(
     remaining=parseFloat( fromWei(total,"ether"))/10*remainingPortion
 
     const res:Rewards={
-      claimable: {[seasonID.toString()]:claimable.toString()},
-      remaining:{[seasonID.toString()]:remaining.toString()},
+      claimable: {[seasonID.toString()]:claimable.toFixed(2)},
+      remaining:{[seasonID.toString()]:remaining.toFixed(2)},
       total:{[seasonID.toString()]:fromWei(total,"ether")}
       
     }

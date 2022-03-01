@@ -56,6 +56,16 @@ export function rankingReducer(
 ): RankingState {
   switch (action.type) {
     case FETCH_RANKINGS_REQUEST:
+      {
+        return {
+          ...state,
+          data:{
+            totalPlayer:0,
+            rankings:{}
+          },
+          loading: loadingReducer(state.loading, action)
+        }
+      }
     case FETCH_USERRANKING_REQUEST:
       {
         return {

@@ -62,6 +62,7 @@ export function rewardReducer(
     case FETCH_REWARD_REQUEST: {
       return {
         ...state,
+        data:{},
         loading: loadingReducer(state.loading, action)
       }
     }

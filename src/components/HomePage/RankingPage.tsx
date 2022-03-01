@@ -18,35 +18,48 @@ import { ClaimModal } from './ClaimModal'
 import { InfoModal} from './InfoModal'
 
 const HomePage = (props:Props) => {
+  const topN=[76,0]
+
   const {
     onFetchRankings,
     onFetchUserRanking,
     onClaimReward,
+    onFetchReward,
+    onChangeSeasonID,
     rankings,
     wallet,
-    rewards
+    rewards,
+    seasonID,
   }=props
 useEffect(()=>{
-    const options:RankFetchOptions={
-      params:{
-        seasonID:1,
-        topN:76
+    const options:number=seasonID
+    onFetchReward(options)
 
-      }
+},[seasonID,onFetchReward])
+useEffect(()=>{
+  const options:RankFetchOptions={
+    params:{
+      seasonID:seasonID,
+      topN:topN[seasonID-1]
+
     }
-    onFetchRankings(options)
+  }
+  onFetchRankings(options)
 
-},[onFetchRankings])
+},[seasonID,onFetchRankings])
+
+
+
 useEffect(()=>{
   if(wallet && !rankings.rankings[wallet.address]){
     const params:UserRankFetchParams={
-      seasonID:1,
+      seasonID:seasonID,
       address:wallet.address
     }
     onFetchUserRanking(params)
   }
 
-},[wallet,onFetchUserRanking])
+},[wallet,seasonID, onFetchUserRanking])
   const [isClaimOpen, setClaimOpen] = useState(false)
   const [isInfoOpen, setInfoOpen] = useState(false)
   // const [claim, setClaim] = useState<MetaData>({type: "", claimable: 0, remaining: 0})
@@ -57,7 +70,7 @@ useEffect(()=>{
 const handleToggleInfoModal = () => {
   setInfoOpen(!isInfoOpen)
 };
-const totalReward=59249.60
+const totalReward=[60015.2,0.0]
 
 const getLeadBoradData = () => {
   let totalRecords = 300
@@ -90,7 +103,7 @@ const getRealLeadBoradData = (rankings:Record<string,Ranking>,totalPlayer:number
       "wallet": rankingArr[i].Address.substr(0,4)+"..."+rankingArr[i].Address.substr( rankingArr[i].Address.length-4,4),
       "score": rankingArr[i].Score, 
       "wave": rankingArr[i].BestWave, 
-      "token_rewards": getRewardByRank(totalReward, totalPlayer, rankingArr[i].Rank), 
+      "token_rewards": getRewardByRank(seasonID,totalReward[seasonID-1], totalPlayer, rankingArr[i].Rank), 
       "mars_rewards": 0,
       "difficulty_level":rankingArr[i].Difficulty+1
     })
@@ -99,8 +112,9 @@ const getRealLeadBoradData = (rankings:Record<string,Ranking>,totalPlayer:number
   return records
 }
 
-const getRewardByRank=(totalReward:number,totalPlayer:number,rank:number)=>{
+const getRewardByRank=(seasonID:number,totalReward:number,totalPlayer:number,rank:number)=>{
   let res=0.0
+  if (seasonID==1){
   if (rank<=0){
     res= 0
   }
@@ -158,15 +172,8 @@ const getRewardByRank=(totalReward:number,totalPlayer:number,rank:number)=>{
   if (rank>=71 && rank<=77){
     res=totalReward*0.15
   }
-  // if (rank>=101 && rank<=125){
-  //   res=totalReward*0.13
-  // }
-  // if (rank>=126 && rank<=150){
-  //   res=totalReward*0.12
-  // }
-  // if (rank>=151 && rank<=175){
-  //   res=totalReward*0.11
-  // }
+}
+  
   
 
   return  (res/100.0).toFixed(2)
@@ -216,6 +223,7 @@ let records=null;
   const handleSeasonClick = (event:any) => {
     //output the option value 
     // console.log(event.target.value)
+    onChangeSeasonID(event.target.value)
   }
   const getDifficulty = (level: number) => {
     switch(level){
@@ -264,13 +272,10 @@ let records=null;
   const userRank={
     "rank":wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address].Rank:0):0, 
       "name": wallet?(rankings.rankings[wallet.address]?(rankings.rankings[wallet.address].Username.length>0?rankings.rankings[wallet.address].Username:"Guest"):"Guest"):"Guest", 
-    "wallet":getAbberv( wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address]?.Address:"0x00000000000"):"0x0000000000"),
+    "wallet":getAbberv( wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address]?.Address:wallet.address):"0x0000000000"),
       "score": wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address].Score:0):0,
       "wave": wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address].BestWave:0):0,
-      // "total_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].total["1"]?rewards[wallet.address].total["1"]:"0"):"0"):"0" ,
-      // "token_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].claimable["1"]?rewards[wallet.address].claimable["1"]:"0"):"0"):"0" ,
-      // "mars_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].remaining["1"]?rewards[wallet.address].remaining["1"]:"0"):"0"):"0" ,
-      "total_rewards": wallet?(rankings.rankings[wallet.address]?getRewardByRank(totalReward,rankings.totalPlayer, rankings.rankings[wallet.address].Rank):"0"):"0" ,
+      "total_rewards": wallet?(rankings.rankings[wallet.address]?getRewardByRank(seasonID,totalReward[seasonID-1],rankings.totalPlayer, rankings.rankings[wallet.address].Rank):"0"):"0" ,
       "token_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].claimable["1"]?rewards[wallet.address].claimable["1"]:"0"):"0"):"0" ,
       "mars_rewards": wallet?(rewards[wallet.address]?(rewards[wallet.address].remaining["1"]?rewards[wallet.address].remaining["1"]:"0"):"0"):"0" ,
       "difficulty_level":wallet?(rankings.rankings[wallet.address]?rankings.rankings[wallet.address].Difficulty+1:1):1,
@@ -352,7 +357,7 @@ let records=null;
                       alt="token Rounded"  />  
                   </div> 
                   <div className="text-5xl text-spacey-leaderboard-yellow">
-                    {totalReward}
+                    {totalReward[seasonID-1]}
                   </div>
                  </div>
                </div>
@@ -381,8 +386,10 @@ let records=null;
                     Season
                   </div>
                   <div className="text-xl px-3  mr-6">
-                    <select className="bg-spacey-leaderboard-grey px-3 py-1 rounded-xl" onChange={handleSeasonClick}>
-                      <option value="1">S1</option>
+                    <select value={seasonID} className="bg-spacey-leaderboard-grey px-3 py-1 rounded-xl" onChange={handleSeasonClick}>
+                      <option value={1} >S1 (1/15 - 2/25 2022)</option>
+                      <option value={2} >S2 (3/1 - 3/30 2022)</option>
+
                       {/* <option value="2">2</option> */}
                     </select>
                   </div>
@@ -484,12 +491,12 @@ let records=null;
         </div>
       </div>
       <ClaimModal
-       open={false} 
+       open={isClaimOpen} 
        handleOpen={handleToggleClaimModal}
       claimable={userRank.token_rewards || "0"}
       remaining={userRank.mars_rewards || "0"}
       onClaimReward={onClaimReward}
-      seasonID={1}
+      seasonID={seasonID}
          />
       {/* {<InfoModal open={isInfoOpen} handleOpen={handleToggleInfoModal} />} */}
     </div>:null

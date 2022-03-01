@@ -6,6 +6,7 @@ import { rewardSaga } from './reward/sagas'
 import { walletSaga } from './wallet/sagas'
 import {rankingSaga} from './rank/sagas'
 import {uiSaga} from './ui/sagas'
+import { seasonSaga } from './season/sagas'
 
 
 const analyticsSaga = createAnalyticsSaga()
@@ -21,6 +22,7 @@ export function* rootSaga() {
     walletSaga(),
     rankingSaga(),
     rewardSaga(),
-    uiSaga()    
+    uiSaga(),
+    seasonSaga()    
   ])
 }
