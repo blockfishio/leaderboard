@@ -18,7 +18,7 @@ import { ClaimModal } from './ClaimModal'
 import { InfoModal} from './InfoModal'
 
 const HomePage = (props:Props) => {
-  const topN=[76,0]
+  const topN=[76,44,0]
 
   const {
     onFetchRankings,
@@ -70,7 +70,7 @@ useEffect(()=>{
 const handleToggleInfoModal = () => {
   setInfoOpen(!isInfoOpen)
 };
-const totalReward=[60015.2,0.0]
+const totalReward=[60015.2,301.6,0.0]
 
 const getLeadBoradData = () => {
   let totalRecords = 300
@@ -357,7 +357,8 @@ let records=null;
                       alt="token Rounded"  />  
                   </div> 
                   <div className="text-5xl text-spacey-leaderboard-yellow">
-                    {totalReward[seasonID-1]}
+                    {/* {totalReward[seasonID-1]} */}
+                    TBD
                   </div>
                  </div>
                </div>
@@ -388,7 +389,7 @@ let records=null;
                   <div className="text-xl px-3  mr-6">
                     <select value={seasonID} className="bg-spacey-leaderboard-grey px-3 py-1 rounded-xl" onChange={handleSeasonClick}>
                       <option value={1} >S1 (1/15 - 2/25 2022)</option>
-                      <option value={2} >S2 (3/1 - 3/30 2022)</option>
+                      <option value={2} >S2 (3/1 - 4/30 2022)</option>
 
                       {/* <option value="2">2</option> */}
                     </select>
@@ -451,7 +452,8 @@ let records=null;
 
                 <div className="">
                   {/* {token_rewards} */}
-                  {token_rewards}
+                  {/* {token_rewards} */}
+                  TBD
 
                 </div>
           
@@ -478,8 +480,8 @@ let records=null;
             <div className={"col-span-3 py-2 self-end bg-auto bg-no-repeat bg-left-top " + getStyle(-1)}>
               <div className="flex flex-row justify-evenly ">
                 <div className="ml-4 w-4 md:w-8 ">
-                 {userRank.total_rewards}
-                 {/* TBD */}
+                 {/* {userRank.total_rewards} */}
+                 TBD
 
                 </div>
            
